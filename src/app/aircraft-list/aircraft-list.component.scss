@@ -1,0 +1,31 @@
+.inactive {
+  td {
+    color: #c6ccce;
+    cursor: not-allowed;
+    pointer-events: none;
+    .active {
+      color: rgb(101, 101, 101);
+      pointer-events: auto;
+    }
+    .expired, .approved {
+      color: #c6ccce;
+    }
+  }
+}
+
+
+td {
+  .expired {
+    color: #e35353;
+    &::before {
+      content: '\2715';
+    }
+  }
+  .approved {
+    color: #358e0d;
+    &::before {
+      content: '\2713';
+    }
+  }
+}
+

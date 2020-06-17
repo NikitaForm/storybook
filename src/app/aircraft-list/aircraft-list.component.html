@@ -1,0 +1,43 @@
+<kendo-grid
+  [kendoGridBinding]="gridData"
+  [pageSize]="10"
+  [pageable]="true"
+  [sortable]="true"
+  [filterable]="true"
+  [height]="510"
+  [rowClass]="rowCallback">
+  <kendo-grid-column
+    field="modelName"
+    title="Aircraft" [width]="140"></kendo-grid-column>
+  <kendo-grid-column
+    field="tailNumber"
+    title="Tail Number" [width]="100"></kendo-grid-column>
+  <kendo-grid-column
+    title="Insurance" [width]="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span [ngClass]="getInsuranceStatus(dataItem) === 'Expired' ? 'expired' : 'approved'">
+        {{getInsuranceStatus(dataItem)}}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    title="Status" [width]="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{getStatus(dataItem)}}
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    title="Upcoming Flights" [width]="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      ---
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    title="Actions" [width]="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <a href="javascript:void(0)">Publish Flight</a> |
+      <a href="javascript:void(0)" class="active">Edit</a>
+    </ng-template>
+  </kendo-grid-column>
+
+</kendo-grid>

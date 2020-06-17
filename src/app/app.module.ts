@@ -3,14 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AircraftListComponent } from './aircraft-list/aircraft-list.component';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AircraftListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GridModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
