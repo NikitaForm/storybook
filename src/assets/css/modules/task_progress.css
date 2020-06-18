@@ -1,0 +1,35 @@
+.task-progress {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  display: block;
+  position: fixed;
+  top: 77px;
+  right: 30px;
+}
+.task-progress .task-progress-activity {
+  display: inline;
+  float: left;
+  z-index: 2000;
+  width: 28px;
+  height: 40px;
+  border-radius: 0px;
+  border-width: 0px;
+  background: url('../../pages-bak1/img/progress/progress-circle-success.svg') no-repeat top left;
+  background-size: 100% auto;
+  border-top-color: #22df80;
+  border-left-color: #22df80;
+  animation: none;
+}
+.task-progress .task-progress-desc {
+  display: inline;
+  float: left;
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 100px;
+}
+.task-progress-inactive {
+  display: none;
+}

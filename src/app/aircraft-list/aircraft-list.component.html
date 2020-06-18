@@ -36,7 +36,7 @@
     title="Actions" [width]="120">
     <ng-template kendoGridCellTemplate let-dataItem>
       <a href="javascript:void(0)">Publish Flight</a> |
-      <a href="javascript:void(0)" class="active">Edit</a>
+      <a href="javascript:void(0)" (click)="edit(dataItem)" class="active">Edit</a>
     </ng-template>
   </kendo-grid-column>
 

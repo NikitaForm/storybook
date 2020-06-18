@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { aircrafts } from './aircrafts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aircraft-list',
@@ -9,7 +10,11 @@ import { aircrafts } from './aircrafts';
 })
 export class AircraftListComponent {
   public gridData: any[] = aircrafts;
-  constructor() { }
+
+  constructor(private router: Router) {
+  }
+
+  @Output() onEdit = new EventEmitter();
 
   getStatus(a): string {
     if (a.deleted) {
@@ -45,5 +50,10 @@ export class AircraftListComponent {
     if (context.dataItem.deleted) {
       return 'inactive';
     }
+  }
+
+  edit(a) {
+    this.onEdit.emit(a);
+    this.router.navigate(['edit', a.tailNumber]);
   }
 }

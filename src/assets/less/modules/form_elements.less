@@ -1,0 +1,129 @@
+.form-control {
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    color: fade(@color-master, 50%);
+  }
+}
+
+.form-group {
+  .switchery {
+    display: block;
+  }
+}
+
+.form-group-default {
+  &.focused {
+    label {
+      opacity: 1;
+    }
+  }
+  &.disabled {
+    input {
+      opacity: 1;
+    }
+    background: mix(@color-master-lighter, #fff, 20%);
+    color: fade(@color-master, 80%);
+    &.focused {
+      background: mix(@color-master-lighter, #fff, 20%);
+      label {
+        opacity: 1;
+      }
+    }
+  }
+
+  label {
+    opacity: 1;
+    &.fade {
+      opacity: 1;
+    }
+  }
+}
+
+.panel-filter {
+  &.panel {
+    .panel-body {
+      padding-bottom: 0px;
+    }
+  }
+
+  .form-group {
+    label {
+      font-weight: normal;
+      font-size: 10px;
+    }
+
+    .switchery {
+      margin-top: 2px;
+      height: 25px;
+      width: 40px;
+
+      > small {
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
+}
+
+.data-label-error() {
+  display: inline-block;
+  background-color: @color-danger-lighter;
+  padding: 0 5px;
+  font-size: inherit;
+}
+
+.data-label-required() {
+  color: @color-danger;
+  content: "*";
+  font-family: arial;
+  font-size: 20px;
+  position: absolute;
+  margin-left: 5px;
+}
+
+.data-label-default {
+  background-color: #fff;
+  position: relative;
+  padding-right: 25px;
+  .transition(background-color .2s ease);
+
+  h1, h2, h3, h4, h5, h6, span {
+    margin: 0px !important;
+  }
+
+  &.required > h6:after {
+    .data-label-required();
+  }
+
+  h1, h2, h3, h4, h5, h6, span {
+    &.error {
+      .data-label-error();
+    }
+  }
+}
+
+.data-label-inline {
+  display: inline-block !important;
+  margin-right: 20px;
+  white-space: nowrap;
+
+  h1, h2, h3, h4, h5, h6, span {
+    display: inline-block !important;
+    margin: 0px !important;
+  }
+
+  &.required > h6 {
+    margin-right: 18px !important;
+  }
+
+  &.required > h6:after {
+    .data-label-required();
+  }
+
+  span {
+    &.error {
+      .data-label-error();
+    }
+  }
+}

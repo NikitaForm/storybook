@@ -1,0 +1,38 @@
+.wait-progress {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+  width: 135px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (max-width: 1400px) {
+  .wait-progress {
+    width: 110px;
+  }
+}
+.wait-progress .container {
+  width: 100% !important;
+}
+.wait-progress .wait-progress-activity {
+  width: 60px;
+  height: 60px;
+  background: url('../../pages-bak1/img/progress/progress-circle-success.svg') no-repeat top left;
+  background-size: 100% auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wait-progress .wait-progress-desc {
+  width: 148px;
+  padding-left: 13px;
+}
+@media (max-width: 1400px) {
+  .wait-progress .wait-progress-desc {
+    width: 121px;
+    padding-left: 11px;
+  }
+}

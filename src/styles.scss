@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import "~@progress/kendo-theme-default/scss/all";
+@import './assets/pages/styles/index.scss';
+
+@import './custom/styles.scss';
+
+@page { size: auto }

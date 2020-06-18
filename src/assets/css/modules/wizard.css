@@ -1,0 +1,12 @@
+.steps {
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  background-color: #ffffff;
+}
+.steps .step {
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+}
+.pager li a {
+  border: none;
+}
