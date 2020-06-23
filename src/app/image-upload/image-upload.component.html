@@ -1,0 +1,22 @@
+<h4 class="title" *ngIf="title">{{title}}</h4>
+<div class="dropzone-wrapper row">
+  <div class="upload-wrapper col-md-4">
+    <kendo-uploaddropzone [zoneId]="zoneId">
+      Only JPEG and PNG files are allowed.
+    </kendo-uploaddropzone>
+    <kendo-upload
+      [zoneId]="zoneId"
+      [saveUrl]="uploadSaveUrl"
+      [removeUrl]="uploadRemoveUrl"
+      (success)="onUpload($event)"
+      [restrictions]="myRestrictions"
+      [showFileList]="false">
+    </kendo-upload>
+  </div>
+  <div class="images-wrapper col-md-8">
+    <div class="file-image" *ngFor="let image of imageList">
+      <span class="k-icon k-i-trash" (click)="onRemoveImage(image)"></span>
+      <img [src]="image.url" [alt]="image.name" />
+    </div>
+  </div>
+</div>

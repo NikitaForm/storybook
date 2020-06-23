@@ -7,6 +7,18 @@ import { AppRoutingModule } from '../app/app-routing.module';
 import { AircraftFormComponent } from '../app/aircraft-form/aircraft-form.component';
 import { linkTo } from '@storybook/addon-links';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipModule } from 'ngx-bootstrap';
+import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { ScrollViewModule } from '@progress/kendo-angular-scrollview';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FileUploadInterceptor } from '../app/file-upload.interceptor';
+import { UploadModule } from '@progress/kendo-angular-upload';
+import { ImageUploadComponent } from '../app/image-upload/image-upload.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { TextMaskModule } from 'angular2-text-mask';
 
 export default {
   title: 'Aircraft-list',
@@ -14,9 +26,19 @@ export default {
   decorators: [
     moduleMetadata({
       // imports both components to allow component composition with storybook
-      declarations: [AircraftListComponent, MainScreenComponent, AircraftFormComponent],
-      imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/iframe.html' } ]
+      declarations: [AircraftListComponent, MainScreenComponent, AircraftFormComponent, ImageUploadComponent],
+      imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TooltipModule.forRoot(),
+        DatePickerModule, ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule, DropDownsModule, TextMaskModule],
+      providers: [
+        {provide: APP_BASE_HREF, useValue: '/iframe.html'},
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: FileUploadInterceptor,
+          multi: true
+        }]
     }),
   ],
 };
@@ -24,15 +46,13 @@ export default {
 export const AircraftList = () => ({
   component: AircraftListComponent,
   props: {
-    onEdit: (a) => {
-      linkTo('Aircraft-list', 'AircraftForm');
-    }
+    onEdit: linkTo('aircraft-list--aircraft-form')
   },
 });
 
 AircraftList.story = {
   name: 'example of aircraft list',
-  parameters: { notes: 'My notes' },
+  parameters: {notes: 'My notes'},
 };
 
 export const AircraftListOnMainScreen = () => ({
@@ -50,6 +70,86 @@ AircraftListOnMainScreen.story = {
 
 export const AircraftForm = () => ({
   component: AircraftFormComponent,
+  props: {
+    aircraft: {
+      'modelName': 'Gulfstream G200',
+      'aircraftId': 301,
+      'amenities': [],
+      'tailNumber': 'N100EK',
+      'modelId': 98,
+      'categoryId': 6,
+      'categoryName': 'Super Mid Size Jet',
+      'operatorName': 'Delta Private Jets, Inc.',
+      'yom': 2006,
+      'yor': 2012,
+      'maxPax': 8,
+      'insuranceCurrency': 'US',
+      'insuranceAmount': 150000000,
+      'insuranceExpirationDate': null,
+      'insuranceApproved': false,
+      'homeBase': 'KTEB',
+      'requiresOwnerApproval': null,
+      'deleted': false,
+      'shuttleMaxPax': null,
+      'noChange': false,
+      'source': 'migration',
+      'images': [
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_int2.jpg',
+          'id': '2836',
+          'type': 'INTERIOR',
+          'width': 1626,
+          'height': 800,
+          'sortOrder': 0
+        },
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_int.jpg',
+          'id': '2835',
+          'type': 'INTERIOR',
+          'width': 1626,
+          'height': 800,
+          'sortOrder': 0
+        },
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_layout.png',
+          'id': '2838',
+          'type': 'FLOORPLAN',
+          'width': 702,
+          'height': 370,
+          'sortOrder': 0
+        },
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_int3.jpg',
+          'id': '2837',
+          'type': 'INTERIOR',
+          'width': 1626,
+          'height': 800,
+          'sortOrder': 0
+        },
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_ext.jpg',
+          'id': '2833',
+          'type': 'EXTERIOR',
+          'width': 1626,
+          'height': 800,
+          'sortOrder': 0
+        },
+        {
+          'url': 'https://d291r578x84oc8.cloudfront.net/delta/2016-11-22/N100EK/n100ek_ext2.jpg',
+          'id': '2834',
+          'type': 'EXTERIOR',
+          'width': 1626,
+          'height': 800,
+          'sortOrder': 0
+        }
+      ],
+      'serviceClassId': 0,
+      'completed': false,
+      'notes': null,
+      'costPerHour': 5500,
+      'capacity': 8
+    },
+  }
 });
 
 AircraftForm.story = {

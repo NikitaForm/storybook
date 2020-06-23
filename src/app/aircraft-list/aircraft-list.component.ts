@@ -47,7 +47,7 @@ export class AircraftListComponent {
   }
 
   rowCallback(context) {
-    if (context.dataItem.deleted) {
+    if (context.dataItem.deleted || !context.dataItem.completed) {
       return 'inactive';
     }
   }

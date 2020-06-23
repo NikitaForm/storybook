@@ -1,7 +1,8 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
-@import "~@progress/kendo-theme-default/scss/all";
+@import "../node_modules/@progress/kendo-theme-default/dist/all";
 @import './assets/pages/styles/index.scss';
-
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+@import '../node_modules/@fortawesome/fontawesome-pro/css/all.css';
 @import './custom/styles.scss';
 
 @page { size: auto }

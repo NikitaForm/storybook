@@ -3,8 +3,10 @@
     color: #c6ccce;
     cursor: not-allowed;
     pointer-events: none;
+    .k-grid & a:not(.active) {
+      color: #c6ccce;
+    }
     .active {
-      color: rgb(101, 101, 101);
       pointer-events: auto;
     }
     .expired, .approved {

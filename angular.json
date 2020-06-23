@@ -28,7 +28,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/@progress/kendo-theme-default/dist/all.css"
+              "src/assets/jetsmarter/custom.css",
+              "src/assets/css/styles.css"
             ],
             "scripts": []
           },
