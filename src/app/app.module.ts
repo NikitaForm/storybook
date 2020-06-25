@@ -19,6 +19,17 @@ import { UploadModule } from '@progress/kendo-angular-upload';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextMaskModule } from 'angular2-text-mask';
+import { AircraftFormV2Component } from './aircraft-form-v2/aircraft-form-v2.component';
+import { OrderFormComponent } from './order-form/order-form.component';
+import * as marketplaceServiceContracts from './domain/service-contracts/marketplace';
+import * as moduleServices from './services';
+import { SharedModule } from '../shared/shared.module';
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { PriceTypePipe } from './pipes/price-type.pipe';
+import * as aircraftServiceContracts from './domain/service-contracts/aircraft';
+import * as airportServiceContracts from './domain/service-contracts/airport';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 
 @NgModule({
@@ -27,7 +38,12 @@ import { TextMaskModule } from 'angular2-text-mask';
     AircraftListComponent,
     MainScreenComponent,
     AircraftFormComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    AircraftFormV2Component,
+    OrderFormComponent,
+    EnumToArrayPipe,
+    PriceTypePipe,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,13 +59,27 @@ import { TextMaskModule } from 'angular2-text-mask';
     UploadModule,
     HttpClientModule,
     DropDownsModule,
-    TextMaskModule
+    TextMaskModule,
+    SharedModule,
+    DialogModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FileUploadInterceptor,
       multi: true
+    },
+    {
+      provide: aircraftServiceContracts.SERVICE_TOKEN,
+      useClass: moduleServices.AircraftMockService
+    },
+    {
+      provide: airportServiceContracts.SERVICE_TOKEN,
+      useClass: moduleServices.AirportValidationService
+    },
+    {
+      provide: marketplaceServiceContracts.SERVICE_TOKEN,
+      useClass: moduleServices.MarketplaceMockService
     }
   ],
   bootstrap: [AppComponent]

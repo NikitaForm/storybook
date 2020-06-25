@@ -1,0 +1,236 @@
+<form [formGroup]="form"
+      novalidate
+      autocomplete="off">
+  <kendo-card [width]="'auto'">
+    <kendo-card-header class="k-vbox">
+      <div>
+        <h1 kendoCardTitle>Main Info</h1>
+      </div>
+    </kendo-card-header>
+    <kendo-card-body>
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group form-group-default required">
+            <label class="label-ellipsis"><span>Tail Number</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="tailNumberDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="tailNumber"
+                   placeholder="Tail Number">
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Model
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="modelDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    (change)="onModelChanged($event.target.value)"
+                    formControlName="modelId">
+              <option value="{{model.id}}"
+                      *ngFor="let model of modelList">{{model.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Category
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="categoryDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    (change)="onCategoryChanged($event.target.value)"
+                    formControlName="categoryId">
+              <option value="{{category.id}}"
+                      *ngFor="let category of categoryList">{{category.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group required">
+            <label>Year of Manufacture
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="yomDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-datepicker class="form-control"
+                              #yomPicker
+                              [topView]="'decade'"
+                              [bottomView]="'decade'"
+                              [format]="'yyyy'"
+                              formControlName="yom"
+                              placeholder="Year of Manufacture"
+                              [readOnlyInput]="true"
+                              (click)="onClick(yomPicker)"></kendo-datepicker>
+
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </kendo-card-body>
+  </kendo-card>
+
+  <kendo-card [width]="'auto'">
+    <kendo-card-header class="k-hbox">
+      <div>
+        <h1 kendoCardTitle>Other</h1>
+      </div>
+    </kendo-card-header>
+    <kendo-card-body>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default">
+            <label class="label-ellipsis"><span>Max Pax</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="maxPaxDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="maxPax"
+                   placeholder="Max Pax">
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group form-group-default">
+            <label class="label-ellipsis"><span>Home Base</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="homeBaseDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="homeBase"
+                   placeholder="Home Base">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group">
+            <label>Year of Refurbishment
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="yorDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-datepicker class="form-control"
+                              #yorPicker
+                              [topView]="'decade'"
+                              [bottomView]="'decade'"
+                              [format]="'yyyy'"
+                              formControlName="yor"
+                              placeholder="Year of Refurbishment"
+                              [readOnlyInput]="true"
+                              (click)="onClick(yorPicker)"></kendo-datepicker>
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group form-group-default input-group">
+            <label class="label-ellipsis"><span>Cost per Hour</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="costPerHourDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="costPerHour"
+                   placeholder="Cost per Hour"
+                   [textMask]="{mask: numberMask}">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </kendo-card-body>
+  </kendo-card>
+
+  <kendo-card [width]="'auto'">
+    <kendo-card-header class="k-hbox">
+      <div>
+        <h1 kendoCardTitle>Amenities</h1>
+      </div>
+    </kendo-card-header>
+    <kendo-card-body>
+      <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let amenity of amenityList">
+
+          <label class="checkbox-label"><span>{{amenity.name}}</span>
+            <input type="checkbox" kendoCheckBox [(ngModel)]="amenity.checked" [ngModelOptions]="{standalone: true}"/>
+          </label>
+
+        </div>
+      </div>
+    </kendo-card-body>
+  </kendo-card>
+
+  <kendo-card [width]="'auto'">
+    <kendo-card-header class="k-hbox">
+      <div>
+        <h1 kendoCardTitle>Image Management</h1>
+      </div>
+    </kendo-card-header>
+    <kendo-card-body>
+
+      <app-image-upload
+        [imageList]="exteriorImages"
+        [zoneId]="'exterior'"
+        (removeImage)="onRemoveImage($event)"
+        [title]="'Exterion'"
+      ></app-image-upload>
+
+      <app-image-upload
+        [imageList]="interiorImages"
+        [zoneId]="'interior'"
+        (removeImage)="onRemoveImage($event)"
+        [title]="'Interior'"
+      ></app-image-upload>
+
+      <app-image-upload
+        [imageList]="floorPlanImages"
+        [zoneId]="'floor_plan'"
+        (removeImage)="onRemoveImage($event)"
+        [title]="'Floor Plan'"
+      ></app-image-upload>
+
+    </kendo-card-body>
+  </kendo-card>
+</form>

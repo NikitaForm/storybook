@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { createNumberMask } from 'text-mask-addons/dist/textMaskAddons';
 
 @Component({
-  selector: 'app-aircraft-form',
-  templateUrl: './aircraft-form.component.html',
-  styleUrls: ['./aircraft-form.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-aircraft-form-v2',
+  templateUrl: './aircraft-form-v2.component.html',
+  styleUrls: ['./aircraft-form-v2.component.scss']
 })
-export class AircraftFormComponent implements OnInit {
+export class AircraftFormV2Component implements OnInit {
 
   @Input() aircraft;
   @Output() removeImage = new EventEmitter();

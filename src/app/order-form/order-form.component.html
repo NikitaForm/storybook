@@ -1,0 +1,626 @@
+<div class="card card-default no-border">
+  <div class="card-body">
+    <div class="card-title">
+      Pricing Order
+    </div>
+    <form [formGroup]="form"
+          novalidate
+          autocomplete="off">
+
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="form-group form-group-default required">
+            <label class="label-ellipsis"><span>Origin ICAO code</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="originAirportCodeDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="originAirportCode"
+                   placeholder="Enter code"
+                   oninput="this.value = this.value.toUpperCase()"
+                   maxlength="4"
+                   [validationTooltip]="form.get('originAirportCode')"
+                   [validationMessages]="validationMessages['originAirportCode']">
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-8">
+          <div class="form-group form-group-default form-group-default-select"
+               *ngIf="originFBOnotFound === true">
+            <label>Origin FBO
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="originAirportFboDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select disabled="true"
+                    class="form-control">
+              <option *ngIf="!validatingOriginAirport && !originFboLoading"
+                      disabled
+                      selected>No FBO Available</option>
+              <option *ngIf="validatingOriginAirport"
+                      selected
+                      disabled>Validating...</option>
+              <option *ngIf="originFboLoading"
+                      selected
+                      disabled>Loading...</option>
+            </select>
+          </div>
+          <div class="form-group form-group-default form-group-default-select"
+               [ngClass]="{'required': contractType === shuttleValue}"
+               *ngIf="originFBOnotFound === false">
+            <label>Origin FBO
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="originAirportFboDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    (change)="onOriginFboValueChanged($event.target.value)"
+                    formControlName="originAirportFbo"
+                    [validationTooltip]="form.get('originAirportFbo')"
+                    [validationMessages]="validationMessages['originAirportFbo']">
+              <option *ngIf="!originFboLoading && !validatingOriginAirport"
+                      value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option *ngIf="originAirportFboList?.length && contractType === charterValue"
+                      value="">FBO TBD</option>
+              <option *ngIf="validatingOriginAirport"
+                      selected
+                      disabled>Validating...</option>
+              <option *ngIf="originFboLoading"
+                      selected
+                      disabled>{{(validationLock | async) == true ? 'Validating...' : 'Loading...' }}</option>
+              <option value="{{fbo.id}}"
+                      *ngFor="let fbo of originAirportFboList">{{fbo.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="form-group form-group-default required">
+            <label class="label-ellipsis"><span>Destination ICAO code</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="destinationAirportCodeDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="destinationAirportCode"
+                   placeholder="Enter code"
+                   oninput="this.value = this.value.toUpperCase()"
+                   maxlength="4"
+                   [validationTooltip]="form.get('destinationAirportCode')"
+                   [validationMessages]="validationMessages['destinationAirportCode']">
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-8">
+          <div class="form-group form-group-default form-group-default-select"
+               *ngIf="destinationFBOnotFound === true">
+            <label>Destination FBO
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="destinationAirportFboDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select disabled="true"
+                    class="form-control">
+              <option disabled
+                      *ngIf="!destinationFboLoading && !validatingDestinationAirport"
+                      selected>No FBO Available</option>
+              <option *ngIf="validatingDestinationAirport"
+                      selected
+                      disabled>Validating...</option>
+              <option *ngIf="destinationFboLoading"
+                      selected
+                      disabled>Loading...</option>
+            </select>
+          </div>
+          <div class="form-group form-group-default form-group-default-select"
+               [ngClass]="{'required': contractType === shuttleValue}"
+               *ngIf="destinationFBOnotFound === false">
+            <label>Destination FBO
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="destinationAirportFboDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    (change)="onDestinationFboValueChanged($event.target.value)"
+                    formControlName="destinationAirportFbo"
+                    [validationTooltip]="form.get('destinationAirportFbo')"
+                    [validationMessages]="validationMessages['destinationAirportFbo']">
+              <option *ngIf="!destinationFboLoading && !validatingDestinationAirport"
+                      value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option *ngIf="destinationAirportFboList?.length && contractType === charterValue"
+                      value="">FBO TBD</option>
+              <option *ngIf="validatingDestinationAirport"
+                      selected
+                      disabled>Validating...</option>
+              <option *ngIf="destinationFboLoading"
+                      selected
+                      disabled>{{(validationLock | async) == true ? 'Validating...' : 'Loading...' }}</option>
+              <option value="{{fbo.id}}"
+                      *ngFor="let fbo of destinationAirportFboList">{{fbo.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group required">
+            <label>Departure date
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="departureDateDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-datepicker class="form-control"
+                              #datepicker
+                              [min]="startDate"
+                              [max]="endDate"
+                              formControlName="departureDate"
+                              placeholder="Choose Date"
+                              [readOnlyInput]="true"
+                              (click)="onDatePickerClick()"
+                              [validationTooltip]="form.get('departureDate')"
+                              [validationMessages]="validationMessages['departureDate']">
+            </kendo-datepicker>
+            <!-- <datetime class="form-control"
+                      #datepicker
+                      [datepicker]="datePickerOptions"
+                      formControlName="departureDate"
+                      [timepicker]="false"
+                      [validationTooltip]="form.get('departureDate')"
+                      [validationMessages]="validationMessages['departureDate']">
+            </datetime> -->
+            <!-- <span class="input-group-append"><i class="fa fa-calendar"></i></span> -->
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fal fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group timepicker required">
+            <label>Time
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="departureTimeDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-timepicker class="form-control"
+                              #timepicker
+                              [steps]="{hour: 1, minute:15}"
+                              [popupSettings]="{ popupClass: 'timepicker-popup' }"
+                              formControlName="departureTime"
+                              placeholder="Set Time"
+                              [readOnlyInput]="true"
+                              [validationTooltip]="form.get('departureTime')"
+                              [validationMessages]="validationMessages['departureTime']"
+                              (focus)="onFocus()"
+                              (click)="onClick()"></kendo-timepicker>
+            <!-- <span class="input-group-append"><i class="fa fa-clock-o"></i></span> -->
+
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-clock"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="contractType === charterValue">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group required">
+            <label>Arrive by Date
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="departureDateDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-datepicker class="form-control"
+                              #datepicker
+                              [min]="startDate"
+                              [max]="endDate"
+                              formControlName="departureDate"
+                              placeholder="Choose Date"
+                              [readOnlyInput]="true"
+                              (click)="onDatePickerClick()"
+                              [validationTooltip]="form.get('departureDate')"
+                              [validationMessages]="validationMessages['departureDate']">
+            </kendo-datepicker>
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fal fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group timepicker required">
+            <label>Arrive by Time
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="departureTimeDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-timepicker class="form-control"
+                              #timepicker
+                              [steps]="{hour: 1, minute:15}"
+                              [popupSettings]="{ popupClass: 'timepicker-popup' }"
+                              formControlName="departureTime"
+                              placeholder="Set Time"
+                              [readOnlyInput]="true"
+                              [validationTooltip]="form.get('departureTime')"
+                              [validationMessages]="validationMessages['departureTime']"
+                              (focus)="onFocus()"
+                              (click)="onClick()"></kendo-timepicker>
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-clock"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div [ngClass]="contractType === shuttleValue ? 'col-sm-12 col-md-4' : 'col-sm-6'">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Tail
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="aircraftDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    (change)="onAircraftValueChanged($event.target.value)"
+                    formControlName="aircraft"
+                    [validationTooltip]="form.get('aircraft')"
+                    [validationMessages]="validationMessages['aircraft']">
+              <option value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option value="{{a.aircraftId}}"
+                      [disabled] = getInvalidReason(a)
+                      *ngFor="let a of filteredAircraft">
+                <!-- {{a.tailNumber}}-{{a.aircraftModel.name}}-{{a.insuranceExpirationDate | date : 'short'}} -->
+                {{a.tailNumber}}&nbsp;&ndash;&nbsp;{{a.aircraftModel.name}} {{getInvalidReason(a)}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div [ngClass]="contractType === shuttleValue ? 'col-sm-6 col-md-4' : 'col-sm-6'">
+          <div class="form-group form-group-default required">
+            <label>EFT (min)
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="eftDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input #eftinput
+                   class="form-control"
+                   formControlName="eft"
+                   placeholder="Specify EFT"
+                   [textMask]="{mask: integerMask}"
+                   [validationTooltip]="form.get('eft')"
+                   [validationMessages]="validationMessages['eft']">
+            <!-- <span class="input-group-append"><i class="fa fa-dollar"></i></span> -->
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4" *ngIf="contractType === shuttleValue">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label class="label-ellipsis"><span>Number of Seats</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="seatsNumberDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    (change)="onSeatValueChanged($event.target.value)"
+                    formControlName="seatsNumber"
+                    [validationTooltip]="form.get('seatsNumber')"
+                    [validationMessages]="validationMessages['seatsNumber']">
+              <option value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option value="{{s}}"
+                      *ngFor="let s of seats">{{s}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Repositioning Flexibility
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="flexibilityDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    formControlName="flexibility"
+                    [validationTooltip]="form.get('aircraft')"
+                    [validationMessages]="validationMessages['aircraft']">
+              <option value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option [value]="value"
+                      *ngFor="let value of flexibilityValues">
+                {{value}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Offer Expiry Offset
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="offerExpireDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    formControlName="offerExpire"
+                    [validationTooltip]="form.get('aircraft')"
+                    [validationMessages]="validationMessages['aircraft']">
+              <option value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option [value]="option.value"
+                      *ngFor="let option of offerExpiryValues">
+                {{option.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4" *ngIf="contractType === shuttleValue">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label class="label-ellipsis"><span>Number of Seats</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="seatsNumberDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    [attr.disabled]="(validationLock | async) == true ? '' : null"
+                    (change)="onSeatValueChanged($event.target.value)"
+                    formControlName="seatsNumber"
+                    [validationTooltip]="form.get('seatsNumber')"
+                    [validationMessages]="validationMessages['seatsNumber']">
+              <option value="null"
+                      disabled
+                      selected>{{(validationLock | async) == true ? 'Validating...' : 'Select your option' }}</option>
+              <option value="{{s}}"
+                      *ngFor="let s of seats">{{s}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="contractType === charterValue">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default input-group required">
+            <label class="label-ellipsis"><span>Repositioning Rate / Hour</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="repositioningRateDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input #charterPriceInput
+                   class="form-control"
+                   formControlName="repositioningRate"
+                   placeholder="Enter Rate"
+                   [textMask]="{mask: numberMask}"
+                   (blur)="onPriceBlur(form.get('charterPrice'))">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group form-group-default input-group required">
+            <label class="label-ellipsis"><span>Standard Landing Fee for Additional Stops</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="landingFeeDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input #charterPriceInput
+                   class="form-control"
+                   formControlName="landingFee"
+                   placeholder="Enter Fee"
+                   [textMask]="{mask: numberMask}"
+                   (blur)="onPriceBlur(form.get('charterPrice'))">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="contractType === shuttleValue">
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-select required">
+            <label>Price Type
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="priceTypeExplanation"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <select class="form-control"
+                    formControlName="priceType"
+                    (change)="onPriceTypeValueChanged($event.target.value)"
+                    [validationTooltip]="form.get('priceType')"
+                    [validationMessages]="validationMessages['priceType']">
+              <option value="{{type}}"
+                      *ngFor="let type of (priceTypeEnum | enumToArray)">{{(validationLock | async) == true ? 'Validating...' : type | priceType }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group form-group-default input-group required">
+            <label class="label-ellipsis"><span>Price per Seat (Min)</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="seatMinPriceDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input #priceinput
+                   class="form-control"
+                   formControlName="seatMinPrice"
+                   placeholder="Enter price"
+                   [textMask]="{mask: numberMask}"
+                   (blur)="onPriceBlur(form.get('seatMinPrice'))"
+                   [validationTooltip]="form.get('seatMinPrice')"
+                   [validationMessages]="validationMessages['seatMinPrice']">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+            </div>
+            <!-- <span class="input-group-append"><i class="fa fa-dollar"></i></span> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6" *ngIf="contractType === charterValue">
+          <div class="form-group form-group-default input-group required">
+            <label class="label-ellipsis"><span>Price per Flight</span>
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="charterPriceDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input #charterPriceInput
+                   class="form-control"
+                   formControlName="charterPrice"
+                   placeholder="Enter price"
+                   [textMask]="{mask: numberMask}"
+                   (blur)="onPriceBlur(form.get('charterPrice'))"
+                   [validationTooltip]="form.get('charterPrice')"
+                   [validationMessages]="validationMessages['charterPrice']">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+            </div>
+            <!-- <span class="input-group-append"><i class="fa fa-dollar"></i></span> -->
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="form-group form-group-default">
+            <label>Operator Trip Identifier
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="internalIdDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <input class="form-control"
+                   formControlName="externalId">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+
+          <div class="row">
+            <div class="col">
+              <span class="form-legend">* Required field</span>
+            </div>
+          </div>
+          <div class="row"
+               *ngIf="expiredAircraftCount > 0">
+            <div class="col">
+              <span class="form-legend">
+                {{expiredAircraftCount}} aircraft ins. expired by {{selectedDepartureDate | date: 'shortDate' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <button [ngClass]="{'btn-animated': true, 'fal fa-check-square': form.valid, 'fal fa-exclamation-triangle': !form.valid  }"
+                  class="btn btn-primary btn-cons from-left fa pull-right m-b-10"
+                  type="button"
+                  [disabled]="!form.valid"
+                  (click)="submitForm()">
+            <span>Next</span>
+          </button>
+          <button class="btn btn-default-restyled btn-dark pull-right m-r-10"
+                  type="button"
+                  (click)="back()">
+            <span>Back</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="debug">
+  <div>Valid: {{form.valid}}</div>
+</div>
+
+<kendo-dialog *ngIf="showConfirmation">
+  <confirmation-dialog [text]="'The price is very ' + confirmationMode + '. Are you sure?'"
+                       [confirmText]="'Yes'"
+                       [cancelText]="'No'"
+                       (confirm)="onPriceDialogConfirm()"
+                       (close)="onPriceDialogDismiss()">
+  </confirmation-dialog>
+</kendo-dialog>
