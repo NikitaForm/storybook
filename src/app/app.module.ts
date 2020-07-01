@@ -11,7 +11,7 @@ import { AircraftFormComponent } from './aircraft-form/aircraft-form.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TooltipModule } from 'ngx-bootstrap';
-import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { DatePickerModule, DateTimePickerModule } from '@progress/kendo-angular-dateinputs';
 import { ScrollViewModule } from '@progress/kendo-angular-scrollview';
 import { FileUploadInterceptor } from './file-upload.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -30,6 +30,7 @@ import * as aircraftServiceContracts from './domain/service-contracts/aircraft';
 import * as airportServiceContracts from './domain/service-contracts/airport';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { OrderFormComponentDT } from './order-form-dt/order-form.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
     OrderFormComponent,
     EnumToArrayPipe,
     PriceTypePipe,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    OrderFormComponentDT
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
     DropDownsModule,
     TextMaskModule,
     SharedModule,
-    DialogModule
+    DialogModule,
+    DateTimePickerModule
   ],
   providers: [
     {
