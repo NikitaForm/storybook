@@ -1,0 +1,94 @@
+.timepicker {
+  width: 100%;
+}
+
+.form-group .label-ellipsis {
+  white-space: nowrap;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-self: center;
+  }
+}
+
+kendo-timepicker {
+  width: 100%;
+}
+
+kendo-timepicker .k-picker-wrap {
+  border: none !important;
+}
+
+@keyframes error {
+  from {
+    background: rgba(255, 0, 0, 0.02);
+  }
+
+  to {
+    background: rgba(255, 0, 0, 0.06);
+  }
+}
+
+.info-btn {
+  // position: absolute;
+  // top: 8px;
+  // right: 18px;
+  margin-right: 4px;
+  background: transparent;
+  border: 0;
+}
+
+.tooltip-arrow.arrow::before {
+  border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+.tooltip-inner {
+  background-color: #f6f6f8 !important;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  color: black;
+  padding: 15px;
+}
+.tooltip.show {
+  opacity: 1 !important;
+}
+
+/* input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+datetime.ng-invalid.ng-touched,
+kendo-timepicker.ng-invalid.ng-touched {
+  background: rgba(255, 0, 0, 0.04);
+  animation-name: error;
+  animation-duration: 0.7s;
+  animation-iteration-count: 6;
+  animation-direction: alternate;
+} */
+
+order-form {
+  .popover {
+    left: 0 !important;
+  }
+}
+
+.icon-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.icon-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.line {
+  display: none;
+}
+@media (max-width: 576px) {
+  .line {
+    display: block;
+  }
+}

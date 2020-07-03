@@ -31,6 +31,7 @@ import * as airportServiceContracts from './domain/service-contracts/airport';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { OrderFormComponentDT } from './order-form-dt/order-form.component';
+import { OrderFormV3Component } from './order-form-v3/order-form.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { OrderFormComponentDT } from './order-form-dt/order-form.component';
     EnumToArrayPipe,
     PriceTypePipe,
     ConfirmationDialogComponent,
-    OrderFormComponentDT
+    OrderFormComponentDT,
+    OrderFormV3Component
   ],
   imports: [
     BrowserModule,

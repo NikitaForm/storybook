@@ -33,6 +33,7 @@ import { ConfirmationDialogComponent } from '../app/confirmation-dialog/confirma
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { OrderFormComponentDT } from '../app/order-form-dt/order-form.component';
+import { OrderFormV3Component } from '../app/order-form-v3/order-form.component';
 
 export default {
   title: 'Order Form',
@@ -339,4 +340,48 @@ export const OrderFormDateTimeShuttle = () => ({
 
 OrderFormDateTimeShuttle.story = {
   name: 'Order form with date-time pickers shared charter'
+};
+
+export const OrderFormColumns = () => ({
+  component: OrderFormV3Component,
+  props: {
+    order,
+    contractType: 0,
+    aircraftList,
+    validation$: new Subject<any>(),
+    originAirportFboList,
+    destinationAirportFboList,
+    onLowPriceConfirmed: () => {
+      confirmation.lowPriceConfirmed = true;
+    },
+    onHighPriceConfirmed: () => confirmation.highPriceConfirmed = true,
+    lowPriceConfirmed: confirmation.lowPriceConfirmed,
+    highPriceConfirmed: confirmation.highPriceConfirmed
+  }
+});
+
+OrderFormColumns.story = {
+  name: 'Order form with column layout'
+};
+
+export const OrderFormColumnsShuttle = () => ({
+  component: OrderFormV3Component,
+  props: {
+    order,
+    contractType: 1,
+    aircraftList,
+    validation$: new Subject<any>(),
+    originAirportFboList,
+    destinationAirportFboList,
+    onLowPriceConfirmed: () => {
+      confirmation.lowPriceConfirmed = true;
+    },
+    onHighPriceConfirmed: () => confirmation.highPriceConfirmed = true,
+    lowPriceConfirmed: confirmation.lowPriceConfirmed,
+    highPriceConfirmed: confirmation.highPriceConfirmed
+  }
+});
+
+OrderFormColumnsShuttle.story = {
+  name: 'Order form with column layout for shared charter'
 };

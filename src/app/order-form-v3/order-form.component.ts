@@ -29,7 +29,7 @@ import { DateTimePickerComponent } from '@progress/kendo-angular-dateinputs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class OrderFormComponentDT implements OnInit, OnDestroy, OnChanges {
+export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
 
   form: FormGroup;
   @Input() order: models.OrderRequest;
@@ -603,46 +603,48 @@ export class OrderFormComponentDT implements OnInit, OnDestroy, OnChanges {
         }
       );
 
-    const departureTime$ = this.form.controls.departureDateTime.valueChanges;
-    const arrivalTime$ = this.form.controls.arrivalDateTime.valueChanges;
+    if (this.contractType === this.charterValue) {
+      const departureTime$ = this.form.controls.departureDateTime.valueChanges;
+      const arrivalTime$ = this.form.controls.arrivalDateTime.valueChanges;
 
-    this.departureArrivalTimeValidationSubscription = combineLatest(
-      departureTime$, arrivalTime$, eft$
-    )
-      .pipe(
-        debounceTime(500),
-        filter(([departureTime, arrivalTime, eft]) => {
+      this.departureArrivalTimeValidationSubscription = combineLatest(
+        departureTime$, arrivalTime$, eft$
+      )
+        .pipe(
+          debounceTime(500),
+          filter(([departureTime, arrivalTime, eft]) => {
             return !!(departureTime && arrivalTime && eft);
           }))
-      .subscribe((([departureTime, arrivalTime, eft]) => {
-        this.form.controls.departureDateTime.updateValueAndValidity({ emitEvent: false });
-        /** TODO create a separate method */
-        const activeElement = document.activeElement as HTMLElement;
-        if (this.datepicker) {
-          this.datepicker.focus();
-          this.datepicker.blur();
-        }
-        if (activeElement) {
-          activeElement.focus();
-        }
-      }).bind(this));
-
-    if (this.form.controls.flexibility) {
-      this.flexibilityChangeSubscription = this.form.controls.flexibility.valueChanges
-        .pipe(
-          debounceTime(500)
-        )
-        .subscribe(
-          value => {
-            if (!parseInt(value)) {
-              this.form.controls.repositioningRate.disable({ emitEvent: false });
-              this.form.controls.landingFee.disable({ emitEvent: false });
-            } else {
-              this.form.controls.repositioningRate.enable({ emitEvent: false });
-              this.form.controls.landingFee.enable({ emitEvent: false });
-            }
+        .subscribe((([departureTime, arrivalTime, eft]) => {
+          this.form.controls.departureDateTime.updateValueAndValidity({ emitEvent: false });
+          /** TODO create a separate method */
+          const activeElement = document.activeElement as HTMLElement;
+          if (this.datepicker) {
+            this.datepicker.focus();
+            this.datepicker.blur();
           }
-        );
+          if (activeElement) {
+            activeElement.focus();
+          }
+        }).bind(this));
+
+      if (this.form.controls.flexibility) {
+        this.flexibilityChangeSubscription = this.form.controls.flexibility.valueChanges
+          .pipe(
+            debounceTime(500)
+          )
+          .subscribe(
+            value => {
+              if (!parseInt(value)) {
+                this.form.controls.repositioningRate.disable({ emitEvent: false });
+                this.form.controls.landingFee.disable({ emitEvent: false });
+              } else {
+                this.form.controls.repositioningRate.enable({ emitEvent: false });
+                this.form.controls.landingFee.enable({ emitEvent: false });
+              }
+            }
+          );
+      }
     }
 
     setTimeout(() => {
@@ -793,6 +795,10 @@ export class OrderFormComponentDT implements OnInit, OnDestroy, OnChanges {
     }
     if (this.flexibilityChangeSubscription) {
       this.flexibilityChangeSubscription.unsubscribe();
+    }
+
+    if (this.departureArrivalTimeValidationSubscription) {
+      this.departureArrivalTimeValidationSubscription.unsubscribe();
     }
   }
 
