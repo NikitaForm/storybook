@@ -34,6 +34,7 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { OrderFormComponentDT } from '../app/order-form-dt/order-form.component';
 import { OrderFormV3Component } from '../app/order-form-v3/order-form.component';
+import { OrderFormV4Component } from '../app/order-form-v4/order-form.component';
 
 export default {
   title: 'Order Form',
@@ -273,12 +274,12 @@ const destinationAirportFboList = [{
   'name': 'SunJet Fueling Services',
   'id': 9829,
   'address': {'city': 'Fort Lauderdale', 'state': 'FLORIDA', 'country': 'UNITED STATES'}
-}, {'name': 'National Jets', 'id': 9825, 'address': {'city': 'Fort Lauderdale', 'state': 'FLORIDA', 'country': 'UNITED STATES'}}]
+}, {'name': 'National Jets', 'id': 9825, 'address': {'city': 'Fort Lauderdale', 'state': 'FLORIDA', 'country': 'UNITED STATES'}}];
 
 export const OrderForm = () => ({
   component: OrderFormComponent,
   props: {
-    order,
+    order: {...order},
     contractType: 0,
     aircraftList,
     validation$: new Subject<any>(),
@@ -301,7 +302,7 @@ OrderForm.story = {
 export const OrderFormDateTime = () => ({
   component: OrderFormComponentDT,
   props: {
-    order,
+    order: {...order},
     contractType: 0,
     aircraftList,
     validation$: new Subject<any>(),
@@ -323,7 +324,7 @@ OrderFormDateTime.story = {
 export const OrderFormDateTimeShuttle = () => ({
   component: OrderFormComponentDT,
   props: {
-    order,
+    order: {...order},
     contractType: 1,
     aircraftList,
     validation$: new Subject<any>(),
@@ -345,7 +346,7 @@ OrderFormDateTimeShuttle.story = {
 export const OrderFormColumns = () => ({
   component: OrderFormV3Component,
   props: {
-    order,
+    order: {...order},
     contractType: 0,
     aircraftList,
     validation$: new Subject<any>(),
@@ -367,7 +368,7 @@ OrderFormColumns.story = {
 export const OrderFormColumnsShuttle = () => ({
   component: OrderFormV3Component,
   props: {
-    order,
+    order: {...order},
     contractType: 1,
     aircraftList,
     validation$: new Subject<any>(),
@@ -384,4 +385,48 @@ export const OrderFormColumnsShuttle = () => ({
 
 OrderFormColumnsShuttle.story = {
   name: 'Order form with column layout for shared charter'
+};
+
+export const OrderFormEftTimepicker = () => ({
+  component: OrderFormV4Component,
+  props: {
+    order: {...order},
+    contractType: 0,
+    aircraftList,
+    validation$: new Subject<any>(),
+    originAirportFboList,
+    destinationAirportFboList,
+    onLowPriceConfirmed: () => {
+      confirmation.lowPriceConfirmed = true;
+    },
+    onHighPriceConfirmed: () => confirmation.highPriceConfirmed = true,
+    lowPriceConfirmed: confirmation.lowPriceConfirmed,
+    highPriceConfirmed: confirmation.highPriceConfirmed
+  }
+});
+
+OrderFormEftTimepicker.story = {
+  name: 'Order form with eft timepicker'
+};
+
+export const OrderFormEftTimepickerShuttle = () => ({
+  component: OrderFormV4Component,
+  props: {
+    order: {...order},
+    contractType: 1,
+    aircraftList,
+    validation$: new Subject<any>(),
+    originAirportFboList,
+    destinationAirportFboList,
+    onLowPriceConfirmed: () => {
+      confirmation.lowPriceConfirmed = true;
+    },
+    onHighPriceConfirmed: () => confirmation.highPriceConfirmed = true,
+    lowPriceConfirmed: confirmation.lowPriceConfirmed,
+    highPriceConfirmed: confirmation.highPriceConfirmed
+  }
+});
+
+OrderFormEftTimepickerShuttle.story = {
+  name: 'Order form with eft timepicker for shared charter'
 };

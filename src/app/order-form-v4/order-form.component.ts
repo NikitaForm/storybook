@@ -20,7 +20,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import * as _ from 'lodash';
 import { FlightEstimate, Maybe } from '../domain/graphql-types';
 import { Aircraft } from '../domain/models';
-import { DateTimePickerComponent } from '@progress/kendo-angular-dateinputs';
+import { DateTimePickerComponent, TimePickerComponent } from '@progress/kendo-angular-dateinputs';
 
 @Component({
   selector: 'app-order-form-dt',
@@ -29,7 +29,7 @@ import { DateTimePickerComponent } from '@progress/kendo-angular-dateinputs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
+export class OrderFormV4Component implements OnInit, OnDestroy, OnChanges {
 
   form: FormGroup;
   @Input() order: models.OrderRequest;
@@ -300,7 +300,8 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
           disabled: this.destinationFboLoading || this.validatingDestinationAirport
         },
         Validators.required),
-      eft: new FormControl(this.order.eft, [Validators.required, this.eftValidator()]),
+      eft: new FormControl(this.order.eft ? new Date(new Date().setHours(0, 0, 0, 0) + this.order.eft * 60 * 1000) : null,
+        [Validators.required, this.eftValidator()]),
       externalId: new FormControl(this.order.externalId),
       priceType: new FormControl(this.order.priceType, Validators.required),
       originAirportCode: new FormControl(
@@ -577,12 +578,9 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
 
     const eft$ = this.form.controls.eft.valueChanges;
     this.eftSubscription = eft$
-      .pipe(
-        debounceTime(500)
-      )
       .subscribe(
         eft => {
-          eft = parseInt(eft) || 0;
+          eft = this.getTimeInMinutes(eft);
           this.flexibilityValues = [0];
           if (eft === 0) {
             return;
@@ -613,7 +611,7 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
         .pipe(
           debounceTime(500),
           filter(([departureTime, arrivalTime, eft]) => {
-            return !!(departureTime && arrivalTime && eft);
+            return !!(departureTime && arrivalTime && this.getTimeInMinutes(eft));
           }))
         .subscribe((([departureTime, arrivalTime, eft]) => {
           this.form.controls.departureDateTime.updateValueAndValidity({ emitEvent: false });
@@ -645,8 +643,8 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
                 repositioningRateControl.enable({ emitEvent: false });
                 landingFeeControl.enable({ emitEvent: false });
               }
-              repositioningRateControl.updateValueAndValidity({emitEvent: false})
-              landingFeeControl.updateValueAndValidity({emitEvent: false})
+              repositioningRateControl.updateValueAndValidity({emitEvent: false});
+              landingFeeControl.updateValueAndValidity({emitEvent: false});
             }
           );
       }
@@ -884,7 +882,7 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
     if (!this.timepicker.isOpen) { this.timepicker.toggle(true); }
   }
 
-  onDatePickerClick(datePicker: DateTimePickerComponent): void {
+  onDatePickerClick(datePicker: DateTimePickerComponent | TimePickerComponent): void {
     if (!datePicker.isOpen) { datePicker.toggle(true); }
   }
 
@@ -967,7 +965,7 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
 
       const arrivalTime = this.form.controls.arrivalDateTime.value;
       const eftFormValue = this.form.controls.eft.value;
-      const eft = eftFormValue ? Number(eftFormValue.toString().replace(/[^0-9.]/g, '')) : null;
+      const eft = eftFormValue ? this.getTimeInMinutes(eftFormValue) : null;
       if (!control.value || !arrivalTime || !eft) {
         return null;
       }
@@ -1022,7 +1020,7 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
         return null;
       }
 
-      const eftNumber = parseInt(control.value.toString().replace(',', ''), 10);
+      const eftNumber = this.getTimeInMinutes(control.value);
       const isHigh = eftNumber > this.eftMax;
       const isLow = eftNumber < this.eftMin;
       if (!isHigh && !isLow) {
@@ -1100,5 +1098,9 @@ export class OrderFormV3Component implements OnInit, OnDestroy, OnChanges {
       this.showConfirmation = true;
       this.confirmationMode = 'low';
     }
+  }
+
+  private getTimeInMinutes(date: Date) {
+    return date.getMinutes() + date.getHours() * 60;
   }
 }

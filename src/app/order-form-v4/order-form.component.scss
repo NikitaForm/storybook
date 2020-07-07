@@ -96,3 +96,10 @@ order-form {
     max-width: 100%;
   }
 }
+
+.custom-time-picker {
+  .k-time-now {
+    display: none;
+  }
+}
+

@@ -329,8 +329,8 @@
         </div>
 
         <div class="col-sm-6">
-          <div class="form-group form-group-default required">
-            <label>EFT (min)
+          <div class="form-group form-group-default form-group-default-kendo input-group required">
+            <label>EFT
               <button type="button"
                       class="info-btn"
                       [tooltip]="eftDescription"
@@ -338,13 +338,29 @@
                 <i class="fal fa-info-circle"></i>
               </button>
             </label>
-            <input #eftinput
-                   class="form-control"
-                   formControlName="eft"
-                   placeholder="Specify EFT"
-                   [textMask]="{mask: integerMask}"
-                   [validationTooltip]="form.get('eft')"
-                   [validationMessages]="validationMessages['eft']">
+            <kendo-timepicker
+              #eftTimePicker
+              class="form-control"
+              [format]="'HH:mm'"
+              [popupSettings]="{popupClass: 'custom-time-picker'}"
+              formControlName="eft"
+              placeholder="Specify EFT"
+              [readOnlyInput]="true"
+              (click)="onDatePickerClick(eftTimePicker)"
+              required
+              [validationTooltip]="form.get('eft')"
+              [validationMessages]="validationMessages['eft']"
+            ></kendo-timepicker>
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fal fa-clock"></i></span>
+            </div>
+<!--            <input #eftinput-->
+<!--                   class="form-control"-->
+<!--                   formControlName="eft"-->
+<!--                   placeholder="Specify EFT"-->
+<!--                   [textMask]="{mask: integerMask}"-->
+<!--                   [validationTooltip]="form.get('eft')"-->
+<!--                   [validationMessages]="validationMessages['eft']">-->
             <!-- <span class="input-group-append"><i class="fa fa-dollar"></i></span> -->
           </div>
         </div>
