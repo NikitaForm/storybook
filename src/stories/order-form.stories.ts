@@ -296,7 +296,7 @@ export const OrderForm = () => ({
 });
 
 OrderForm.story = {
-  name: 'order form private charter MVP2'
+  name: 'Order form for Private charter MVP2'
 };
 
 export const OrderFormDateTime = () => ({
@@ -318,7 +318,7 @@ export const OrderFormDateTime = () => ({
 });
 
 OrderFormDateTime.story = {
-  name: 'Order form with date-time pickers and sections'
+  name: 'Order form with date-time pickers and sections for Private charter MVP2'
 };
 
 export const OrderFormDateTimeShuttle = () => ({
@@ -340,7 +340,7 @@ export const OrderFormDateTimeShuttle = () => ({
 });
 
 OrderFormDateTimeShuttle.story = {
-  name: 'Order form with date-time pickers shared charter'
+  name: 'Order form with date-time pickers for Shared charter MVP2'
 };
 
 export const OrderFormColumns = () => ({
@@ -362,7 +362,7 @@ export const OrderFormColumns = () => ({
 });
 
 OrderFormColumns.story = {
-  name: 'Order form with column layout'
+  name: 'Order form with column layout for Private charter MVP2'
 };
 
 export const OrderFormColumnsShuttle = () => ({
@@ -384,7 +384,7 @@ export const OrderFormColumnsShuttle = () => ({
 });
 
 OrderFormColumnsShuttle.story = {
-  name: 'Order form with column layout for shared charter'
+  name: 'Order form with column layout for Shared charter MVP2'
 };
 
 export const OrderFormEftTimepicker = () => ({
@@ -406,7 +406,7 @@ export const OrderFormEftTimepicker = () => ({
 });
 
 OrderFormEftTimepicker.story = {
-  name: 'Order form with eft timepicker'
+  name: 'Order form with eft timepicker for Private charter MVP2'
 };
 
 export const OrderFormEftTimepickerShuttle = () => ({
@@ -428,5 +428,5 @@ export const OrderFormEftTimepickerShuttle = () => ({
 });
 
 OrderFormEftTimepickerShuttle.story = {
-  name: 'Order form with eft timepicker for shared charter'
+  name: 'Order form with eft timepicker for Shared charter MVP2'
 };
