@@ -13,7 +13,7 @@
     field="modelName"
     title="Aircraft" [width]="140"></kendo-grid-column>
   <kendo-grid-column
-    title="Insurance" [width]="120">
+    title="Approved By" [width]="120">
     <ng-template kendoGridCellTemplate let-dataItem>
       <span [ngClass]="getInsuranceStatus(dataItem) === 'Expired' ? 'expired' : 'approved'">
         {{getInsuranceStatus(dataItem)}}

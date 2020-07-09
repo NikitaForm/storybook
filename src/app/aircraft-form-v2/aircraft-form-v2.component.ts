@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { createNumberMask } from 'text-mask-addons/dist/textMaskAddons';
+import { FromEventObservable } from 'rxjs-compat/observable/FromEventObservable';
 
 @Component({
   selector: 'app-aircraft-form-v2',
@@ -55,7 +56,7 @@ export class AircraftFormV2Component implements OnInit {
       checked: false
     }, {
       'id': '3',
-      'name': 'Oven',
+      'name': 'Microwave Oven',
       'visible': true,
       checked: false
     }, {
@@ -66,6 +67,46 @@ export class AircraftFormV2Component implements OnInit {
     }, {
       'id': '1',
       'name': 'Flight Attendant Available',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '21',
+      'name': 'Cabin Sound System',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '22',
+      'name': 'Leather Club Seats',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '23',
+      'name': 'Plush 3-seater Divan',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '24',
+      'name': 'High-definition TV Screens',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '25',
+      'name': 'Complimentary snacks, beverages, etc',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '26',
+      'name': 'AirShow',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '27',
+      'name': 'Cabin Server',
+      'visible': true,
+      checked: false
+    }, {
+      'id': '28',
+      'name': 'Power Outlet',
       'visible': true,
       checked: false
     }
@@ -99,14 +140,17 @@ export class AircraftFormV2Component implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       tailNumber: new FormControl({value: null, disabled: this.disabled}, Validators.required),
-      categoryId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
+      // categoryId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
       modelId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
       maxPax: new FormControl(null),
       homeBase: new FormControl(null),
       yor: new FormControl(null),
       yom: new FormControl({value: null, disabled: this.disabled}, Validators.required),
       amenities: new FormControl(null),
-      costPerHour: new FormControl(null)
+      wyvernRated: new FormControl(false),
+      argSafetyRating: new FormControl(null),
+      costPerHour: new FormControl(null),
+      liabilityInsurance: new FormControl(null)
     });
     if (this.aircraft) {
       this.aircraft.yor = new Date(this.aircraft.yor.toString());

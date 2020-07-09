@@ -45,24 +45,24 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 col-md-6">
-          <div class="form-group form-group-default form-group-default-select required">
-            <label>Category
-              <button type="button"
-                      class="info-btn"
-                      [tooltip]="categoryDescription"
-                      container="body">
-                <i class="fal fa-info-circle"></i>
-              </button>
-            </label>
-            <select class="form-control"
-                    (change)="onCategoryChanged($event.target.value)"
-                    formControlName="categoryId">
-              <option value="{{category.id}}"
-                      *ngFor="let category of categoryList">{{category.name}}</option>
-            </select>
-          </div>
-        </div>
+<!--        <div class="col-sm-6 col-md-6">-->
+<!--          <div class="form-group form-group-default form-group-default-select required">-->
+<!--            <label>Category-->
+<!--              <button type="button"-->
+<!--                      class="info-btn"-->
+<!--                      [tooltip]="categoryDescription"-->
+<!--                      container="body">-->
+<!--                <i class="fal fa-info-circle"></i>-->
+<!--              </button>-->
+<!--            </label>-->
+<!--            <select class="form-control"-->
+<!--                    (change)="onCategoryChanged($event.target.value)"-->
+<!--                    formControlName="categoryId">-->
+<!--              <option value="{{category.id}}"-->
+<!--                      *ngFor="let category of categoryList">{{category.name}}</option>-->
+<!--            </select>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div class="col-sm-6 col-md-6">
           <div class="form-group form-group-default form-group-default-kendo input-group required">
@@ -84,6 +84,31 @@
                               [readOnlyInput]="true"
                               (click)="onClick(yomPicker)"></kendo-datepicker>
 
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group form-group-default form-group-default-kendo input-group">
+            <label>Year of Refurbishment
+              <button type="button"
+                      class="info-btn"
+                      [tooltip]="yorDescription"
+                      container="body">
+                <i class="fal fa-info-circle"></i>
+              </button>
+            </label>
+            <kendo-datepicker class="form-control"
+                              #yorPicker
+                              [topView]="'decade'"
+                              [bottomView]="'decade'"
+                              [format]="'yyyy'"
+                              formControlName="yor"
+                              placeholder="Year of Refurbishment"
+                              [readOnlyInput]="true"
+                              (click)="onClick(yorPicker)"></kendo-datepicker>
             <div class="input-group-append">
               <span class="input-group-text"><i class="fa fa-calendar"></i></span>
             </div>
@@ -135,30 +160,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group form-group-default form-group-default-kendo input-group">
-            <label>Year of Refurbishment
-              <button type="button"
-                      class="info-btn"
-                      [tooltip]="yorDescription"
-                      container="body">
-                <i class="fal fa-info-circle"></i>
-              </button>
-            </label>
-            <kendo-datepicker class="form-control"
-                              #yorPicker
-                              [topView]="'decade'"
-                              [bottomView]="'decade'"
-                              [format]="'yyyy'"
-                              formControlName="yor"
-                              placeholder="Year of Refurbishment"
-                              [readOnlyInput]="true"
-                              (click)="onClick(yorPicker)"></kendo-datepicker>
-            <div class="input-group-append">
-              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-            </div>
-          </div>
-        </div>
 
         <div class="col-sm-6">
           <div class="form-group form-group-default input-group">
