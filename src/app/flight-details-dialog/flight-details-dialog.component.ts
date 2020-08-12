@@ -129,35 +129,42 @@ export class FlightDetailsDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.requestDetailsViewModels$ = this.requestDetails$
-      .map(requestDetails => {
-        if (!requestDetails) {
+    setTimeout(() => {
+      this.requestDetailsViewModels$ = this.requestDetails$
+        .map(requestDetails => {
+          if (!requestDetails) {
 
-          return null;
-        }
-        const requestDetailsViewModels = requestDetails.map(r => {
-          const requestDetailsViewModel = new models.FlightRequestDetailsViewModel();
-          requestDetailsViewModel.amount = _.get(r, 'legDetails.customerPrice');
-          requestDetailsViewModel.requestTime = r.requestTime;
-          requestDetailsViewModel.passengerCount = r.passengerCount;
+            return null;
+          }
+          const requestDetailsViewModels = requestDetails.map(r => {
+            const requestDetailsViewModel = new models.FlightRequestDetailsViewModel();
+            requestDetailsViewModel.amount = _.get(r, 'legDetails.customerPrice');
+            requestDetailsViewModel.requestTime = r.requestTime;
+            requestDetailsViewModel.passengerCount = r.passengerCount;
 
-          return requestDetailsViewModel;
+            return requestDetailsViewModel;
+          });
+
+          return requestDetailsViewModels;
         });
 
-        return requestDetailsViewModels;
-      });
+      this.totalAmount$ = this.requestDetailsViewModels$
+        .map(requestDetailsViewModels => {
+          if (!requestDetailsViewModels) {
+            return null;
+          }
+          const total = requestDetailsViewModels.reduce((prev, current) => prev + current.amount, 0);
 
-    this.totalAmount$ = this.requestDetailsViewModels$
-      .map(requestDetailsViewModels => {
-        if (!requestDetailsViewModels) { return null; }
-        const total = requestDetailsViewModels.reduce((prev, current) => prev + current.amount, 0);
+          return new models.FlightTotalAmountViewModel(total);
+        });
+    }, 500);
 
-        return new models.FlightTotalAmountViewModel(total);
-      });
 
     this.arrivalTime$ = this.legDetails$
       .map(legDetails => {
-        if (!legDetails) { return null; }
+        if (!legDetails) {
+          return null;
+        }
         const departureTime = moment(legDetails.departureTime).add(legDetails.eft, 'm').toDate();
 
         return new models.ArrivalTimeViewModel(departureTime);
