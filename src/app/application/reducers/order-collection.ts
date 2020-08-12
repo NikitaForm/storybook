@@ -200,7 +200,7 @@ const initialState: State = {
     }
   ],
   itemsPerPage: 15,
-  itemsTotalCount: 3,
+  itemsTotalCount: 2,
   filterOptions: new models.FilterOptions(),
   autocompleteOptions: new models.AutocompleteOptions(),
   flightDetailsSidepanelVisible: false
