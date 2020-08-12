@@ -120,8 +120,8 @@ export class FlightDetailsDialogComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.requestDetailsViewModels$ = this.requestDetails$
-      .map(requestDetails => {
+    this.requestDetailsViewModels$ = this.requestDetails$.pipe(
+      map(requestDetails => {
         if (!requestDetails) {
 
           return null;
@@ -136,28 +136,28 @@ export class FlightDetailsDialogComponent implements OnInit, OnDestroy {
         });
 
         return requestDetailsViewModels;
-      });
+      }));
 
-    this.totalAmount$ = this.requestDetailsViewModels$
-      .map(requestDetailsViewModels => {
+    this.totalAmount$ = this.requestDetailsViewModels$.pipe(
+      map(requestDetailsViewModels => {
         if (!requestDetailsViewModels) {
           return null;
         }
         const total = requestDetailsViewModels.reduce((prev, current) => prev + current.amount, 0);
 
         return new models.FlightTotalAmountViewModel(total);
-      });
+      }));
 
 
-    this.arrivalTime$ = this.legDetails$
-      .map(legDetails => {
+    this.arrivalTime$ = this.legDetails$.pipe(
+      map(legDetails => {
         if (!legDetails) {
           return null;
         }
         const departureTime = moment(legDetails.departureTime).add(legDetails.eft, 'm').toDate();
 
         return new models.ArrivalTimeViewModel(departureTime);
-      });
+      }));
   }
 
   ngOnDestroy(): void {
