@@ -1,0 +1,16 @@
+<div class="container-xs-height full-height">
+  <div class="row-xs-height">
+    <div class="col col-xs-height col-middle">
+      <div class="error-container text-center" *ngIf="!errorText; else customError">
+        <!--<h1 class="error-number">500</h1>-->
+        <h2 class="semi-bold">Internal Error occured</h2>
+        <p>An error occured and your request couldn't be completed. Please try again.</p>
+      </div>
+      <ng-template #customError>
+        <div class="error-container text-center">
+        <h2 class="semi-bold">{{errorText}}</h2>
+      </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

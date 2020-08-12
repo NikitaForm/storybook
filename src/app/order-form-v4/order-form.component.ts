@@ -1103,4 +1103,11 @@ export class OrderFormV4Component implements OnInit, OnDestroy, OnChanges {
   private getTimeInMinutes(date: Date) {
     return date.getMinutes() + date.getHours() * 60;
   }
+
+  public handlePreventableEvent(event: any, eventName: string, preventDefault: boolean): void {
+    if (preventDefault) {
+      event.preventDefault();
+    }
+
+  }
 }

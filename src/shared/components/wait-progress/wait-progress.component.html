@@ -1,0 +1,6 @@
+<div class="wait-progress">
+  <div [ngClass]="xo ? 'wait-progress-activity-xo' : 'wait-progress-activity'"></div>
+  <div class="wait-progress-desc">
+    <h4>Please wait<span>{{ progress$ | async }}</span></h4>
+  </div>
+</div>

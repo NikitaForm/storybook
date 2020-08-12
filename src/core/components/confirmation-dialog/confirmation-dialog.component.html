@@ -1,0 +1,25 @@
+<div class="modal-header clearfix text-left">
+    <h5 class="modal-title">Confirmation</h5>
+    <button type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+            (click)="onClose()"><!--<i class="fal fa-times fs-14"></i>-->
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M28.79,0,14.74,13.92,1.21.52,0,1.72l13.53,13.4L.24,28.28l1.22,1.2L14.74,16.32,28.55,30l1.21-1.2L15.95,15.12,30,1.2Z" fill="#393b41"/></svg>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row m-t-15">
+      <div class="col col-sm-12">
+        {{ text }}
+      </div>
+    </div>
+    <div class="row m-t-50">
+      <div class="col col-sm-12">
+        <button class="btn btn-primary btn-cons pull-right m-r-0"
+                (click)="onConfirm()">{{confirmText}}</button>
+        <button class="btn btn-default btn-cons pull-right"
+                (click)="onClose()">{{cancelText}}</button>
+      </div>
+    </div>
+  </div>

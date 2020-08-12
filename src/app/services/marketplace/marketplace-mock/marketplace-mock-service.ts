@@ -103,23 +103,27 @@ export class MarketplaceMockService implements contracts.IMarketplaceService {
 
   getFlightDetails(id): Observable<contracts.GetFlightDetailsResponse> {
     const response = new contracts.GetFlightDetailsResponse();
+    const mapperInstance = new mapper.MarketPlaceMapper();
+    const mockResponse = getLegDetailsResponse.data.listAvailableFlights.availableFlights.filter(flight => flight.legacyLegId === id);
 
-    response.legDetailsEntities = getLegDetailsResponse.data.listAvailableFlights
-      .map(new mapper.MarketPlaceMapper().parseLegDetailsInternal);
+    response.legDetailsEntities = mockResponse
+      .map(mapperInstance.parseLegDetailsInternal);
 
-    response.legRequestDetailsEntities = getLegDetailsResponse.data.listAvailableFlights
-      .map(new mapper.MarketPlaceMapper().parseLegRequestDetailInternal);
+    response.legRequestDetailsEntities = mockResponse
+      .map(mapperInstance.parseLegRequestDetailInternal);
 
-    response.priceDetailsEntities = getLegDetailsResponse.data.listAvailableFlights
-      .map(new mapper.MarketPlaceMapper().parsePriceDetailsInternal);
+    response.priceDetailsEntities = mockResponse
+      .map(mapperInstance.parsePriceDetailsInternal.bind(mapperInstance));
 
-    response.passengerDetailsEntities = getLegDetailsResponse.data.listAvailableFlights
-      .map(new mapper.MarketPlaceMapper().parseFlightPassengerDetailsInternal);
+    response.passengerDetailsEntities = mockResponse
+      .map(mapperInstance.parseFlightPassengerDetailsInternal);
 
-    response.priceHistoryEntities = getLegDetailsResponse.data.listAvailableFlights
-      .map(new mapper.MarketPlaceMapper().parsePriceHistoryInternal);
+    response.priceHistoryEntities = mockResponse
+      .map(mapperInstance.parsePriceHistoryInternal);
 
-    return of(response); // .pipe(delay(1000));
+    response.repositioningItinerary = mockResponse
+      .map(mapperInstance.parseRepositioningItineraries.bind(mapperInstance));
+    return of(response);
   }
 
   getPriceHistory(id): Observable<contracts.GetPriceHistoryResponse> {

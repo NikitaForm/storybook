@@ -1,0 +1,77 @@
+<!-- <img src="assets/img/logo.svg"
+     width="300px"
+     class="center">
+<div class="center m-t-65">
+  <h1 class="home-heading fade-in">Operator Portal</h1>
+</div> -->
+
+<div class="bg-creamy">
+  <div class="container">
+    <ul class="breadcrumb p-l-0">
+      <li class="breadcrumb-item">
+        <a>Home</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <a>Dashboard</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container p-t-20">
+  <!-- START ROW -->
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 col-sm-12 d-flex flex-column">
+      <!-- START WIDGET widget_map_sales-->
+      <!-- START ITEM -->
+      <div class="card social-card share  full-width m-b-10 "
+           data-social="item">
+
+        <div class="card-description">
+          <h3>Welcome to the JetSmarter Operator Portal</h3>
+          <p>Sell seats on your flights and accept guaranteed charter requests.<br><br>
+
+            Instantly advertise to the worldwide community of qualified private jet fliers.
+            Set the minimum price and your seats will be available for booking on our intuitive app and website. Pricing is dynamic and optimized to increase profitability. </p>
+        </div>
+
+      </div>
+      <!-- END ITEM -->
+      <!-- END WIDGET -->
+
+
+    </div>
+    <div class="col-lg-4 col-sm-6 col-sm-12 d-flex flex-column"
+         *ngIf="fulfillFlightsPermission || publishedFlightsPermission">
+      <!-- START WIDGET widget_map_sales-->
+      <!-- START ITEM -->
+      <div class="card social-card share  full-width m-b-10 "
+           data-social="item">
+        <div class="card-description">
+          <H3>Action</H3>
+          <button *ngIf="fulfillFlightsPermission"
+                  routerLink="/fulfill-flights"
+                  class="btn btn-primary btn-cons btn-lg btn-block">Fulfill Flights</button>
+          <button *ngIf="publishedFlightsPermission"
+                  routerLink="/flights/publish"
+                  class="btn btn-primary btn-cons btn-lg btn-block">Publish Flights</button>
+          <button *ngIf="publishedFlightsPermission"
+                  routerLink="/flights/bookings"
+                  class="btn btn-primary btn-cons btn-lg btn-block">Bookings</button>
+          <br />
+        </div>
+
+      </div>
+      <!-- END ITEM -->
+      <!-- END WIDGET -->
+
+
+    </div>
+    <div class="col-lg-6 m-b-10 d-flex flex-column">
+
+    </div>
+  </div>
+
+  <!-- END ROW -->
+
+</div>

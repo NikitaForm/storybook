@@ -1,0 +1,56 @@
+.wait-progress {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+  width: 170px;
+  margin-right: auto;
+  margin-left: auto;
+
+  .container {
+    width: 100% !important;
+  }
+
+  .wait-progress-activity {
+    width: 60px;
+    height: 60px;
+    background: url('../../../assets/pages/img/progress/progress-circle-success.svg') no-repeat top left;
+    background-size: 100% auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wait-progress-activity-xo {
+    width: 60px;
+    height: 60px;
+    background: url('../../../assets/pages/img/progress/progress-circle-custom.svg') no-repeat top left;
+    background-size: 100% auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wait-progress-desc {
+    width: 170px;
+    padding-left: 5px;
+  }
+}
+
+// TODO: Uncomment, responsive design issue
+
+//@media (max-width: 1400px) {
+//  .wait-progress {
+//    width: 110px;
+//  }
+//}
+//
+//@media (max-width: 1400px) {
+//  .wait-progress {
+//    .wait-progress-desc {
+//      width: 121px;
+//      padding-left: 11px;
+//    }
+//  }
+//}

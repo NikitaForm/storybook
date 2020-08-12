@@ -202,42 +202,49 @@ export interface AuditLogEventPagination {
 export interface AvailableFlight {
   availableFlightId: Scalars['ID'];
   status: AvailableFlightStatus;
+  /** The type of flight (private, shared, repositioning */
+  contractType: FlightContractType;
+  priceType?: Maybe<FlightPriceEnum>;
+  /** The departure location */
+  departureAirport?: Maybe<Airport>;
+  departureFbo?: Maybe<Fbo>;
+  /** The departure time */
   departureTime: Scalars['IsoDateTime'];
   departureTimeUTC: Scalars['IsoDateTime'];
+  createdDepartureTime: Scalars['IsoDateTime'];
+  createdDepartureTimeUTC: Scalars['IsoDateTime'];
+  /** The arrival location */
+  arrivalAirport?: Maybe<Airport>;
+  arrivalFbo?: Maybe<Fbo>;
+  /** The arrival time */
   arrivalTime?: Maybe<Scalars['IsoDateTime']>;
   arrivalTimeUTC?: Maybe<Scalars['IsoDateTime']>;
-  emptyLeg?: Maybe<EmptyLeg>;
+  aircraft?: Maybe<Aircraft>;
+  operator?: Maybe<Operator>;
+  expirationOffset?: Maybe<Scalars['Int']>;
   /** Estimated flight time (minutes) */
   eft?: Maybe<Scalars['Int']>;
-  contractType: FlightContractType;
-  priceType?: Maybe<FlightPriceType>;
+  /** External reference information for operator use */
+  externalId?: Maybe<Scalars['String']>;
   /** The number seats the operator has made available */
   seatsOffered?: Maybe<Scalars['Int']>;
   /** The number of seats that can be booked. */
   seatsAvailable?: Maybe<Scalars['Int']>;
-  /** External reference information for operator use */
-  externalId?: Maybe<Scalars['String']>;
-  legacyLegId?: Maybe<Scalars['Int']>;
-  sharedCharterId?: Maybe<Scalars['Int']>;
-  aircraft?: Maybe<Aircraft>;
-  departureFbo?: Maybe<Fbo>;
-  departureAirport?: Maybe<Airport>;
-  arrivalFbo?: Maybe<Fbo>;
-  arrivalAirport?: Maybe<Airport>;
-  operator?: Maybe<Operator>;
   /** Per seat pricing applied shuttle flights */
   shuttlePricing?: Maybe<ShuttlePricing>;
-  /** Pricing applied for charter flights */
-  charterPricing?: Maybe<CharterPricing>;
-  /**  createUser: User   */
-  creationTime?: Maybe<Scalars['IsoDateTime']>;
-  expirationTime?: Maybe<Scalars['IsoDateTime']>;
-  email?: Maybe<Array<Maybe<Email>>>;
+  shuttlePriceHistory?: Maybe<Array<ShuttlePricing>>;
   bookings?: Maybe<Array<Booking>>;
   passengers?: Maybe<Array<Passenger>>;
-  auditLog?: Maybe<Array<Maybe<AuditLogEvent>>>;
-  shuttlePriceHistory?: Maybe<Array<ShuttlePricing>>;
   charterPriceHistory?: Maybe<Array<CharterPricing>>;
+  /** Pricing applied for charter flights */
+  charterPricing?: Maybe<CharterPricing>;
+  repositioningItinerary?: Maybe<RepositioningItinerary>;
+  /**  createUser: User   */
+  creationTime?: Maybe<Scalars['IsoDateTime']>;
+  legacyLegId?: Maybe<Scalars['Int']>;
+  sharedCharterId?: Maybe<Scalars['Int']>;
+  auditLog?: Maybe<Array<Maybe<AuditLogEvent>>>;
+  email?: Maybe<Array<Maybe<Email>>>;
 }
 
 export interface AvailableFlightFilterInput {
@@ -245,18 +252,14 @@ export interface AvailableFlightFilterInput {
   status?: Maybe<AvailableFlightStatusFilterInput>;
   contractType?: Maybe<FlightContractTypeFilterInput>;
   priceType?: Maybe<FlightPriceTypeFilterInput>;
-  flightPrice?: Maybe<ModelBigDecimalFilterInput>;
-  emptyLeg?: Maybe<EmptyLegFilterInput>;
-  seatPrice?: Maybe<ModelBigDecimalFilterInput>;
-  seatsOffered?: Maybe<ModelIntFilterInput>;
-  seatsAvailable?: Maybe<ModelIntFilterInput>;
-  eft?: Maybe<ModelIntFilterInput>;
-  externalId?: Maybe<ModelStringFilterInput>;
+  repositioningItinerary?: Maybe<RepositioningItineraryFilterInput>;
   creationTime?: Maybe<ModelIsoDateTimeFilterInput>;
   legacyLegId?: Maybe<ModelIntFilterInput>;
   sharedCharterId?: Maybe<ModelIntFilterInput>;
   aircraft?: Maybe<AircraftFilterInput>;
   operator?: Maybe<OperatorFilterInput>;
+  externalId?: Maybe<ModelStringFilterInput>;
+  eft?: Maybe<ModelIntFilterInput>;
   departureTime?: Maybe<ModelIsoDateTimeFilterInput>;
   departureTimeUTC?: Maybe<ModelIsoDateTimeFilterInput>;
   departureFbo?: Maybe<FboFilterInput>;
@@ -265,7 +268,11 @@ export interface AvailableFlightFilterInput {
   arrivalTimeUTC?: Maybe<ModelIsoDateTimeFilterInput>;
   arrivalFBO?: Maybe<FboFilterInput>;
   arrivalAirport?: Maybe<AirportFilterInput>;
+  seatPrice?: Maybe<ModelBigDecimalFilterInput>;
+  seatsOffered?: Maybe<ModelIntFilterInput>;
+  seatsAvailable?: Maybe<ModelIntFilterInput>;
   seatPricing?: Maybe<ShuttlePricingFilterInput>;
+  flightPrice?: Maybe<ModelBigDecimalFilterInput>;
   flightPricing?: Maybe<CharterPricingFilterInput>;
   bookings?: Maybe<BookingFilterInput>;
   passengers?: Maybe<PassengerFilterInput>;
@@ -338,8 +345,8 @@ export interface AvailableFlightStatusFilterInput {
 export interface Booking {
   lastUpdated: Scalars['IsoDateTime'];
   passengerCount: Scalars['Int'];
-  /** The pricing in effect when the booking was made */
-  price: ShuttlePricing;
+  /** The pricing in effect when the booking was made.  Private charters do not have prices attached to bookings */
+  price?: Maybe<ShuttlePricing>;
 }
 
 export interface BookingFilterInput {
@@ -403,41 +410,114 @@ export interface CharterPricingFilterInput {
 
 /** Create a new available flight */
 export interface CreateAvailableFlightInput {
-  aircraftId: Scalars['Int'];
+  /**
+   * Indicates the type of flight
+   * private, shared, repositioning
+   */
+  contractType: FlightContractType;
+  /**
+   * Indicates the pricing model
+   * fixed or dynamic
+   */
+  priceType: FlightPriceEnum;
   departureTime: Scalars['IsoDateTime'];
+  departureAirportCode: Scalars['String'];
   departureFboId?: Maybe<Scalars['Int']>;
-  departureAirportCode?: Maybe<Scalars['String']>;
+  /**
+   * Arrival time is only required
+   * when creating empty legs. An
+   * empty leg represents the time
+   * when the aircraft should be
+   * at the arrival airport/FBO.
+   */
+  arrivalTime?: Maybe<Scalars['IsoDateTime']>;
+  /**
+   * The arrival airport. Required
+   * if the arrivalDboId is not.
+   */
+  arrivalAirportCode: Scalars['String'];
+  /**
+   * The arrival FBO.  Reuired
+   * if arrivalAirportCode is not.
+   */
+  arrivalFboId?: Maybe<Scalars['Int']>;
+  /**
+   * The id of the aircraft
+   * associated with this flight
+   */
+  aircraftId: Scalars['Int'];
   /** Estimated flight time in minutes */
   eft: Scalars['Int'];
   /**
-   * Arrival time is only required when creating empty legs. For an empty leg
-   * represents the time when the aircraft should be at the arrival airport/FBO.
+   * The number of hours prior to
+   * departure time that the flight
+   * should expired and removed
+   * from the market.
    */
-  arrivalTime?: Maybe<Scalars['IsoDateTime']>;
-  /** The arrival FBO.  Must be specified if arrivalAirportCode is not. */
-  arrivalFboId?: Maybe<Scalars['Int']>;
-  /** The arrival airport. Must be specified if the arrivalDboId is not.  */
-  arrivalAirportCode?: Maybe<Scalars['String']>;
-  contractType: FlightContractType;
-  priceType: FlightPriceType;
-  emptyLeg?: Maybe<EmptyLegInput>;
+  expirationOffset?: Maybe<Scalars['Int']>;
   /**
-   * The price the operator is charging for a whole plane, required if contract
-   * price is CHARTER
+   * An external id or comment allows
+   * correlation with operator processes.
+   */
+  externalId?: Maybe<Scalars['String']>;
+  /**
+   * The price the operator is charging
+   * for a whole plane, required if
+   * contract type is CHARTER
    */
   flightPrice?: Maybe<Scalars['BigDecimal']>;
   /**
-   * The price the operator is charging per a seat, required if the contract type
-   * is SHUTTLE
+   * The price the operator is charging
+   * per a seat, required if the
+   * contract type is SHUTTLE
    */
   seatPrice?: Maybe<Scalars['BigDecimal']>;
   /**
-   * The number of seats the operator is offering for sale, required if the contract
+   * The number of seats the
+   * operator is offering for
+   * sale, required if the contract
    * type is SHUTTLE
    */
   seatsOffered?: Maybe<Scalars['Int']>;
-  /** An external id or comment for correlation with operator processes. */
-  externalId?: Maybe<Scalars['String']>;
+  /**
+   * The hourly rate being
+   * charged
+   */
+  flightRate?: Maybe<Scalars['BigDecimal']>;
+  /**
+   * Additional landing fees charged
+   * for each segment
+   */
+  landingFee?: Maybe<Scalars['BigDecimal']>;
+  flexibility?: Maybe<Scalars['Float']>;
+}
+
+export interface CreateRepositioningSegmentInput {
+  /**
+   * The Id of the flight this
+   * segment is part of
+   */
+  availableFlightId: Scalars['ID'];
+  type: SegmentType;
+  /** The starting time for this segment */
+  departureTime: Scalars['IsoDateTime'];
+  /** The FBO departure of the segment */
+  departureFbo: Scalars['Int'];
+  /**
+   * The length of time in minutes
+   * for the itinerary
+   */
+  duration: Scalars['Int'];
+  /** The FBO arrival of the segment */
+  arrivalFbo: Scalars['Int'];
+  /**
+   * The private or shared charter flight
+   * required if segment is private or
+   * shared charter.
+   */
+  flight?: Maybe<CreateAvailableFlightInput>;
+  /** A brief description of the segement */
+  description?: Maybe<Scalars['String']>;
 }
 
 export interface Email {
@@ -548,6 +628,7 @@ export interface EmailConfigPagination {
 export enum EmailEvent {
   PrivateCharterCreated = 'PRIVATE_CHARTER_CREATED',
   PrivateCharterBooked = 'PRIVATE_CHARTER_BOOKED',
+  PrivateCharterPassengerUpdated = 'PRIVATE_CHARTER_PASSENGER_UPDATED',
   PrivateCharterCancelled = 'PRIVATE_CHARTER_CANCELLED',
   PrivateCharterStatusChanged = 'PRIVATE_CHARTER_STATUS_CHANGED',
   PrivateCharterUpdated = 'PRIVATE_CHARTER_UPDATED',
@@ -558,6 +639,7 @@ export enum EmailEvent {
   PrivateCharterPostflight = 'PRIVATE_CHARTER_POSTFLIGHT',
   SharedCharterCreated = 'SHARED_CHARTER_CREATED',
   SharedCharterSeatsBooked = 'SHARED_CHARTER_SEATS_BOOKED',
+  SharedCharterPassengerUpdated = 'SHARED_CHARTER_PASSENGER_UPDATED',
   SharedCharterSeatsCancelled = 'SHARED_CHARTER_SEATS_CANCELLED',
   SharedCharterStatusChanged = 'SHARED_CHARTER_STATUS_CHANGED',
   SharedCharterUpdated = 'SHARED_CHARTER_UPDATED',
@@ -571,39 +653,6 @@ export enum EmailEvent {
 export interface EmailEventFilterInput {
   ne?: Maybe<EmailEvent>;
   eq?: Maybe<EmailEvent>;
-}
-
-export interface EmptyLeg {
-  departureAirports?: Maybe<Array<Maybe<Airport>>>;
-  arrivalAirports?: Maybe<Array<Maybe<Airport>>>;
-  departureAirportCodes?: Maybe<Array<Scalars['String']>>;
-  arrivalAirportCodes?: Maybe<Array<Scalars['String']>>;
-  departureFboIds?: Maybe<Array<Scalars['String']>>;
-  arrivalFboIds?: Maybe<Array<Scalars['String']>>;
-  arrivalTime?: Maybe<Scalars['IsoDateTime']>;
-  landingFee?: Maybe<Scalars['BigDecimal']>;
-  densityFee?: Maybe<Scalars['BigDecimal']>;
-  flexibility: Scalars['Float'];
-}
-
-export interface EmptyLegFilterInput {
-  departureAirports?: Maybe<AirportFilterInput>;
-  arrivalAirport?: Maybe<AirportFilterInput>;
-  arrivalTime?: Maybe<ModelIsoDateTimeFilterInput>;
-  landingFee?: Maybe<ModelBigDecimalFilterInput>;
-  densityFee?: Maybe<ModelBigDecimalFilterInput>;
-  flexibility?: Maybe<ModelFloatFilterInput>;
-}
-
-export interface EmptyLegInput {
-  departureAirportCodes?: Maybe<Array<Scalars['AirportCodeInput']>>;
-  arrivalAirportCodes?: Maybe<Array<Scalars['AirportCodeInput']>>;
-  departureFboIds?: Maybe<Array<Scalars['String']>>;
-  arrivalFboIds?: Maybe<Array<Scalars['String']>>;
-  arrivalTime: Scalars['IsoDateTime'];
-  landingFee?: Maybe<Scalars['BigDecimal']>;
-  densityFee?: Maybe<Scalars['BigDecimal']>;
-  flexibility: Scalars['Float'];
 }
 
 export interface Fbo {
@@ -627,7 +676,7 @@ export interface FboFilterInput {
 export enum FlightContractType {
   Shuttle = 'SHUTTLE',
   Charter = 'CHARTER',
-  Empty = 'EMPTY'
+  Repositioning = 'REPOSITIONING'
 }
 
 export interface FlightContractTypeFilterInput {
@@ -652,15 +701,19 @@ export interface FlightEstimateInput {
   aircraftId?: Maybe<Scalars['Int']>;
 }
 
-export enum FlightPriceType {
+export enum FlightPriceEnum {
   Dynamic = 'DYNAMIC',
-  Fixed = 'FIXED',
-  Empty = 'EMPTY'
+  Fixed = 'FIXED'
+}
+
+export enum FlightPriceInputEnum {
+  Dynamic = 'DYNAMIC',
+  Fixed = 'FIXED'
 }
 
 export interface FlightPriceTypeFilterInput {
-  ne?: Maybe<FlightPriceType>;
-  eq?: Maybe<FlightPriceType>;
+  ne?: Maybe<FlightPriceEnum>;
+  eq?: Maybe<FlightPriceEnum>;
 }
 
 /**  request for a single flight between airports. */
@@ -695,6 +748,31 @@ export interface GeolocationFilterInput {
   longitude?: Maybe<ModelFloatFilterInput>;
 }
 
+
+/**
+ * Represents a segment of
+ * a repositioning itinerary
+ */
+export interface ItinerarySegment {
+  type: SegmentType;
+  /**
+   * The length of this segment in
+   * minutes
+   */
+  duration: Scalars['Int'];
+  /** The starting time for this segment */
+  startTime: Scalars['IsoDateTime'];
+  /** The starting time for this segment in UTC */
+  startTimeUTC: Scalars['IsoDateTime'];
+  /** The FBO departure of the segment */
+  departureFbo: Scalars['Int'];
+  /** The FBO arrival of the segment */
+  arrivalFbo: Scalars['Int'];
+  /** A brief description of the segement */
+  description?: Maybe<Scalars['String']>;
+  /** The private or shared charter flight */
+  flight?: Maybe<AvailableFlight>;
+}
 
 export interface ModelBigDecimalFilterInput {
   ne?: Maybe<Scalars['BigDecimal']>;
@@ -781,9 +859,11 @@ export interface ModelStringFilterInput {
 
 export interface Mutation {
   createAvailableFlight?: Maybe<AvailableFlight>;
-  updateAvailableFlight?: Maybe<AvailableFlight>;
+  createRepositioningSegment?: Maybe<AvailableFlight>;
+  updateAvailableFlight: AvailableFlight;
   /** Removes an email config definition */
   removeEmailConfig?: Maybe<Scalars['Boolean']>;
+  removeRepositioningSegment: AvailableFlight;
   /** Updates or creates an email configuration */
   putEmailConfig?: Maybe<EmailConfig>;
   /** Updates an operator */
@@ -796,6 +876,11 @@ export interface MutationCreateAvailableFlightArgs {
 }
 
 
+export interface MutationCreateRepositioningSegmentArgs {
+  input?: Maybe<CreateRepositioningSegmentInput>;
+}
+
+
 export interface MutationUpdateAvailableFlightArgs {
   input: UpdateAvailableFlightInput;
 }
@@ -803,6 +888,11 @@ export interface MutationUpdateAvailableFlightArgs {
 
 export interface MutationRemoveEmailConfigArgs {
   name: Scalars['String'];
+}
+
+
+export interface MutationRemoveRepositioningSegmentArgs {
+  input?: Maybe<RemoveRepositioningSegmentInput>;
 }
 
 
@@ -882,6 +972,7 @@ export interface Passenger {
   legalName?: Maybe<Scalars['String']>;
   dateOfBirth?: Maybe<Scalars['IsoDate']>;
   price: ShuttlePricing;
+  comments?: Maybe<Scalars['String']>;
   weight?: Maybe<Scalars['Int']>;
 }
 
@@ -889,6 +980,7 @@ export interface PassengerFilterInput {
   legalName?: Maybe<ModelStringFilterInput>;
   dateOfBirth?: Maybe<ModelIsoDateFilterInput>;
   price?: Maybe<ShuttlePricingFilterInput>;
+  comments?: Maybe<ModelStringFilterInput>;
   weight?: Maybe<ModelIntFilterInput>;
 }
 
@@ -902,11 +994,7 @@ export interface PriceDetailsInput {
 }
 
 export interface Query {
-  /** @deprecated Field no longer supported */
-  calculateShuttlePriceDetails?: Maybe<ShuttlePricing>;
   calculateSharedCharterPrice?: Maybe<ShuttlePricing>;
-  /** @deprecated Field no longer supported */
-  calculateCharterPriceDetails?: Maybe<CharterPricing>;
   calculatePrivateCharterPrice?: Maybe<CharterPricing>;
   getAircraft?: Maybe<Aircraft>;
   getAirport?: Maybe<Airport>;
@@ -923,24 +1011,8 @@ export interface Query {
 }
 
 
-export interface QueryCalculateShuttlePriceDetailsArgs {
-  basePrice: Scalars['BigDecimal'];
-  seatsCount?: Maybe<Scalars['Int']>;
-  departureAirportCode: Scalars['AirportCodeInput'];
-  arrivalAirportCode: Scalars['AirportCodeInput'];
-}
-
-
 export interface QueryCalculateSharedCharterPriceArgs {
   input: PriceDetailsInput;
-}
-
-
-export interface QueryCalculateCharterPriceDetailsArgs {
-  basePrice: Scalars['BigDecimal'];
-  seatsCount?: Maybe<Scalars['Int']>;
-  departureAirportCode: Scalars['AirportCodeInput'];
-  arrivalAirportCode: Scalars['AirportCodeInput'];
 }
 
 
@@ -1012,6 +1084,56 @@ export interface QueryListEmailConfigsArgs {
 
 export interface QueryEstimateFlightArgs {
   input: FlightEstimateInput;
+}
+
+export interface RemoveRepositioningSegmentInput {
+  availableFlightId: Scalars['ID'];
+  type: SegmentType;
+  /** The starting time for this segment */
+  startTime: Scalars['IsoDateTime'];
+}
+
+export interface RepositioningItinerary {
+  flightRate?: Maybe<Scalars['BigDecimal']>;
+  landingFee?: Maybe<Scalars['BigDecimal']>;
+  flexibility: Scalars['Float'];
+  /**
+   * The planned route for the
+   * repositioning
+   */
+  itinerary?: Maybe<Array<Maybe<ItinerarySegment>>>;
+}
+
+export interface RepositioningItineraryFilterInput {
+  repositioningRate?: Maybe<ModelBigDecimalFilterInput>;
+  landingFee?: Maybe<ModelBigDecimalFilterInput>;
+  flexibility?: Maybe<ModelFloatFilterInput>;
+}
+
+export interface RepositioningItineraryInput {
+  repositioningRate?: Maybe<Scalars['BigDecimal']>;
+  landingFee?: Maybe<Scalars['BigDecimal']>;
+  flexibility: Scalars['Float'];
+}
+
+export enum SegmentType {
+  /** The aircraft is waiting */
+  Idle = 'IDLE',
+  /**
+   * The aircraft is flying without
+   * paying customers
+   */
+  EmptyFlight = 'EMPTY_FLIGHT',
+  /**
+   * A private charter is being
+   * flown
+   */
+  PrivateCharter = 'PRIVATE_CHARTER',
+  /**
+   * A shared charter is being
+   * flown
+   */
+  SharedCharter = 'SHARED_CHARTER'
 }
 
 export interface ShuttleFlightEstimate {
@@ -1107,12 +1229,11 @@ export interface SuggestedSeatPrice {
 
 /** Update an existing available flight */
 export interface UpdateAvailableFlightInput {
-  availableFlightId: Scalars['String'];
+  availableFlightId: Scalars['ID'];
   status?: Maybe<AvailableFlightStatus>;
   charterPrice?: Maybe<Scalars['BigDecimal']>;
   seatPrice?: Maybe<Scalars['BigDecimal']>;
   seatsOffered?: Maybe<Scalars['Int']>;
-  emptyLeg?: Maybe<EmptyLegInput>;
 }
 
 export interface User {
@@ -1206,7 +1327,7 @@ export type GetFlightDetailsByLegIdQueryVariables = {
 export type GetFlightDetailsByLegIdQuery = {
   listAvailableFlights: {
     availableFlights: Array<(
-      Pick<AvailableFlight, 'availableFlightId' | 'contractType' | 'status' | 'legacyLegId' | 'seatsOffered' | 'departureTime' | 'externalId' | 'arrivalTime' | 'eft' | 'priceType'>
+      Pick<AvailableFlight, 'availableFlightId' | 'contractType' | 'status' | 'legacyLegId' | 'seatsOffered' | 'departureTime' | 'createdDepartureTime' | 'externalId' | 'arrivalTime' | 'eft' | 'priceType'>
       & {
       aircraft?: Maybe<Pick<Aircraft, 'tailNumber' | 'modelName' | 'maxPax'>>, shuttlePricing?: Maybe<(
         Pick<ShuttlePricing, 'seatsOffered' | 'customerPrice' | 'operatorShare' | 'brokerShare' | 'brokerRate' | 'creditCardCost' | 'federalTaxCost' | 'segmentFeeCost' | 'seatPrice' | 'effective'>
@@ -1216,7 +1337,7 @@ export type GetFlightDetailsByLegIdQuery = {
         & { user: Pick<User, 'firstName' | 'lastName'> }
         )>, bookings?: Maybe<Array<(
         Pick<Booking, 'lastUpdated' | 'passengerCount'>
-        & { price: Pick<ShuttlePricing, 'customerPrice'> }
+        & { price?: Maybe<Pick<ShuttlePricing, 'customerPrice'>> }
         )>>, passengers?: Maybe<Array<Pick<Passenger, 'legalName' | 'dateOfBirth' | 'weight'>>>, departureFbo?: Maybe<(
         Pick<Fbo, 'fboId' | 'phoneNumber' | 'name'>
         & { address?: Maybe<Pick<Address, 'line1' | 'line2' | 'city' | 'state' | 'country'>> }
@@ -1264,7 +1385,7 @@ export type FilteredFlightsQueryVariables = {
 export type FilteredFlightsQuery = {
   listAvailableFlights: {
     availableFlights: Array<(
-      Pick<AvailableFlight, 'availableFlightId' | 'contractType' | 'status' | 'legacyLegId' | 'seatsOffered' | 'departureTime' | 'externalId'>
+      Pick<AvailableFlight, 'availableFlightId' | 'contractType' | 'status' | 'legacyLegId' | 'seatsOffered' | 'departureTime' | 'createdDepartureTime' | 'externalId'>
       & { aircraft?: Maybe<Pick<Aircraft, 'tailNumber' | 'modelName'>>, shuttlePricing?: Maybe<Pick<ShuttlePricing, 'seatPrice'>>, charterPricing?: Maybe<Pick<CharterPricing, 'flightPrice'>>, passengers?: Maybe<Array<Pick<Passenger, 'weight'>>>, departureFbo?: Maybe<Pick<Fbo, 'fboId' | 'name'>>, arrivalFbo?: Maybe<Pick<Fbo, 'fboId' | 'name'>>, departureAirport?: Maybe<Pick<Airport, 'code'>>, arrivalAirport?: Maybe<Pick<Airport, 'code'>> }
       )>, pagination?: Maybe<Pick<Pagination, 'count'>>
   }
@@ -1289,7 +1410,7 @@ export type UpdateFlightMutationVariables = {
 };
 
 
-export type UpdateFlightMutation = { updateAvailableFlight?: Maybe<Pick<AvailableFlight, 'availableFlightId'>> };
+export type UpdateFlightMutation = { updateAvailableFlight: Pick<AvailableFlight, 'availableFlightId'> };
 
 export type GetShuttlePriceDetailsQueryVariables = {
   input: PriceDetailsInput;

@@ -96,6 +96,7 @@
                                   [min]="startDate"
                                   [max]="endDate"
                                   [steps]="{hour: 1, minute:15}"
+                                  (close)="handlePreventableEvent($event, 'close', true)"
                                   formControlName="departureDateTime"
                                   placeholder="Choose Date and Time"
                                   [readOnlyInput]="true"

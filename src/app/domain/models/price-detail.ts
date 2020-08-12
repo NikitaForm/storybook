@@ -15,4 +15,7 @@ export class PriceDetail {
   basePrice: number;
   type: PriceType;
   permitted: CharterPermissionsEnum;
+  flightRate?: number;
+  densityFee?: number;
+  landingFee?: number;
 }

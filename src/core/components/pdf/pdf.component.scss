@@ -1,0 +1,14 @@
+.container {
+  counter-reset: count;
+  height: 80vh;
+  overflow: hidden;
+  &>.pdf-wrapper {
+    height: 100%;
+  }
+}
+
+@media(max-width: 1200px) {
+  .xl-p-t-20 {
+    padding-top: 20px;
+  }
+}

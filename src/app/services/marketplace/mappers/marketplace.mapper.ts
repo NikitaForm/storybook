@@ -3,6 +3,7 @@ import * as models from '../../../domain/models';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { AvailableFlight, CharterPricing, ShuttlePricing } from '../../../domain/graphql-types';
+import { response as getLegDetailsResponse } from '../marketplace-mock/get-leg-details.response';
 
 export class MarketPlaceMapper {
   parseLegDetailsInternal(item: AvailableFlight): models.Order {
@@ -21,13 +22,7 @@ export class MarketPlaceMapper {
     order.type = models.PriceType[item.priceType];
 
     if (item.status) {
-      const departureDate = moment(new Date(item.departureTime));
-      const today = moment(new Date());
-      if (departureDate.diff(today) < 0) {
-        order.status = models.OrderStatusEnum.EXPIRED;
-      } else {
-        order.status = models.OrderStatusEnum[item.status];
-      }
+      order.status = models.OrderStatusEnum[item.status];
     } else {
       order.status = 0;
     }
@@ -41,9 +36,10 @@ export class MarketPlaceMapper {
       order.operatorPrice.basePrice = item.shuttlePricing.seatPrice;
     }
 
-    order.bookingsCount = item.bookings ? item.bookings.length : 0;
     order.seatsCount = item.seatsOffered;
     order.departureTime = moment(item.departureTime).toDate();
+    order.arrivalTime = item.arrivalTime ? moment(item.arrivalTime).toDate() : undefined;
+    order.createdDepartureTime = moment(item.createdDepartureTime).toDate();
 
     const originAirport = new models.Airport();
     originAirport.code = item.departureAirport.code;
@@ -102,7 +98,7 @@ export class MarketPlaceMapper {
 
     order.eft = Number(item.eft);
     order.externalId = item.externalId;
-    order.paxCount = order.bookingsCount;
+    order.paxCount = item.passengers ? item.passengers.length : 0;
 
     return order;
   }
@@ -114,8 +110,9 @@ export class MarketPlaceMapper {
     if (bookings) {
       legRequestDetailsArray = bookings.map(booking => {
         const legRequestDetails = new models.FlightRequestDetails();
-        legRequestDetails.requestTime = _.get(booking, 'timestamp', null);
-        legRequestDetails.legDetails = _.get(booking, 'shuttlePricing', null);
+        legRequestDetails.requestTime = _.get(booking, 'lastUpdated', null);
+        legRequestDetails.legDetails = _.get(booking, 'price', null);
+        legRequestDetails.passengerCount = _.get(booking, 'passengerCount', null);
         return legRequestDetails;
       });
     }
@@ -137,13 +134,7 @@ export class MarketPlaceMapper {
     order.contractType = models.ContractType[item.contractType];
 
     if (item.status) {
-      const departureDate = moment(new Date(item.departureTime));
-      const today = moment(new Date());
-      if (departureDate.diff(today) < 0) {
-        order.status = models.OrderStatusEnum.EXPIRED;
-      } else {
-        order.status = models.OrderStatusEnum[item.status];
-      }
+      order.status = models.OrderStatusEnum[item.status];
     } else {
       order.status = 0;
     }
@@ -157,9 +148,9 @@ export class MarketPlaceMapper {
       order.operatorPrice.basePrice = item.shuttlePricing.seatPrice;
     }
 
-    order.bookingsCount = item.bookings ? item.bookings.length : 0;
     order.seatsCount = item.seatsOffered;
     order.departureTime = moment(item.departureTime).toDate();
+    order.createdDepartureTime = moment(item.createdDepartureTime).toDate();
 
     const originFbo = new models.Fbo();
     if (item.departureFbo) {
@@ -185,7 +176,7 @@ export class MarketPlaceMapper {
     const destinationAirport = new models.Airport();
     destinationAirport.code = item.arrivalAirport.code;
 
-    order.paxCount = order.bookingsCount;
+    order.paxCount = item.passengers ? item.passengers.length : 0;
 
     const route = new models.Route();
     route.originAirport = originAirport;
@@ -218,6 +209,7 @@ export class MarketPlaceMapper {
     response.seatsCount = _.get(data, 'seatsOffered', null);
     response.percentageOfSalesPerSeat = _.get(data, 'brokerRate', null);
     response.basePrice = _.get(data, 'seatPrice', null);
+    response.permitted = _.get(data, 'permitted', null);
     return response;
   }
 
@@ -231,6 +223,10 @@ export class MarketPlaceMapper {
     response.segmentFee = _.get(data, 'segmentFeeCost', null);
     response.percentageOfSalesPerSeat = _.get(data, 'brokerRate', null);
     response.basePrice = _.get(data, 'flightPrice', null);
+    response.permitted = null;
+    response.landingFee = _.get(data, 'landingFee', 0);
+    response.flightRate = _.get(data, 'flightRate', 0);
+    response.densityFee = _.get(data, 'densityFee', 0);
     return response;
   }
 
@@ -249,13 +245,13 @@ export class MarketPlaceMapper {
   parseFlightPassengerDetailsInternal(data: AvailableFlight): Array<models.FlightPassengerDetails> {
     let response = new Array<models.FlightPassengerDetails>();
 
-    const bookings = _.get(data, 'bookings', null);
-    if (bookings) {
-      response = bookings.map(booking => {
+    const passengers = _.get(data, 'passengers', null);
+    if (passengers) {
+      response = passengers.map(passengerItem => {
         const passenger = new models.FlightPassengerDetails();
-        passenger.legalName = _.get(booking, 'passenger.legalName', null);
-        passenger.weight = _.get(booking, 'passenger.weight', null);
-        const dob: string = _.get(booking, 'passenger.dateOfBirth', null);
+        passenger.legalName = _.get(passengerItem, 'legalName', null);
+        passenger.weight = _.get(passengerItem, 'weight', null);
+        const dob: string = _.get(passengerItem, 'dateOfBirth', null);
         passenger.dateOfBirth = dob !== null ? moment(dob).format('YYYY-MM-DD') : null;
         return passenger;
       });
@@ -266,29 +262,57 @@ export class MarketPlaceMapper {
 
   parsePriceHistoryInternal(data: AvailableFlight): Array<models.PriceHistoryItem> {
     let response = new Array<models.PriceHistoryItem>();
+    let updatedPriceHistory;
 
     if (data.shuttlePriceHistory) {
-      const updatedShuttlePriceHistory = [...data.shuttlePriceHistory, data.shuttlePricing];
-      response = updatedShuttlePriceHistory.reverse().map(priceItem => {
-        const priceHistoryItem = new models.PriceHistoryItem();
-        const d: string = _.get(priceItem, 'effective', null);
-        priceHistoryItem.createTime = d !== null ? moment(d).toDate() : null;
-        priceHistoryItem.basePrice = _.get(priceItem, 'seatPrice', null);
-        // response.name = _.get(data, 'user_name', null);
-        priceHistoryItem.seatsCount = _.get(data, 'seatOffered', null);
-        return priceHistoryItem;
-      });
+      updatedPriceHistory = [...data.shuttlePriceHistory, data.shuttlePricing];
     } else if (data.charterPriceHistory) {
-      const updatedCharterPriceHistory = [...data.charterPriceHistory, data.charterPricing];
-      response = updatedCharterPriceHistory.reverse().map(priceItem => {
+      updatedPriceHistory = [...data.charterPriceHistory, data.charterPricing];
+    }
+    if (updatedPriceHistory) {
+      response = updatedPriceHistory.reverse().map(priceItem => {
         const priceHistoryItem = new models.PriceHistoryItem();
         const d: string = _.get(priceItem, 'effective', null);
         priceHistoryItem.createTime = d !== null ? moment(d).toDate() : null;
-        priceHistoryItem.basePrice = _.get(priceItem, 'flightPrice', null);
-        // response.name = _.get(data, 'user_name', null);
+        priceHistoryItem.basePrice = _.get(priceItem, data.shuttlePriceHistory ? 'seatPrice' : 'flightPrice', null);
+        const adjusterName = ((_.get(priceItem, 'user.firstName', '') || '') + ' ' +
+          (_.get(priceItem, 'user.lastName', '') || '')).trim();
+        priceHistoryItem.name = adjusterName || null;
+        priceHistoryItem.seatsCount = _.get(priceItem, 'seatsOffered', null);
         return priceHistoryItem;
       });
     }
+    return response;
+  }
+
+  parseRepositioningItineraries(data: AvailableFlight): any {
+    let response: any;
+
+    if (models.ContractType[data.contractType] === models.ContractType.CHARTER) {
+      response = {};
+    } else {
+      return null;
+    }
+
+    response.flexibility = _.get(data, 'repositioningItinerary.flexibility', null);
+    response.flightRate = _.get(data, 'repositioningItinerary.flightRate', null);
+    response.landingFee = _.get(data, 'repositioningItinerary.landingFee', null);
+
+    const flights = _.get(data, 'repositioningItinerary.itinerary', null);
+    if (flights) {
+      response.flights = flights.map(
+        flight => {
+          const parsedFlight: any = {};
+          parsedFlight.legDetails = this.parseLegDetailsInternal(flight.flight);
+
+          parsedFlight.priceDetails = this.parsePriceDetailsInternal(flight.flight);
+          return parsedFlight;
+        }
+      );
+    } else {
+      response.flights = null;
+    }
+
     return response;
   }
 }

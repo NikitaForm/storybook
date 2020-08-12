@@ -1,0 +1,142 @@
+.app-view .content {
+  padding-top: 0px !important;
+}
+
+.app-wrapper, .page-container {
+  background: #eeeff3 !important;
+}
+
+.page-container-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  .page-container {
+    width: calc(100% - 200px);
+    .page-content-wrapper {
+      .content {
+        padding-top: 110px;
+      }
+    }
+  }
+
+  @media (max-width: 1025px) {
+    .page-container {
+      width: 100%;
+    }
+    width: 100%;
+  }
+}
+
+.browser-error {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.54);
+  h3 {
+    vertical-align: middle;
+  }
+}
+
+#sidebar-navigation-wrapper {
+
+  &.collapsed {
+    width: 0;
+    display: none;
+  }
+
+  //width: 200px;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1001;
+  //background: #19222b;npm
+  color: #fff;
+  transition: all 0.3s;
+
+  .overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+  }
+  #sidebar-wrapper {
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    align-items: flex-start;
+    .sidebar-nav li {
+      position: relative;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      flex-direction: column;
+      height: 110px;
+      border-bottom: 1px solid #ffffff1a;
+      &:hover, &.active {
+        background: #98b3ce30;
+      }
+
+      &>a {
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        i {
+          font-size: 22px;
+          margin-bottom: 5px;
+          color: #be3a43;
+        }
+      }
+    }
+
+  }
+}
+
+.header {
+  background: white !important;
+  display: flex;
+  height: 110px;
+  position: fixed;
+  right: 0;
+  left: auto !important;
+  top: 0;
+  width: calc(100vw - 200px);
+
+  @media (max-width: 1025px) {
+    width: 100%;
+  }
+
+  .toggle-sidebar-btn {
+    display: none;
+    @media (max-width: 1025px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 80px;
+    z-index: 1000;
+  }
+
+
+  @media (max-width: 1025px) {
+    width: 100%;
+  }
+}
+
+
+
+

@@ -1,0 +1,53 @@
+.container, .insurance-content {
+  counter-reset: count;
+}
+
+ul {
+  margin: 20px 0 0 0; padding: 0;
+  li {
+    list-style: none;
+    .underline {
+      text-decoration: underline;
+    }
+  }
+
+  li::before {
+    counter-increment: count;
+    content: counter(count) ". ";
+    text-decoration: underline;
+  }
+}
+
+@media(max-width: 1200px) {
+  .xl-p-t-20 {
+    padding-top: 20px;
+  }
+}
+
+table {
+  border-top: 1px solid;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th {
+  line-height: 1.42;
+}
+
+
+.table th,
+.table td {
+  white-space: normal;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  font-size: 12px;
+  text-transform: none;
+  color: initial;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-right: 1px solid;
+}

@@ -1,0 +1,48 @@
+.app-view .content {
+  padding-top: 0px !important;
+}
+
+.app-wrapper, .page-container {
+  background: #eeeff3 !important;
+}
+
+.page-container-wrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  .page-container {
+    width: calc(100% - 200px);
+    .page-content-wrapper {
+      .content {
+        padding-top: 110px;
+      }
+    }
+  }
+
+  @media (max-width: 1025px) {
+    .page-container {
+      width: 100%;
+    }
+    width: 100%;
+  }
+}
+
+.browser-error {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.54);
+   h3 {
+     vertical-align: middle;
+   }
+}
+
+
+
+

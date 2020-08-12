@@ -1,0 +1,49 @@
+<div class="bg-creamy">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a>Home</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <a>User Agreement</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container m-t-20">
+  <h4>User Agreement</h4>
+  <div class="row">
+    <div class="col-sm-12">
+      <user-agreement [agreement]="agreement">
+      </user-agreement>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col m-l-15">
+      <form [formGroup]="form"
+            novalidate>
+        <div class="checkbox ">
+          <input id="cbAgree"
+                 #cbAgree
+                 class="form-group"
+                 type="checkbox"
+                 formControlName="agreementConfirmation">
+          <label for="cbAgree"
+                 class="text-justify"
+                 style="white-space: normal">
+            By checking this box I confirm that I have read and agree to be bound by the Agreement above.</label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row p-r-20 p-b-20">
+    <div class="col">
+      <button type="button"
+              class="btn btn-primary btn-cons from-left pull-right"
+              (click)="submit()">
+        <span>Submit</span>
+      </button>
+    </div>
+  </div>
+</div>

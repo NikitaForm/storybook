@@ -1,0 +1,66 @@
+<!-- BEGIN SIDEBcard-->
+
+<pg-sidebar>
+  <ng-template #sideBarOverlay>
+    <div class="row">
+      <div class="col">
+        <h5 class="pull-left text-white p-l-15">{{userName}}</h5>
+      </div>
+    </div>
+    <div class="row m-t-20">
+      <div class="col">
+        <button type="button"
+                class="btn btn-info btn-block"
+                (click)="signOut.emit(true)">
+          <h6 class="pull-left text-white">Logout</h6>
+          <span class="pull-right text-white"
+                style="margin-top: 10px">
+            <i class="fal fa-power-off"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #sideBarHeader>
+    <img src="assets/img/favicons/apple-icon-57x57.png"
+         alt="logo"
+         class="brand"
+         data-src="assets/img/favicons/apple-icon-57x57.png"
+         ui-jq="unveil"
+         data-src-retina="assets/img/favicons/apple-icon-57x57.png"
+         width="57"
+         height="57">
+    <div class="sidebar-header-controls">
+      <button class="btn btn-xs sidebar-slide-toggle btn-link d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-none"
+              type="button"
+              (click)="toggleMenuDrawer.emit()">
+        <i class="fa fa-angle-down fs-16"></i>
+      </button>
+      <button type="button"
+              class="btn btn-link d-lg-inline-block d-xlg-inline-block d-md-none d-none"
+              data-toggle-pin="sidebar"
+              *ngIf="menuPinThreeWay === 0"
+              (click)="toggleMenu.emit()">
+        <i class="fal fa-circle"></i>
+      </button>
+      <button type="button"
+              class="btn btn-link d-lg-inline-block d-xlg-inline-block d-md-none d-none"
+              data-toggle-pin="sidebar"
+              *ngIf="menuPinThreeWay === 1"
+              (click)="toggleMenu.emit()">
+        <i class="fas fa-circle"></i>
+      </button>
+      <button type="button"
+              class="btn btn-link d-lg-inline-block d-xlg-inline-block d-md-none d-none"
+              data-toggle-pin="sidebar"
+              *ngIf="menuPinThreeWay === 2"
+              (click)="toggleMenu.emit()">
+        <i class="fal fa-dot-circle"></i>
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #menuItems>
+    <pg-menu-items [Items]="menuLinks">
+    </pg-menu-items>
+  </ng-template>
+</pg-sidebar>

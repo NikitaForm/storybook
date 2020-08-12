@@ -1,0 +1,44 @@
+
+.home {
+    text-align: center;
+}
+
+.center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.action-btn {
+    width: 200px;
+    position: fixed;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.action-btn-wrapper {
+  top: 20%;
+  position: absolute;
+}
+
+.home-heading{
+    opacity: 0;
+    font-size: 1.5em;
+}
+
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+.fade-in {
+  animation-name: fade-in ;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-delay: 100ms;
+}

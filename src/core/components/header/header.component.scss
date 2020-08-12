@@ -1,0 +1,31 @@
+.header {
+  background: white !important;
+  display: flex;
+  height: 110px;
+  position: fixed;
+  right: 0;
+  left: auto !important;
+  top: 0;
+  width: calc(100vw - 200px);
+
+  @media (max-width: 1025px) {
+    width: 100%;
+  }
+
+  .toggle-sidebar-btn {
+    display: none;
+    @media (max-width: 1025px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 80px;
+    z-index: 1000;
+  }
+
+
+  @media (max-width: 1025px) {
+    width: 100%;
+  }
+}

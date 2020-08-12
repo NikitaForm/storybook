@@ -1,0 +1,53 @@
+<div class="container-fixed-header">
+<!--  <order-list-filters [intIdAutoCompleteOptions]="intIdsData$ | async"-->
+<!--                      [tailNumberAutoCompleteOptions]="tailNumbersData$ | async"-->
+<!--                      [filterValues]="filterValues$ | async"-->
+<!--                      (onFilterValuesChanged)="filterValuesChanged($event)"-->
+<!--                      (onUserInput)="loadAutocompleteOptions($event)">-->
+<!--  </order-list-filters>-->
+</div>
+
+
+
+<div class="m-t-40 bookings-wrapper">
+  <!-- <h4>My Flights</h4> -->
+  <div class="row">
+    <div class="col col-sm-12"
+         [ngSwitch]="(items$ | async).length > 0">
+      <div class="dataTables_wrapper"
+           *ngSwitchCase="true">
+        <mc-order-list [items]="items$ | async"
+                       (onSelect)="select($event)">
+        </mc-order-list>
+        <div class="row">
+          <pagination class="dataTables_paginate paging_simple_numbers"
+                      [itemsPerPage]="itemsPerPage$ | async"
+                      [maxSize]="7"
+                      [ngModel]="currentPage$ | async"
+                      (pageChanged)="pageChanged($event)"
+                      [totalItems]="itemsTotalCount$ | async">
+          </pagination>
+
+          <div class="dataTables_info">
+            <page-summary [currentPage]="currentPage$ | async"
+                          [itemsPerPage]="itemsPerPage$ | async"
+                          [totalItems]="itemsTotalCount$ | async">
+            </page-summary>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchDefault>
+        <h5>No flights match your search</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<sidepanel class="sidepanel"
+           [toggle]="flightDetailsDialogVisible$ | async"
+           (toggleChange)="onCloseFlightDetailsDialog()"
+           style="z-index: 1001">
+  <flight-details-dialog *ngIf="flightDetailsDialogVisible$ | async"
+                         (close)="onCloseFlightDetailsDialog()">
+  </flight-details-dialog>
+</sidepanel>

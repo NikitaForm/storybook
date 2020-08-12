@@ -1,0 +1,125 @@
+<!-- START HEADER -->
+<div class="header p-r-0 p-l-0">
+  <div class="container-fluid">
+    <div class="page-content-wrapper">
+      <div class="header-md-height">
+        <!-- LEFT SIDE -->
+        <div class="pull-left">
+          <h3>{{title}}</h3>
+        </div>
+
+
+
+        <!-- START User Info-->
+        <div class="pull-right"
+             style="z-index: 2">
+          <div class="dropdown pull-right"
+               dropdown>
+            <button class="profile-dropdown-toggle"
+                    type="button"
+                    dropdownToggle
+                    id="profileDropdown">
+            <span class="thumbnail-wrapper d32 circular inline m-t-5">
+              <img src="assets/img/profiles/profile-picture-default.png"
+                   alt=""
+                   data-src="assets/img/profiles/profile-picture-default.png"
+                   ui-jq="unveil"
+                   width="32"
+                   height="32">
+            </span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right p-b-0"
+                *dropdownMenu
+                role="menu">
+              <li>
+                <div class="dropdown-item">
+                  <h5 [innerHTML]="getUserHeader()"></h5>
+                </div>
+              </li>
+              <li class="divider dropdown-divider m-b-0"></li>
+              <li role="menuitem"
+                  class="bg-master-lighter">
+                <a class="clearfix dropdown-item"
+                   (click)="signOut()">
+                  <h6 class="pull-left">Logout</h6>
+                  <span class="pull-right"
+                        style="margin-top: 13px">
+                  <i class="fal fa-power-off"></i>
+                </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pull-right toggle-sidebar-btn"
+             style="z-index: 2; margin-top: 15px;">
+          <!-- START ACTION BAR -->
+          <a (click)="toggleSidebar()"
+             class="m-t-10 btn-link toggle-sidebar padding-5"
+             href="javascript:void(0)"
+          >
+            <span class="pg pg-menu"></span>
+          </a>
+          <!-- END ACTION BAR -->
+        </div>
+        <!-- END User Info-->
+        <!-- <div class=" pull-right"> -->
+
+
+        <!-- START User Info-->
+        <!--<div class="visible-lg visible-md m-t-10">-->
+        <!--<div class="pull-left p-r-10 p-t-10 fs-16 font-heading">-->
+        <!--</div>-->
+        <!--<div class="dropdown pull-right">-->
+        <!--<button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"-->
+        <!--aria-expanded="false">-->
+        <!--<span class="thumbnail-wrapper d32 circular inline m-t-5">-->
+        <!--<a ui-jq="unveil" class="glyphicon glyphicon-th fs-16"></a>-->
+        <!--</span>-->
+        <!--</button>-->
+        <!--<div class="dropdown-menu profile-dropdown" role="menu">-->
+        <!--<div class="container p-t-15 p-b-15" style="width: 280px; height: 280px;">-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-4">-->
+        <!--<button class="btn btn-default no-padding" style="width: 70px; height: 70px;">-->
+        <!--<div><i class="fa fa-thumbs-up" style="font-size: 32px;"></i></div>-->
+        <!--<div><span class="fs-12">JetWings</span></div>-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+        <!--<button class="btn btn-default no-padding" style="width: 70px; height: 70px;">-->
+        <!--<div><i class="fa fa-heartbeat" style="font-size: 32px;"></i></div>-->
+        <!--<div><span class="fs-12">JetPulse</span></div>-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!-- END User Info-->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END HEADER -->

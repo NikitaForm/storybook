@@ -1,0 +1,291 @@
+<!-- START HEADER -->
+
+<!-- <page-container> -->
+<pg-header>
+  <!-- START MOBILE CONTROLS -->
+
+  <a href="javascript:void(0)"
+     class="btn-link toggle-sidebar d-lg-none pg pg-menu"
+     (click)="toggleMobileSidebar.emit()"></a>
+
+  <div class="brand inline">
+    <!-- <img src="assets/img/logo.svg"
+           alt="logo"
+           data-src="assets/img/logo.svg"
+           data-src-retina="assets/img/logo.svg"
+           width="156"
+           height="30"
+           class="d-xs-block d-lg-none"> -->
+
+    <img src="assets/img/favicons/apple-icon-57x57.png"
+         alt="logo"
+         class="d-xs-block d-lg-none"
+         data-src="assets/img/favicons/apple-icon-57x57.png"
+         ui-jq="unveil"
+         data-src-retina="assets/img/favicons/apple-icon-57x57.png"
+         width="57"
+         height="57">
+
+    <h4 class="d-none d-lg-block font-weight-200"
+        [innerHTML]="getApplicationHeader()"></h4>
+  </div>
+
+
+  <div class="d-flex align-items-center">
+    <div [hidden]="!appSwitcherIsVisible"
+         class="pull-left m-t-5 p-r-10 fs-14 font-heading d-lg-block d-none">
+      <div class="dropdown pull-right"
+           dropdown>
+        <button class="profile-dropdown-toggle m-r-10"
+                type="button"
+                dropdownToggle
+                id="profileDropdown">
+          <i class="far fa-lg fa-ellipsis-v"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right profile-dropdown"
+             *dropdownMenu
+             style="width: 280px; height: 280px; right: -12px"
+             role="menu">
+          <div class="container m-t-15">
+            <div class="row">
+              <div class="col col-xs-4">
+                <button class="btn btn-default no-padding"
+                        (click)="appSwitcher.emit(0)"
+                        style="width: 70px; height: 70px;">
+                  <div><i class="fal fa-plane"
+                       style="font-size: 32px;"></i></div>
+                  <div><span class="fs-12">JetStudio</span></div>
+                </button>
+              </div>
+              <div class="col col-xs-4">
+                <button class="btn btn-default no-padding"
+                        (click)="appSwitcher.emit(1)"
+                        style="width: 70px; height: 70px;">
+                  <div><i class="fal fa-exclamation-triangle"
+                       style="font-size: 32px;"></i></div>
+                  <div><span class="fs-12">Legacy</span></div>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-xs-4">
+              </div>
+              <div class="col col-xs-4">
+              </div>
+              <div class="col col-xs-4">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-xs-4">
+              </div>
+              <div class="col col-xs-4">
+              </div>
+              <div class="col col-xs-4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="pull-right d-lg-block d-none">
+      <div class="dropdown pull-right"
+           dropdown>
+        <button class="profile-dropdown-toggle"
+                type="button"
+                dropdownToggle
+                id="profileDropdown">
+          <span class="thumbnail-wrapper d32 circular inline m-t-5">
+            <img src="assets/img/profiles/profile-picture-default.png"
+                 alt=""
+                 data-src="assets/img/profiles/profile-picture-default.png"
+                 ui-jq="unveil"
+                 width="32"
+                 height="32">
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right p-b-0"
+            *dropdownMenu
+            role="menu">
+          <li>
+            <div class="dropdown-item">
+              <h5 [innerHTML]="getUserHeader()"></h5>
+            </div>
+          </li>
+          <li class="divider dropdown-divider m-b-0"></li>
+          <li role="menuitem"
+              class="bg-master-lighter">
+            <a class="clearfix dropdown-item"
+               (click)="onSignOut()">
+              <h6 class="pull-left">Logout</h6>
+              <span class="pull-right"
+                    style="margin-top: 13px">
+                <i class="fal fa-power-off"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- <div class="container-fluid relative">
+      <!~~ LEFT SIDE ~~>
+      <div class="pull-left full-height visible-sm visible-xs">
+        <!~~ START ACTION BAR ~~>
+        <div class="header-inner"
+             data-ng-show="showSidebar()">
+          <a href="#"
+             class="btn-link toggle-sidebar visible-sm-inline-block visible-xs-inline-block padding-5"
+             data-toggle="sidebar">
+            <span class="icon-set menu-hambuger"></span>
+          </a>
+        </div>
+        <!~~ END ACTION BAR ~~>
+      </div>
+      <div class="pull-center hidden-md hidden-lg">
+        <div class="header-inner">
+          <div class="brand inline">
+            <img src="assets/img/logo.svg"
+                 alt="logo"
+                 data-src="assets/img/logo.svg"
+                 data-src-retina="assets/img/logo.svg"
+                 width="156"
+                 height="30">
+          </div>
+        </div>
+      </div>
+      <!~~ RIGHT SIDE ~~>
+      <div class="pull-right full-height visible-sm visible-xs">
+        <!~~ START ACTION BAR ~~>
+        <!~~<div class="header-inner">~~>
+        <!~~<a ng-if="includes('app.layouts.horizontal')" href="#" class="btn-link visible-xs-inline-block visible-sm-inline-block m-r-10" pg-horizontal-menu-toggle>~~>
+        <!~~<span class="pg pg-arrow_minimize"></span>~~>
+        <!~~</a>~~>
+        <!~~<a href="#" class="btn-link visible-sm-inline-block visible-xs-inline-block" data-toggle="quickview" data-toggle-element="#quickview">~~>
+        <!~~<span class="icon-set menu-hambuger-plus"></span>~~>
+        <!~~</a>~~>
+        <!~~</div>~~>
+        <!~~ END ACTION BAR ~~>
+      </div>
+    </div> -->
+  <!-- END MOBILE CONTROLS -->
+  <!-- <div class=" pull-left sm-table hidden-xs hidden-sm">
+      <div class="header-inner">
+        <div class="brand inline">
+          <!~~<img class="m-l-65" src="assets/img/logo.svg" alt="logo" data-src="assets/img/logo.svg" ui-jq="unveil"~~>
+          <!~~data-src-retina="assets/img/logo.svg" width="156" height="30">~~>
+          <h4 [innerHTML]="getApplicationHeader()"></h4>
+        </div>
+      </div>
+    </div> -->
+  <!-- <div class=" pull-right">
+      <!~~ START User Info~~>
+      <div class="d-none d-md-block m-t-10">
+        <!~~<div class="pull-left p-r-10 p-t-10 fs-16 font-heading">~~>
+        <!~~<span class="semi-bold">{{user.firstName}}</span> <span class="text-master">{{user.lastName}}</span>~~>
+        <!~~</div>~~>
+        <div class="dropdown pull-right">
+          <button class="profile-dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+            <span class="thumbnail-wrapper d32 circular inline m-t-5">
+              <img src="assets/img/profiles/profile-picture-default.png"
+                   alt=""
+                   data-src="assets/img/profiles/profile-picture-default.png"
+                   ui-jq="unveil"
+                   width="32"
+                   height="32">
+            </span>
+          </button>
+          <ul class="dropdown-menu profile-dropdown"
+              role="menu">
+            <li>
+              <div class="m-l-20">
+                <h5 [innerHTML]="getUserHeader()"></h5>
+              </div>
+            </li>
+            <li class="bg-master">
+
+            </li>
+            <li class="bg-master-lighter">
+              <a class="clearfix"
+                 (click)="onSignOut()">
+                <span class="pull-left">Logout</span>
+                <span class="pull-right"><i class="pg-power"></i></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!~~ END User Info~~>
+    </div>
+    <div class=" pull-right"
+         [hidden]="!appSwitcherIsVisible">
+      <!~~ START App Switcher~~>
+      <div class="d-none d-md-block m-t-10">
+        <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
+        </div>
+        <div class="dropdown pull-right">
+          <button class="profile-dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+            <span class="thumbnail-wrapper d32 circular inline m-t-5">
+              <a ui-jq="unveil"
+                 class="glyphicon glyphicon-th fs-16"></a>
+            </span>
+          </button>
+          <div class="dropdown-menu profile-dropdown"
+               role="menu">
+            <div class="container p-t-15 p-b-15"
+                 style="width: 280px; height: 280px;">
+              <div class="row">
+                <div class="col col-xs-4">
+                  <button class="btn btn-default no-padding"
+                          style="width: 70px; height: 70px;">
+                    <div><i class="fal fa-plane"
+                         style="font-size: 32px;"></i></div>
+                    <div><span class="fs-12">JetStudio</span></div>
+                  </button>
+                </div>
+                <!~~<div class="col col-xs-4">~~>
+                <!~~<button class="btn btn-default no-padding" style="width: 70px; height: 70px;">~~>
+                <!~~<div><i class="fal fa-heartbeat" style="font-size: 32px;"></i></div>~~>
+                <!~~<div><span class="fs-12">JetPulse</span></div>~~>
+                <!~~</button>~~>
+                <!~~</div>~~>
+                <div class="col col-xs-4">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-xs-4">
+                </div>
+                <div class="col col-xs-4">
+                </div>
+                <div class="col col-xs-4">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-xs-4">
+                </div>
+                <div class="col col-xs-4">
+                </div>
+                <div class="col col-xs-4">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!~~ END App Switcher~~>
+    </div> -->
+</pg-header>
+<!-- END HEADER -->
+<!-- </page-container> -->

@@ -1,0 +1,9 @@
+<div class="preview-outside" *ngIf="toggle"></div>
+<div class="slide-wrapper">
+  <div class="pane-container" [@slideAnimation]="toggle">
+    <div class="pane" (click)="outside()"></div>
+    <div class="pane preview-body" [ngStyle]="{'width': width}">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

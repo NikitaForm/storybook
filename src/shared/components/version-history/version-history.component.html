@@ -1,0 +1,40 @@
+<div class="card card-default">
+  <div class="card-body">
+    <div *ngFor="let version of releaseList; let last = last;">
+      <div class="row" [ngClass]="{'p-b-40': last === false}">
+        <div class="col col-sm-1">
+        </div>
+        <div class="col col-sm-2">
+          <h2>{{ version.version }}</h2>
+          <div>
+            {{version.date | date : 'shortDate' : 'UTC'}}
+          </div>
+
+        </div>
+        <div class="col col-sm-7">
+          <div *ngIf="version.newFeatures.length">
+            <h4>New Features:</h4>
+            <div>
+              <ul>
+                <li *ngFor="let lineItem of version.newFeatures">[{{lineItem.feature}}] {{lineItem.description}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div *ngIf="version.bugFixes.length">
+            <h4 class="p-t-20">Bug Fixes:</h4>
+            <div>
+              <ul>
+                <li *ngFor="let lineItem of version.bugFixes">[{{lineItem.feature}}] {{lineItem.description}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <hr *ngIf="last === false" />
+        </div>
+        <div class="col col-sm-2">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

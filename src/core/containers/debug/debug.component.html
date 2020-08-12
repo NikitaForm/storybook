@@ -1,0 +1,72 @@
+<div class="quickview-wrapper  builder hidden-sm hidden-xs"
+     [class.open]="viewOpen">
+  <div class="p-l-30 p-r-30 m-t-10">
+    <a class="builder-close quickview-toggle pg pg-close"
+       style="z-index: 999;"
+       (click)="closeView()"
+       href="javascript:void(0)"></a>
+    <a class="builder-toggle"
+       style="z-index: 998;"
+       (click)="toggleView()"><i class="pg pg-theme"></i></a>
+    <pg-tabset tabAnimation="slide-left"
+               Type="linetriangle"
+               [SelectedIndex]="0"
+               extraTabContentClass="bg-white">
+      <pg-tab [Disabled]="true">
+        <ng-template #TabHeading>
+          Notifications
+        </ng-template>
+        <div class="scrollable">
+
+          <div class="form-group form-group-default form-group-default-select">
+            <label>Notification Color</label>
+            <select [(ngModel)]="notificationColor"
+                    class="form-control">
+              <option [ngValue]="0">Danger</option>
+              <option [ngValue]="1">Default</option>
+              <option [ngValue]="2">Info</option>
+              <option [ngValue]="3">Warning</option>
+              <option [ngValue]="4">Success</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-default form-group-default-select">
+            <label>Notification Position</label>
+            <select [(ngModel)]="notificationPosition"
+                    class="form-control">
+              <option [ngValue]="0">Top</option>
+              <option [ngValue]="1">TopLeft</option>
+              <option [ngValue]="2">TopRight</option>
+              <option [ngValue]="3">Bottom</option>
+              <option [ngValue]="4">BottomLeft</option>
+              <option [ngValue]="5">BottomRight</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group-default form-group-default-select">
+            <label>Notification Style</label>
+            <select [(ngModel)]="notificationStyle"
+                    class="form-control">
+              <option [ngValue]="0">Bar</option>
+              <option [ngValue]="1">Circle</option>
+            </select>
+          </div>
+
+          <div *ngIf="notificationStyle === 1"
+               class="form-group form-group-default form-group-default-select">
+            <label>With Image</label>
+            <select [(ngModel)]="useImage"
+                    class="form-control">
+              <option [ngValue]="false">No</option>
+              <option [ngValue]="true">Yes</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-cons pull-right"
+                  (click)="showNotification()">Dispatch</button>
+        </div>
+      </pg-tab>
+    </pg-tabset>
+
+  </div>
+</div>

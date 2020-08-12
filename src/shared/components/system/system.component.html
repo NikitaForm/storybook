@@ -1,0 +1,41 @@
+<div class="quickview-wrapper  builder hidden-sm hidden-xs" [class.open]="viewOpen">
+    <div class="p-l-30 p-r-30 m-t-10">
+      <a class="builder-close quickview-toggle pg pg-close" (click)="closeView()" href="javascript:void(0)"></a>
+      <a class="builder-toggle" (click)="toggleView()"><i class="pg pg-theme"></i></a>
+      <pg-tabset tabAnimation="slide-left" Type="simple" ShowPagination="true" extraTabContentClass="p-l-30">
+          <pg-tab>
+            <ng-template #TabHeading>
+                System
+            </ng-template>
+            <div class="scrollable">
+              <div class="p-l-10 p-r-50">
+                <div class="row">
+                  <div class="col col-sm-12">
+                    <p class="no-margin">
+                      Version
+                    </p>
+                    <p class="small hint-text m-b-20">
+                      {{ version }}
+                    </p>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-sm-12">
+                    <p class="no-margin">
+                      Environment
+                    </p>
+                    <p class="small hint-text m-b-20">
+                      {{ environment | environment }}
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </pg-tab>
+      </pg-tabset>
+
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="full-height app-wrapper">
+  <!-- BEGIN APP -->
+  <!-- BEGIN SIDEBAR -->
+  <op-sidebar [viewPermissions]="viewPermissions$ | async"
+              [collapsed]="!isSidebarToggled && isNarrowDevices"
+              (clickOutside)="closeSidebar($event)"
+              [overlay]="isNarrowDevices">
+  </op-sidebar>
+  <!-- END SIDEBAR -->
+  <!-- START PAGE-CONTAINER -->
+  <div class="page-container-wrapper">
+    <div class="page-container full-height">
+      <!-- START PAGE HEADER WRAPPER -->
+      <op-header *ngIf="(isAppView$ | async) === false"
+                 (onMenuTabOpen)="menuTabOpen($event)"
+                 (sidebarToggle)="onSidebarToggle($event)"
+                 (onSignOut)="signOut()"
+                 [title]="title$ | async"
+                 [userName]="userName$ | async"
+                 [showSidebar]="isSidebarToggled"
+                 [viewPermissions]="viewPermissions$ | async"
+                 [user]="user$ | async">
+      </op-header>
+      <!-- END PAGE HEADER WRAPPER -->
+      <!-- START PAGE CONTENT WRAPPER -->
+      <div [ngClass]="{'page-content-wrapper':!(isFullWidthView$ | async), 'landing-content-wrapper': (isFullWidthView$ | async), 'app-view':( isAppView$ | async ), 'shrunk': !menuTabIsOpen, 'extended': menuTabIsOpen, 'full-height': (isAppView$ | async ) || (isLoading$ | async) || (isFullHeightView$ | async)}">
+        <!-- START PAGE CONTENT -->
+        <div class="content"
+             [ngClass]="{'full-height':((isAppView$ | async) || (isLoading$ | async) || (isFullHeightView$ | async))}">
+          <spinner class="full-height"
+                   [xo]="true"
+                   *ngIf="!isIEBrowser && (isLoading$ | async) "></spinner>
+          <div *ngIf="isIEBrowser"
+               class="browser-error">
+            <h3>IE browser does not support</h3>
+          </div>
+          <div class="full-height full-width"
+               [hidden]="isIEBrowser || (isLoading$ | async )">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+        <footer *ngIf="(isAppView$ | async ) == false"></footer>
+      </div>
+      <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+  </div>
+  <!-- END PAGE CONTAINER -->
+  <!--START QUICKVIEW -->
+  <debug *ngIf="isDebug$ | async"
+         [environment]="environment"
+         [version]="version$ | async">
+  </debug>
+  <!--<div ng-include src=" 'tpl/blocks/quick_view.html' " include-replace>-->
+  <!--</div>-->
+  <!-- END QUICKVIEW-->
+  <!-- END APP -->
+</div>

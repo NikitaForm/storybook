@@ -27,3 +27,4 @@ export { PriceType } from './price-type.enum';
 export { PriceDetail } from './price-detail';
 export { PriceHistoryItem } from './price-history-item';
 export { ContractType } from './contract-type.enum';
+export { ExpirationOffsetEnum } from './expiration-offset.enum';

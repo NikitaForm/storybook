@@ -26,4 +26,7 @@ export class Order {
   type: PriceType;
   contractType: ContractType;
   availableFlightId: string;
+  createdDepartureTime: Date;
+  repositioningItinerary: any;
+  arrivalTime: Date;
 }

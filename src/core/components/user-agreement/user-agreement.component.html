@@ -1,0 +1,21 @@
+<h5>This is a legal agreement between you and JetSmarter.</h5>
+<div>
+  <span><i class="fa fa-file-pdf-o"></i><a href="javascript:void(0)"
+       (click)="downloadPdf()"
+       class="m-l-10">Download PDF</a></span>
+</div>
+<!--<div class="m-t-15 bg-creamy"-->
+<!--style="height: 550px; overflow-y:scroll;border:1px solid rgba(0, 0, 0, 0.07);padding:10px;">-->
+<!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a libero feugiat, aliquet erat vitae, commodo est. Integer at felis-->
+<!--bibendum augue porta ultrices. Vivamus condimentum est et ultricies dapibus. Sed porta nulla tortor, id cursus ante bibendum in. Sed nec urna-->
+<!--eros. Ut nec purus sem. Nulla leo tellus, mollis ut sagittis sit amet, sollicitudin eu risus. Quisque ultricies, felis ut mattis pulvinar,-->
+<!--quam arcu imperdiet ex, sit amet sodales diam metus in erat. Suspendisse tristique pretium est vitae tincidunt.-->
+<!--</div>-->
+<div *ngIf="!showAgreement">
+  <spinner class="full-height"
+           [xo]="true"></spinner>
+</div>
+<div *ngIf="showAgreement">
+  <div class="user-agreement m-t-15"
+       [innerHTML]="innerHtml()"></div>
+</div>

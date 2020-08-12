@@ -33,6 +33,13 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { OrderFormComponentDT } from './order-form-dt/order-form.component';
 import { OrderFormV3Component } from './order-form-v3/order-form.component';
 import { OrderFormV4Component } from './order-form-v4/order-form.component';
+import { LandingComponent } from './landing/landing.component';
+import { MainLandingScreenComponent } from './main-landing/main-screen.component';
+import { OrderListPageComponent } from './order-list-page/order-list-page.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { FlightDetailsDialogComponent } from './flight-details-dialog/flight-details-dialog.component';
+import { PriceComponentComponent } from './price-details/price-details.component';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -49,7 +56,13 @@ import { OrderFormV4Component } from './order-form-v4/order-form.component';
     ConfirmationDialogComponent,
     OrderFormComponentDT,
     OrderFormV3Component,
-    OrderFormV4Component
+    OrderFormV4Component,
+    LandingComponent,
+    MainLandingScreenComponent,
+    OrderListPageComponent,
+    OrderListComponent,
+    PriceComponentComponent,
+    FlightDetailsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +82,8 @@ import { OrderFormV4Component } from './order-form-v4/order-form.component';
     SharedModule,
     DialogModule,
     DateTimePickerModule,
-    TimePickerModule
+    TimePickerModule,
+    CoreModule
   ],
   providers: [
     {

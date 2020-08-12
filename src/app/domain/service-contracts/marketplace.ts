@@ -10,8 +10,6 @@ export interface IMarketplaceService {
   submitOrder(request: SubmitOrderRequest): Observable<SubmitOrderResponse>;
   updateOrder(request: UpdateOrderRequest): Observable<UpdateOrderResponse>;
   getFlightDetails(id): Observable<GetFlightDetailsResponse>;
-  getPriceHistory(id): Observable<GetPriceHistoryResponse>;
-  getFlightPassengerDetails(id): Observable<GetPassengerDetailsResponse>;
   validateEft(request: any): Observable<Maybe<Pick<FlightEstimate, 'minimumEft' | 'maximumEft'>>>;
   validatePrice(request: any): Observable<ValidatePriceResponse>;
   getFilteredOrderList(request): Observable<GetFilteredOrderListResponse>;
@@ -42,8 +40,9 @@ export class ValidatePriceResponse {
 export class GetPriceDetailsRequest {
   basePrice: number;
   seatsCount: number;
-  originAirport: string;
-  destinationAirport: string;
+  departureAirportCode: string;
+  arrivalAirportCode: string;
+  departureTime: Date;
 }
 
 export class GetPriceDetailsResponse {
@@ -148,6 +147,7 @@ export class GetFlightDetailsResponse {
   priceDetailsEntities: Array<models.PriceDetail> = new Array<models.PriceDetail>();
   passengerDetailsEntities: Array<Array<models.FlightPassengerDetails>> = new Array<Array<models.FlightPassengerDetails>>();
   priceHistoryEntities: Array<Array<models.PriceHistoryItem>> = new Array<Array<models.PriceHistoryItem>>();
+  repositioningItinerary: any = {};
 }
 
 export class GetPriceHistoryResponse {
@@ -188,6 +188,10 @@ export class SubmitOrderRequest {
   priceType: string;
   contractType: string;
   charterPrice: number;
+  flexibility: number;
+  expirationOffset: number;
+  flightRate: number;
+  landingFee: number;
 }
 
 export class SubmitOrderResponse {
