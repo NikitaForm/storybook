@@ -92,7 +92,7 @@ export const response = {
             'flexibility': '200',
             'landingFee': '500',
             itinerary: [{
-              type: 'PRIVATE_CHARTER',
+              type: 'EMPTY_FLIGHT',
               startTime: '2020-08-06T03:00:00',
               duration: 30,
               flight: {

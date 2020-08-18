@@ -124,7 +124,8 @@ const initialState: State = {
       },
       seatsCount: 6,
       departureTime: new Date('2020-08-07T21:00:00.000Z'),
-      createdDepartureTime: new Date('2020-08-07T21:00:00.000Z'),
+      createdDepartureTime: new Date('2020-08-06T21:00:00.000Z'),
+      arrivalTime: new Date('8/28/20, 5:00 AM'),
       originFbo: {
         id: 12848,
         name: 'Customs Hangar 1'
@@ -169,6 +170,7 @@ const initialState: State = {
       seatsCount: 6,
       departureTime: new Date('2020-08-24T21:00:00.000Z'),
       createdDepartureTime: new Date('2020-08-24T21:00:00.000Z'),
+      arrivalTime: new Date('8/28/20, 5:00 AM'),
       originFbo: {
         id: 9830,
         name: 'Banyan Air Service'

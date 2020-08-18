@@ -2,10 +2,10 @@ import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter, HostListene
 // import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
-import * as models from '../domain/models';
-import * as actions from '../application/actions/flight-details';
-import * as reducers from '../application/reducers';
-import * as marketplaceContracts from '../domain/service-contracts/marketplace';
+import * as models from '../../domain/models';
+import * as actions from '../../application/actions/flight-details';
+import * as reducers from '../../application/reducers';
+import * as marketplaceContracts from '../../domain/service-contracts/marketplace';
 
 import { combineLatest, Observable, BehaviorSubject } from 'rxjs';
 import { take, delay, map, catchError } from 'rxjs/operators';

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import * as models from '../domain/models';
+import * as models from '../../domain/models';
 
 @Component({
   selector: `mc-order-list`,

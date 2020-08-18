@@ -5,24 +5,24 @@ import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
-import * as actions from '../application/actions/order-collection';
-import * as flightActions from '../application/actions/flight-details';
-import * as reducers from '../application/reducers';
-import * as sharedTypes from '../../shared/types';
-import * as models from '../domain/models';
-import * as layoutActions from '../../shared/actions/layout';
+import * as actions from '../../application/actions/order-collection';
+import * as flightActions from '../../application/actions/flight-details';
+import * as reducers from '../../application/reducers';
+import * as sharedTypes from '../../../shared/types';
+import * as models from '../../domain/models';
+import * as layoutActions from '../../../shared/actions/layout';
 
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { take, skip, filter } from 'rxjs/operators';
 declare var moment: any;
 
 @Component({
-  selector: `order-list-page`,
+  selector: `order-list-page-v2`,
   templateUrl: `./order-list-page.component.html`,
   styleUrls: ['./order-list-page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrderListPageComponent implements OnInit, OnDestroy {
+export class OrderListPageV2Component implements OnInit, OnDestroy {
 
   currentPage$: Observable<number>;
   isLoading$: Observable<boolean>;

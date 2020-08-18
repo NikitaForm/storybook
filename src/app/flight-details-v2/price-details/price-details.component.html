@@ -1,0 +1,92 @@
+<div class="form-group row justify-content-center" *ngIf="!short">
+  <label class="control-label text-left col-6">Operator %</label>
+  <div class="text-right col-6">
+    <span class="form-text">{{ getInvertedPercentage(priceDetails.percentageOfSalesPerSeat) | percent:'2.0' }}</span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="!short">
+  <label class="control-label text-left col-6">XO %</label>
+  <div class="text-right col-6">
+    <span class="form-text">{{ priceDetails.percentageOfSalesPerSeat | percent:'2.0' }}</span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="!short">
+  <label class="control-label text-left col-6">Operator Rev</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.operatorShare | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="!short">
+  <label class="control-label text-left col-6">XO Rev</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.jetsmarterShare | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center"
+     *ngIf="price !== null">
+  <label class="control-label text-left col-6"><ng-container *ngIf="priceDetails.landingFee">Regular </ng-container>Price</label>
+  <div class="text-right col-6">
+    <span class="form-text">{{ price | currency:'USD':'symbol-narrow':'.2-2' }}</span>
+  </div>
+</div>
+<div class="form-group row justify-content-center">
+  <label class="control-label text-left col-6">Segment Fee</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.segmentFee | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center">
+  <label class="control-label text-left col-6">FET</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.fetTax | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="(short || total) && priceDetails.landingFee">
+  <label class="control-label text-left col-6">Landing Fee</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.landingFee | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="(short || total) && priceDetails.flightRate">
+  <label class="control-label text-left col-6">Repositioning</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.flightRate | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center" *ngIf="(short || total) && priceDetails.densityFee">
+  <label class="control-label text-left col-6">Density Fee</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.densityFee | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center"
+     *ngIf="priceDetails.creditCardFee !== null">
+  <label class="control-label text-left col-6">CC Fee</label>
+  <div class="text-right col-6">
+    <span class="form-text">
+      {{priceDetails.creditCardFee | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>
+<div class="form-group row justify-content-center p-t-15" style="border-top: 1px solid #dee2e6 !important;" *ngIf="!short">
+  <label class="control-label text-left bold col-6">Total Price</label>
+  <div class="text-right col-6">
+    <span class="form-text text-danger">
+      {{priceDetails.price | currency:'USD':'symbol-narrow':'.2-2'}}
+    </span>
+  </div>
+</div>

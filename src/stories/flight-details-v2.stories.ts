@@ -12,32 +12,32 @@ import { HttpClientModule } from '@angular/common/http';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextMaskModule } from 'angular2-text-mask';
-import { OrderListPageComponent } from '../app/flight-details/order-list-page/order-list-page.component';
-import { OrderListComponent } from '../app/flight-details/order-list/order-list.component';
 import { ContractTypePipe, MinutesToTimePipe, OrderStatusPipe, PriceTypePipe } from '../app/pipes';
 import { StoreModule } from '@ngrx/store';
 import { CustomSerializer, metaReducers, reducers, State } from '../reducers';
 import { SharedModule } from '../shared/shared.module';
-import { FlightDetailsDialogComponent } from '../app/flight-details/flight-details-dialog/flight-details-dialog.component';
-import { PriceComponentComponent } from '../app/flight-details/price-details/price-details.component';
 import { pgTabsModule } from '../assets/pages/components/tabs/tabs.module';
 import * as marketplaceServiceContracts from '../app/domain/service-contracts/marketplace';
 import * as moduleServices from '../app/services';
 import { EffectsModule } from '@ngrx/effects';
 import * as moduleEffects from '../app/application/effects';
+import { OrderListPageV2Component } from '../app/flight-details-v2/order-list-page/order-list-page.component';
+import { OrderListV2Component } from '../app/flight-details-v2/order-list/order-list.component';
+import { FlightDetailsDialogV2Component } from '../app/flight-details-v2/flight-details-dialog/flight-details-dialog.component';
+import { PriceComponentV2Component } from '../app/flight-details-v2/price-details/price-details.component';
 
 export default {
-  title: 'Flight details flexibility',
-  component: OrderListPageComponent,
+  title: 'Flight details flexibility v2',
+  component: OrderListPageV2Component,
   decorators: [
     moduleMetadata({
-      declarations: [OrderListPageComponent,
-        OrderListComponent,
+      declarations: [OrderListPageV2Component,
+        OrderListV2Component,
         OrderStatusPipe,
         ContractTypePipe,
         MinutesToTimePipe,
-        FlightDetailsDialogComponent,
-        PriceComponentComponent,
+        FlightDetailsDialogV2Component,
+        PriceComponentV2Component,
       PriceTypePipe],
       imports: [CommonModule, GridModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
@@ -64,12 +64,12 @@ export default {
   ],
 };
 
-export const FlightDetailsStory = () => ({
-  component: OrderListPageComponent,
+export const FlightDetailsV2Story = () => ({
+  component: OrderListPageV2Component,
 });
 
-FlightDetailsStory.story = {
-  name: 'Order list',
+FlightDetailsV2Story.story = {
+  name: 'Order list V2',
 };
 
 
