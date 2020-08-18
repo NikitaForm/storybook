@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextMaskModule } from 'angular2-text-mask';
-import { ContractTypePipe, MinutesToTimePipe, OrderStatusPipe, PriceTypePipe } from '../app/pipes';
+import { ContractTypePipe, ExpirationOffsetPipe, MinutesToTimePipe, OrderStatusPipe, PriceTypePipe } from '../app/pipes';
 import { StoreModule } from '@ngrx/store';
 import { CustomSerializer, metaReducers, reducers, State } from '../reducers';
 import { SharedModule } from '../shared/shared.module';
@@ -38,7 +38,8 @@ export default {
         MinutesToTimePipe,
         FlightDetailsDialogV2Component,
         PriceComponentV2Component,
-      PriceTypePipe],
+        PriceTypePipe,
+        ExpirationOffsetPipe],
       imports: [CommonModule, GridModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,

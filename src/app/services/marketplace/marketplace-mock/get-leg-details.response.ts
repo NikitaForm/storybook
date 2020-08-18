@@ -87,6 +87,7 @@ export const response = {
           'priceType': 'FIXED',
           'shuttlePriceHistory': null,
           'charterPriceHistory': null,
+          'expirationOffset': 3,
           'repositioningItinerary': {
             'flightRate': '500',
             'flexibility': '200',
@@ -357,6 +358,7 @@ export const response = {
         'shuttlePriceHistory': null,
         'charterPriceHistory': null,
         '__typename': 'AvailableFlight',
+          'expirationOffset': 3,
         'repositioningItinerary': {
           'flightRate': '44',
           'flexibility': '60',

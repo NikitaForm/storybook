@@ -29,4 +29,5 @@ export class Order {
   createdDepartureTime: Date;
   repositioningItinerary: any;
   arrivalTime: Date;
+  expirationOffset?: number;
 }

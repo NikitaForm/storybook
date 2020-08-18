@@ -99,6 +99,7 @@ export class MarketPlaceMapper {
     order.eft = Number(item.eft);
     order.externalId = item.externalId;
     order.paxCount = item.passengers ? item.passengers.length : 0;
+    order.expirationOffset = item.expirationOffset;
 
     return order;
   }

@@ -167,16 +167,15 @@
                     <span>{{ (legDetails$ | async)?.destinationFbo?.phoneNumber }}</span>
                   </div>
                 </div>
-                <div class="flex-row m-t-20">
-                  <div class="flex-col-30 text-left">
-                    <span><strong>EFT:</strong> {{ (legDetails$ | async)?.eft | minutesToTime}}</span><br>
+                <div class="row m-t-20">
+                  <div class="col-sm-6 text-left">
+                    <span><strong>Model:</strong> {{ (legDetails$ | async)?.aircraft.aircraftModel.name }}</span><br>
+                    <span><strong>EFT:</strong> {{ (legDetails$ | async)?.eft | minutesToTime}}</span>
                   </div>
-                  <div class="flex-col-30 text-center">
-                    <span><strong>Model:</strong> {{ (legDetails$ | async)?.aircraft.aircraftModel.name }}</span>
-                  </div>
-                  <div class="flex-col-30 text-right">
-                    <span><strong>Tail:</strong></span>
-                    <span> {{ (legDetails$ | async)?.aircraft.tailNumber }}</span>
+
+                  <div class="col-sm-6 text-right">
+                    <span><strong>Tail:</strong> {{ (legDetails$ | async)?.aircraft.tailNumber }}</span><br>
+                    <span><strong>Expiration Offset:</strong> {{ (legDetails$ | async)?.expirationOffset | expirationOffset }}</span>
                   </div>
                 </div>
               </div>
