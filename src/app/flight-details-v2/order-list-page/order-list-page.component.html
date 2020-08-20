@@ -16,7 +16,7 @@
          [ngSwitch]="(items$ | async).length > 0">
       <div class="dataTables_wrapper"
            *ngSwitchCase="true">
-        <mc-order-list-v2 [items]="items$ | async"
+        <mc-order-list-v2 [items]="items$ | async | slice : 0 :2"
                        (onSelect)="select($event)">
         </mc-order-list-v2>
         <div class="row">

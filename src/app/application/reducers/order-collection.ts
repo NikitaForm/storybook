@@ -199,7 +199,53 @@ const initialState: State = {
         flexibility: 200,
         itinerary: [1, 2]
       }
-    }
+    },
+    {
+      aircraft: {
+        insuranceExpirationDate: null,
+        insuranceApproved: false,
+        tailNumber: 'N227SV',
+        aircraftModel: {
+          name: 'Gulfstream IV'
+        }
+      },
+      contractType: 1,
+      status: 1,
+      legacyLegId: 382859,
+      operatorPrice: {
+        percentageOfSale: 0,
+        basePrice: 400
+      },
+      seatsCount: 6,
+      departureTime: new Date('2020-09-02T10:20:00.000Z'),
+      createdDepartureTime: new Date('2020-09-02T10:20:00.000Z'),
+      arrivalTime: new Date('2020-09-02T11:05:00.000Z'),
+      actualDepartureTime: new Date('2020-09-02T10:20:00.000Z'),
+      originFbo: {
+        id: 10134,
+        name: 'Northstar Aviation Inc'
+      },
+      destinationFbo: {
+        id: 13165,
+        name: 'Sheltair Aviation Services'
+      },
+      eft: null,
+      externalId: 'sf',
+      paxCount: 0,
+      route: {
+        originAirport: {
+          code: 'KPVD'
+        },
+        destinationAirport: {
+          code: 'KLGA'
+        },
+        originCity: {
+          name: null,
+          state: null,
+          country: null
+        }
+      }
+    },
   ],
   itemsPerPage: 15,
   itemsTotalCount: 2,

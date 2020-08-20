@@ -1,0 +1,101 @@
+<div class="order-list-wrapper">
+  <div class="tile-container">
+    <div class="tile"
+         *ngFor="let order of items">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <span class="status text-uppercase bold"
+                  [ngClass]="{'bg-brand text-white': order.status === orderStatus.OPEN || order.status === orderStatus.BOOKED}">
+              {{ order.status | orderStatus }}
+            </span>
+          </div>
+          <div class="bold contract-type text-uppercase">
+            <span class="text-right"> {{order.contractType | contractType : 'short'}}</span>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="title">
+<!--                <h5 class="m-t-0 p-t-0 bold">{{order.route.originAirport.code}} - {{order.route.destinationAirport.code}}<span class="inline-block"-->
+<!--                                                                                                                               *ngIf="order.repositioningItinerary.itinerary.length">+{{order.repositioningItinerary.itinerary.length}}</span></h5> -->
+                <h5 *ngIf="order?.repositioningItinerary?.itinerary" class="m-t-0 p-t-0 bold"><span class="repositioning-leg">KFXE - </span>KPBI - KFLL</h5>
+                <h5 *ngIf="!order?.repositioningItinerary?.itinerary" class="m-t-0 p-t-0 bold">{{order.route.originAirport.code}} - {{order.route.destinationAirport.code}}</h5>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-5 bold text-uppercase">INT ID:</div>
+            <div class="col-7">{{order.externalId}}</div>
+          </div> -->
+          <div class="row">
+            <div class="col-5 bold text-uppercase">XO Leg ID:</div>
+            <div class="col-7">{{order.legacyLegId}}</div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase">TAIL:</div>
+            <div class="col-7 m-b-10"> <span class="bold">{{order.aircraft.tailNumber}}</span><br /><span>{{order.aircraft.aircraftModel.name}}</span></div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase label-text">{{order.contractType === sharedSeats ? 'Departure' : 'Earliest Departure'}}<span class="updated-label"
+                                                                                                                                               *ngIf="isDepartureDateOverridden(order)"> (updated)</span>:</div>
+            <div class="col-7"><span class="old-value"
+                                     *ngIf="isDepartureDateOverridden(order)">{{order.createdDepartureTime | date : 'EEE, MMM. dd, yy'}}
+              <span class="time-value">{{order.createdDepartureTime | date : 'shortTime'}}</span><br></span>
+              <span>{{order.departureTime | date : 'EEE, MMM. dd, yy'}} </span><span
+                class="time-value">{{order.departureTime | date : 'shortTime'}}</span>
+            </div>
+          </div>
+
+          <ng-container *ngIf="order.contractType === sharedSeats; else wholeCharterBlock">
+            <div class="row">
+              <div class="col-5 bold text-uppercase">SEATS BOOKED:</div>
+              <div class="col-7"><b>{{order.paxCount}}</b> of <b>{{order.seatsCount}}</b></div>
+            </div>
+            <div class="row">
+              <div class="col-5 bold text-uppercase">SEAT PRICE:</div>
+              <div class="col-7">{{ order.operatorPrice.basePrice | currency: 'USD': 'symbol-narrow' : '.2-2'  }}</div>
+            </div>
+          </ng-container>
+          <ng-template #wholeCharterBlock>
+            <div class="row">
+              <div class="col-5 bold text-uppercase">Latest Arrival:</div>
+              <div class="col-7">
+                <span>{{order.arrivalTime | date : 'EEE, MMM. dd, yy'}} </span>
+                <span class="time-value">{{order.arrivalTime | date : 'shortTime'}}</span></div>
+            </div>
+            <div class="row">
+              <div class="col-5 bold text-uppercase">MAX PAX:</div>
+              <div class="col-7"><b>{{order.seatsCount}}</b></div>
+            </div>
+            <div class="row">
+              <div class="col-5 bold text-uppercase">FLIGHT PRICE:</div>
+              <div class="col-7">{{ order.operatorPrice.basePrice | currency: 'USD': 'symbol-narrow' : '.2-2'  }}</div>
+            </div>
+            <div class="row" *ngIf="order.repositioningItinerary?.flexibility">
+              <div class="col-5 bold text-uppercase">FLEXIBILITY:</div>
+              <div class="col-7">{{ order.repositioningItinerary.flexibility | minutesToTime }}</div>
+            </div>
+          </ng-template>
+
+          <div class="row" *ngIf="order.externalId">
+            <div class="col-5 bold text-uppercase label-text">Trip Identifier:</div>
+            <div class="col-7">{{order.externalId}}</div>
+          </div>
+        </div>
+        <div class="footer-icon">
+          <a href="javascript:void(0)"
+             (click)="onSelect.emit(order)">
+            <!-- <i class="fas fa-expand-arrows-alt"></i> -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="25"
+                 height="25"
+                 viewBox="0 0 25 25">
+              <path d="M24.22,0h-7a.78.78,0,1,0-.06,1.56h5.2l-6.8,6.8a.78.78,0,0,0,1,1.17l.07-.07,6.81-6.8V7.81a.78.78,0,1,0,1.56,0v-7A.78.78,0,0,0,24.22,0ZM.78,8.59a.78.78,0,0,0,.78-.78V2.67l6.8,6.8a.78.78,0,0,0,1.1-1.11l-6.8-6.8H7.81A.78.78,0,0,0,7.81,0h-7A.78.78,0,0,0,0,.78H0v7a.78.78,0,0,0,.78.78h0Zm7.59,6.94-6.81,6.8V17.18a.78.78,0,0,0-1.56,0v7A.78.78,0,0,0,.78,25h7a.78.78,0,1,0,0-1.56H2.67l6.8-6.8a.78.78,0,0,0-1-1.2l-.09.09Zm15.85.88a.78.78,0,0,0-.78.78h0v5.14l-6.8-6.8a.78.78,0,1,0-1.17,1l.07.07,6.8,6.81H17.19a.78.78,0,0,0,0,1.56h7a.78.78,0,0,0,.78-.78h0v-7a.78.78,0,0,0-.78-.78Z"
+                    transform="translate(0 0)"
+                    fill="#d7d8de" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

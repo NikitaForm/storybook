@@ -90,7 +90,7 @@ export const response = {
           'expirationOffset': 3,
           'repositioningItinerary': {
             'flightRate': '500',
-            'flexibility': '200',
+            'flexibility': '180',
             'landingFee': '500',
             itinerary: [{
               type: 'EMPTY_FLIGHT',
@@ -182,7 +182,8 @@ export const response = {
                 'shuttlePriceHistory': null,
                 'charterPriceHistory': null,
                 '__typename': 'AvailableFlight'
-              }},
+              }
+            },
               {
                 type: 'PRIVATE_CHARTER',
                 startTime: '2020-08-06T03:00:00',
@@ -276,184 +277,297 @@ export const response = {
           }
         } as any,
         {
-        'availableFlightId': '0cd406c5-1fd6-4135-89f5-394bb2010abf',
-        'contractType': 'CHARTER',
-        'aircraft': {'tailNumber': 'N173KR', 'modelName': 'Learjet 60', 'maxPax': 6, '__typename': 'Aircraft'},
-        'status': 'OPEN',
-        'legacyLegId': 381613,
-        'shuttlePricing': null,
-        'charterPricing': {
-          'customerPrice': 4444,
-          'brokerShare': 1111.0,
-          'brokerRate': 0.25,
-          'operatorShare': 3333.00,
-          'federalTaxCost': 0.00,
-          'segmentFeeCost': 0.00,
-          'flightPrice': 4444,
-          'effective': '2020-08-05T12:50:27.373',
-          'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
-          '__typename': 'CharterPricing'
-        },
-        'seatsOffered': 6,
-        'bookings': null,
-        'passengers': null,
-        'departureTime': '2020-08-07T00:12:00',
-        'createdDepartureTime': '2020-08-06T00:00:00',
-        'departureFbo': {
-          'fboId': '12848',
-          'address': {
-            'line1': '',
-            'line2': null,
-            'city': 'Teterboro',
-            'state': 'NEW JERSEY',
-            'country': 'UNITED STATES',
-            '__typename': 'Address'
+          'availableFlightId': '0cd406c5-1fd6-4135-89f5-394bb2010abf',
+          'contractType': 'CHARTER',
+          'aircraft': {'tailNumber': 'N173KR', 'modelName': 'Learjet 60', 'maxPax': 6, '__typename': 'Aircraft'},
+          'status': 'OPEN',
+          'legacyLegId': 381613,
+          'shuttlePricing': null,
+          'charterPricing': {
+            'customerPrice': 4444,
+            'brokerShare': 1111.0,
+            'brokerRate': 0.25,
+            'operatorShare': 3333.00,
+            'federalTaxCost': 0.00,
+            'segmentFeeCost': 0.00,
+            'flightPrice': 4444,
+            'effective': '2020-08-05T12:50:27.373',
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'CharterPricing'
           },
-          'phoneNumber': '(201) 288-1775x7',
-          'name': 'Customs Hangar 1',
-          '__typename': 'FBO'
-        },
-        'arrivalFbo': {
-          'fboId': '9827',
-          'address': {
-            'line1': '240 SW 34th St, Fort Lauderdale, FL 33315',
-            'line2': 'Fort Lauderdale/Hollywood Intl',
-            'city': 'Fort Lauderdale',
-            'state': 'FLORIDA',
-            'country': 'UNITED STATES',
-            '__typename': 'Address'
+          'seatsOffered': 6,
+          'bookings': null,
+          'passengers': null,
+          'departureTime': '2020-08-07T00:12:00',
+          'createdDepartureTime': '2020-08-06T00:00:00',
+          'departureFbo': {
+            'fboId': '12848',
+            'address': {
+              'line1': '',
+              'line2': null,
+              'city': 'Teterboro',
+              'state': 'NEW JERSEY',
+              'country': 'UNITED STATES',
+              '__typename': 'Address'
+            },
+            'phoneNumber': '(201) 288-1775x7',
+            'name': 'Customs Hangar 1',
+            '__typename': 'FBO'
           },
-          'phoneNumber': '(954) 359-9991',
-          'name': 'JetScape Services',
-          '__typename': 'FBO'
-        },
-        'externalId': 'dd',
-        'departureAirport': {
-          'code': 'KTEB',
-          'address': {
-            'line1': null,
-            'line2': null,
-            'city': 'Teterboro',
-            'state': 'New Jersey',
-            'country': 'United States',
-            '__typename': 'Address'
+          'arrivalFbo': {
+            'fboId': '9827',
+            'address': {
+              'line1': '240 SW 34th St, Fort Lauderdale, FL 33315',
+              'line2': 'Fort Lauderdale/Hollywood Intl',
+              'city': 'Fort Lauderdale',
+              'state': 'FLORIDA',
+              'country': 'UNITED STATES',
+              '__typename': 'Address'
+            },
+            'phoneNumber': '(954) 359-9991',
+            'name': 'JetScape Services',
+            '__typename': 'FBO'
           },
-          '__typename': 'Airport'
-        },
-        'arrivalAirport': {
-          'code': 'KFLL',
-          'address': {
-            'line1': null,
-            'line2': null,
-            'city': 'Fort Lauderdale',
-            'state': 'Florida',
-            'country': 'United States',
-            '__typename': 'Address'
+          'externalId': 'dd',
+          'departureAirport': {
+            'code': 'KTEB',
+            'address': {
+              'line1': null,
+              'line2': null,
+              'city': 'Teterboro',
+              'state': 'New Jersey',
+              'country': 'United States',
+              '__typename': 'Address'
+            },
+            '__typename': 'Airport'
           },
-          '__typename': 'Airport'
-        },
-        'arrivalTime': '2020-08-06T03:00:00',
-        'eft': 180,
-        'priceType': 'FIXED',
-        'shuttlePriceHistory': null,
-        'charterPriceHistory': null,
-        '__typename': 'AvailableFlight',
+          'arrivalAirport': {
+            'code': 'KFLL',
+            'address': {
+              'line1': null,
+              'line2': null,
+              'city': 'Fort Lauderdale',
+              'state': 'Florida',
+              'country': 'United States',
+              '__typename': 'Address'
+            },
+            '__typename': 'Airport'
+          },
+          'arrivalTime': '2020-08-06T03:00:00',
+          'eft': 180,
+          'priceType': 'FIXED',
+          'shuttlePriceHistory': null,
+          'charterPriceHistory': null,
+          '__typename': 'AvailableFlight',
           'expirationOffset': 3,
-        'repositioningItinerary': {
-          'flightRate': '44',
-          'flexibility': '60',
-          'landingFee': '44',
-          // itinerary: [{
-          //   type: 'PRIVATE_CHARTER',
-          //   startTime: '2020-08-06T03:00:00',
-          //   duration: 200,
-          //   // flight: {
-          //   //   'availableFlightId': '0cd406c5-1fd6-4135-89f5-394bb2010abf',
-          //   //   'contractType': 'CHARTER',
-          //   //   'aircraft': {'tailNumber': 'N173KR', 'modelName': 'Learjet 60', 'maxPax': 6, '__typename': 'Aircraft'},
-          //   //   'status': 'OPEN',
-          //   //   'legacyLegId': 381610,
-          //   //   'shuttlePricing': null,
-          //   //   'charterPricing': {
-          //   //     'customerPrice': 4444,
-          //   //     'brokerShare': 1111.0,
-          //   //     'brokerRate': 0.25,
-          //   //     'operatorShare': 3333.00,
-          //   //     'federalTaxCost': 0.00,
-          //   //     'segmentFeeCost': 0.00,
-          //   //     'flightPrice': 4444,
-          //   //     'effective': '2020-08-05T12:50:27.373',
-          //   //     'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
-          //   //     '__typename': 'CharterPricing'
-          //   //   },
-          //   //   'seatsOffered': 6,
-          //   //   'bookings': null,
-          //   //   'passengers': null,
-          //   //   'departureTime': '2020-08-07T00:12:00',
-          //   //   'createdDepartureTime': '2020-08-06T00:00:00',
-          //   //   'departureFbo': {
-          //   //     'fboId': '12848',
-          //   //     'address': {
-          //   //       'line1': '',
-          //   //       'line2': null,
-          //   //       'city': 'Teterboro',
-          //   //       'state': 'NEW JERSEY',
-          //   //       'country': 'UNITED STATES',
-          //   //       '__typename': 'Address'
-          //   //     },
-          //   //     'phoneNumber': '(201) 288-1775x7',
-          //   //     'name': 'Customs Hangar 1',
-          //   //     '__typename': 'FBO'
-          //   //   },
-          //   //   'arrivalFbo': {
-          //   //     'fboId': '9827',
-          //   //     'address': {
-          //   //       'line1': '240 SW 34th St, Fort Lauderdale, FL 33315',
-          //   //       'line2': 'Fort Lauderdale/Hollywood Intl',
-          //   //       'city': 'Fort Lauderdale',
-          //   //       'state': 'FLORIDA',
-          //   //       'country': 'UNITED STATES',
-          //   //       '__typename': 'Address'
-          //   //     },
-          //   //     'phoneNumber': '(954) 359-9991',
-          //   //     'name': 'JetScape Services',
-          //   //     '__typename': 'FBO'
-          //   //   },
-          //   //   'externalId': 'dd',
-          //   //   'departureAirport': {
-          //   //     'code': 'KTEB',
-          //   //     'address': {
-          //   //       'line1': null,
-          //   //       'line2': null,
-          //   //       'city': 'Teterboro',
-          //   //       'state': 'New Jersey',
-          //   //       'country': 'United States',
-          //   //       '__typename': 'Address'
-          //   //     },
-          //   //     '__typename': 'Airport'
-          //   //   },
-          //   //   'arrivalAirport': {
-          //   //     'code': 'KFLL',
-          //   //     'address': {
-          //   //       'line1': null,
-          //   //       'line2': null,
-          //   //       'city': 'Fort Lauderdale',
-          //   //       'state': 'Florida',
-          //   //       'country': 'United States',
-          //   //       '__typename': 'Address'
-          //   //     },
-          //   //     '__typename': 'Airport'
-          //   //   },
-          //   //   'arrivalTime': '2020-08-06T03:00:00',
-          //   //   'eft': 180,
-          //   //   'priceType': 'FIXED',
-          //   //   'shuttlePriceHistory': null,
-          //   //   'charterPriceHistory': null,
-          //   // }
-          // }
-          // ]
-        }
-      } as any], '__typename': 'AvailableFlightPagination'
+          'repositioningItinerary': {
+            'flightRate': '44',
+            'flexibility': '60',
+            'landingFee': '44',
+            // itinerary: [{
+            //   type: 'PRIVATE_CHARTER',
+            //   startTime: '2020-08-06T03:00:00',
+            //   duration: 200,
+            //   // flight: {
+            //   //   'availableFlightId': '0cd406c5-1fd6-4135-89f5-394bb2010abf',
+            //   //   'contractType': 'CHARTER',
+            //   //   'aircraft': {'tailNumber': 'N173KR', 'modelName': 'Learjet 60', 'maxPax': 6, '__typename': 'Aircraft'},
+            //   //   'status': 'OPEN',
+            //   //   'legacyLegId': 381610,
+            //   //   'shuttlePricing': null,
+            //   //   'charterPricing': {
+            //   //     'customerPrice': 4444,
+            //   //     'brokerShare': 1111.0,
+            //   //     'brokerRate': 0.25,
+            //   //     'operatorShare': 3333.00,
+            //   //     'federalTaxCost': 0.00,
+            //   //     'segmentFeeCost': 0.00,
+            //   //     'flightPrice': 4444,
+            //   //     'effective': '2020-08-05T12:50:27.373',
+            //   //     'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            //   //     '__typename': 'CharterPricing'
+            //   //   },
+            //   //   'seatsOffered': 6,
+            //   //   'bookings': null,
+            //   //   'passengers': null,
+            //   //   'departureTime': '2020-08-07T00:12:00',
+            //   //   'createdDepartureTime': '2020-08-06T00:00:00',
+            //   //   'departureFbo': {
+            //   //     'fboId': '12848',
+            //   //     'address': {
+            //   //       'line1': '',
+            //   //       'line2': null,
+            //   //       'city': 'Teterboro',
+            //   //       'state': 'NEW JERSEY',
+            //   //       'country': 'UNITED STATES',
+            //   //       '__typename': 'Address'
+            //   //     },
+            //   //     'phoneNumber': '(201) 288-1775x7',
+            //   //     'name': 'Customs Hangar 1',
+            //   //     '__typename': 'FBO'
+            //   //   },
+            //   //   'arrivalFbo': {
+            //   //     'fboId': '9827',
+            //   //     'address': {
+            //   //       'line1': '240 SW 34th St, Fort Lauderdale, FL 33315',
+            //   //       'line2': 'Fort Lauderdale/Hollywood Intl',
+            //   //       'city': 'Fort Lauderdale',
+            //   //       'state': 'FLORIDA',
+            //   //       'country': 'UNITED STATES',
+            //   //       '__typename': 'Address'
+            //   //     },
+            //   //     'phoneNumber': '(954) 359-9991',
+            //   //     'name': 'JetScape Services',
+            //   //     '__typename': 'FBO'
+            //   //   },
+            //   //   'externalId': 'dd',
+            //   //   'departureAirport': {
+            //   //     'code': 'KTEB',
+            //   //     'address': {
+            //   //       'line1': null,
+            //   //       'line2': null,
+            //   //       'city': 'Teterboro',
+            //   //       'state': 'New Jersey',
+            //   //       'country': 'United States',
+            //   //       '__typename': 'Address'
+            //   //     },
+            //   //     '__typename': 'Airport'
+            //   //   },
+            //   //   'arrivalAirport': {
+            //   //     'code': 'KFLL',
+            //   //     'address': {
+            //   //       'line1': null,
+            //   //       'line2': null,
+            //   //       'city': 'Fort Lauderdale',
+            //   //       'state': 'Florida',
+            //   //       'country': 'United States',
+            //   //       '__typename': 'Address'
+            //   //     },
+            //   //     '__typename': 'Airport'
+            //   //   },
+            //   //   'arrivalTime': '2020-08-06T03:00:00',
+            //   //   'eft': 180,
+            //   //   'priceType': 'FIXED',
+            //   //   'shuttlePriceHistory': null,
+            //   //   'charterPriceHistory': null,
+            //   // }
+            // }
+            // ]
+          }
+        } as any,
+        {
+          'availableFlightId': 'a1e70251-e4e1-4938-bbce-96d74d6b4f41',
+          'contractType': 'SHUTTLE',
+          'aircraft': {'tailNumber': 'N227SV', 'modelName': 'Gulfstream IV', 'maxPax': 13, '__typename': 'Aircraft'},
+          'status': 'OPEN',
+          'legacyLegId': 382859,
+          'shuttlePricing': {
+            'seatsOffered': 6,
+            'customerPrice': 420.00,
+            'operatorShare': 300.00,
+            'brokerShare': 100.0,
+            'brokerRate': 0.25,
+            'creditCardCost': 20.00,
+            'federalTaxCost': 0.00,
+            'segmentFeeCost': 0.00,
+            'seatPrice': 400,
+            'effective': '2020-08-19T19:45:00.376',
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'ShuttlePricing'
+          },
+          'charterPricing': null,
+          'seatsOffered': 6,
+          'bookings': null,
+          'passengers': null,
+          'departureTime': '2020-09-02T13:20:00',
+          'createdDepartureTime': '2020-09-02T13:20:00',
+          'expirationOffset': 3,
+          'departureFbo': {
+            'fboId': '10134',
+            'address': {
+              'line1': '544 Airport Rd Warwick, RI 02886',
+              'line2': null,
+              'city': 'Providence',
+              'state': 'RHODE ISLAND',
+              'country': 'UNITED STATES',
+              '__typename': 'Address'
+            },
+            'phoneNumber': '(401) 738-2600',
+            'name': 'Northstar Aviation Inc',
+            '__typename': 'FBO'
+          },
+          'arrivalFbo': {
+            'fboId': '13165',
+            'address': {
+              'line1': '1 Marine Terminal Rd, Flushing, NY 11371',
+              'line2': null,
+              'city': 'New York',
+              'state': 'NEW YORK',
+              'country': 'UNITED STATES',
+              '__typename': 'Address'
+            },
+            'phoneNumber': '718-779-4040',
+            'name': 'Sheltair Aviation Services',
+            '__typename': 'FBO'
+          },
+          'externalId': null,
+          'departureAirport': {
+            'code': 'KPVD',
+            'address': {
+              'line1': null,
+              'line2': null,
+              'city': 'Providence',
+              'state': 'Rhode Island',
+              'country': 'United States',
+              '__typename': 'Address'
+            },
+            '__typename': 'Airport'
+          },
+          'arrivalAirport': {
+            'code': 'KLGA',
+            'address': {
+              'line1': null,
+              'line2': null,
+              'city': 'New York',
+              'state': 'New York',
+              'country': 'United States',
+              '__typename': 'Address'
+            },
+            '__typename': 'Airport'
+          },
+          'arrivalTime': '2020-09-02T14:05:00',
+          'eft': 45,
+          'priceType': 'DYNAMIC',
+          'shuttlePriceHistory': [{
+            'seatPrice': 400,
+            'effective': '2020-08-19T06:25:24.104',
+            'seatsOffered': 8,
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'ShuttlePricing'
+          }, {
+            'seatPrice': 400,
+            'effective': '2020-08-19T19:32:30.917',
+            'seatsOffered': 7,
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'ShuttlePricing'
+          }, {
+            'seatPrice': 400,
+            'effective': '2020-08-19T19:34:37.391',
+            'seatsOffered': 6,
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'ShuttlePricing'
+          }, {
+            'seatPrice': 400,
+            'effective': '2020-08-19T19:37:51.463',
+            'seatsOffered': 8,
+            'user': {'firstName': 'Test', 'lastName': 'Delta', '__typename': 'User'},
+            '__typename': 'ShuttlePricing'
+          }],
+          'charterPriceHistory': null,
+          'actualDepartureTime': '2020-09-02T13:20:00',
+          'actualArrivalTime': '2020-09-02T14:05:00',
+          '__typename': 'AvailableFlight'
+        } as any], '__typename': 'AvailableFlightPagination'
     }
   }
 };

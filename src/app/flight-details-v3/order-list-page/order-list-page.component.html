@@ -16,9 +16,9 @@
          [ngSwitch]="(items$ | async).length > 0">
       <div class="dataTables_wrapper"
            *ngSwitchCase="true">
-        <mc-order-list [items]="items$ | async | slice : 0 : 2"
+        <mc-order-list-v3 [items]="items$ | async"
                        (onSelect)="select($event)">
-        </mc-order-list>
+        </mc-order-list-v3>
         <div class="row">
           <pagination class="dataTables_paginate paging_simple_numbers"
                       [itemsPerPage]="itemsPerPage$ | async"
@@ -47,7 +47,7 @@
            [toggle]="flightDetailsDialogVisible$ | async"
            (toggleChange)="onCloseFlightDetailsDialog()"
            style="z-index: 1001">
-  <flight-details-dialog *ngIf="flightDetailsDialogVisible$ | async"
+  <flight-details-dialog-v3 *ngIf="flightDetailsDialogVisible$ | async"
                          (close)="onCloseFlightDetailsDialog()">
-  </flight-details-dialog>
+  </flight-details-dialog-v3>
 </sidepanel>
