@@ -17,6 +17,7 @@ import { pgTabsModule } from '../assets/pages/components/tabs/tabs.module';
 
 import { NotificationService } from '@progress/kendo-angular-notification';
 import { EffectsModule } from '@ngrx/effects';
+import { mod } from 'ngx-bootstrap/chronos/utils';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EffectsModule } from '@ngrx/effects';
     modulePipes.SafeHtmlPipe,
     modulePipes.DateWithNoTimeZonePipe,
     modulePipes.ServiceClassPipe,
-    modulePipes.EnumToArrayPipe
+    modulePipes.EnumToArrayPipe,
+    modulePipes.MinutesToTimePipe
   ],
   exports: [
     moduleComponents.BrowserNotSupportedComponent,
@@ -63,7 +65,8 @@ import { EffectsModule } from '@ngrx/effects';
     modulePipes.SafeHtmlPipe,
     modulePipes.DateWithNoTimeZonePipe,
     modulePipes.ServiceClassPipe,
-    modulePipes.EnumToArrayPipe
+    modulePipes.EnumToArrayPipe,
+    modulePipes.MinutesToTimePipe
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -79,7 +82,8 @@ import { EffectsModule } from '@ngrx/effects';
     modulePipes.ServiceClassPipe,
     moduleServices.ErrorWebServiceLoggerBridge,
     moduleServices.NotificationService,
-    moduleServices.ClipboardService
+    moduleServices.ClipboardService,
+    modulePipes.MinutesToTimePipe
   ],
   entryComponents: [moduleDirectives.PopoverContentComponent]
 })

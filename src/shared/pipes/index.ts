@@ -5,3 +5,4 @@ export { SafeHtmlPipe } from './safe-html.pipe';
 export { DateWithNoTimeZonePipe } from './date-with-no-time-zone.pipe';
 export { ServiceClassPipe } from './service-class-pipe';
 export { EnumToArrayPipe } from './enum-to-array.pipe';
+export { MinutesToTimePipe } from './minutes-to-time.pipe';

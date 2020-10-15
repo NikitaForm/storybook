@@ -1,0 +1,199 @@
+<div class="slide-dialog-body-scrollable wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h6 class="text-left bold"
+            *ngIf="!isMain">Operator</h6>
+        <h4 class="text-center bold"
+            *ngIf="isMain">Operator</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table dataTable no-footer no-margin">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-left">{{ orgLegalName }}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-t-20">
+      <div class="
+          col-sm-12">
+        <h6 class="text-left bold"
+            *ngIf="!isMain">Route Details</h6>
+        <h4 class="text-center bold"
+            *ngIf="isMain">Route Details
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive"
+             [ngClass]="{'m-t-25': isMain}">
+          <table class="table dataTable no-footer no-margin">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center">Legs</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Min Pax</th>
+              </tr>
+              <tr class="b-b b-solid b-grey"
+                  *ngFor="let leg of legs">
+                <td class="text-center">{{leg.getRoute().getOriginAirport().getCode()}} - {{leg.getRoute().getDestinationAirport().getCode()}}</td>
+                <td class="text-center">
+                  <ng-container [ngSwitch]="leg.getDepartureTimeTbd()">
+                    <span *ngSwitchCase="true">{{ leg.getDepartureDate() | date : 'shortDate' }}, TBD</span>
+                    <span *ngSwitchCase="false"> {{ leg.getDepartureDate() | date : 'short' }}</span>
+                  </ng-container>
+                </td>
+                <td class="text-center">{{leg.getPax()}}</td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-t-20">
+      <div class="col-sm-12">
+        <h6 class="text-left bold"
+            *ngIf="!isMain">Category</h6>
+        <h4 class="text-center bold"
+            *ngIf="isMain">Category
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table dataTable no-footer no-margin">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-left">{{ category.getName() }}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-t-20">
+      <div class="col-6">
+        <h6 class="text-left bold"
+            *ngIf="!isMain">Aircraft Requirements</h6>
+        <h4 class="text-center bold"
+            *ngIf="isMain">Aircraft Requirements
+        </h4>
+      </div>
+      <div class="col-6 text-right form-text p-t-15 p-r-5">
+        <!-- <a href="javascript:void(0)"
+           (click)="explainServiceClass()">Explain</a> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table dataTable no-footer no-margin">
+            <thead class="thead-light">
+<!--              <tr>-->
+<!--                <th class="text-left">{{ serviceClass | serviceClass }}</th>-->
+<!--              </tr>-->
+              <tr class="b-b b-solid b-grey">
+                <td class="text-left">
+                  <div [ngSwitch]="serviceClass">
+
+                    <div *ngSwitchCase="serviceClassEnum.CLASSIC">
+                      <ul>
+                        <li>XO Approved Aircraft List</li>
+                      </ul>
+                    </div>
+                    <div *ngSwitchCase="serviceClassEnum.PREMIUM">
+                      <ul>
+                        <li>XO Approved Aircraft List</li>
+                        <li>2000 or newer</li>
+                        <li>Refurbished in the past 10 years</li>
+                        <li>Complimentary wifi up to $250 per flight hour (US only)</li>
+                      </ul>
+                    </div>
+                    <div *ngSwitchCase="serviceClassEnum.LUXE">
+                      <ul>
+                        <li>XO Approved Aircraft List</li>
+                        <li>2007 or newer</li>
+                        <li>If older than 10 years, refurbished in the last 5 years</li>
+                        <li>Complimentary wifi up to $500 per flight hour</li>
+                        <li>Flight attendant available</li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="!purchaseOffer.openOffer">
+      <div class="row m-t-20">
+        <div class="col-sm-12">
+          <h6 class="text-left bold"
+              *ngIf="!isMain">Price Breakdown</h6>
+          <h4 class="text-center bold"
+              *ngIf="isMain">Price Breakdown
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table class="table dataTable no-footer no-margin">
+              <thead class="thead-light">
+              <tr>
+                <th class="text-left" style="font-size: 14px;" >Operator Share:</th>
+                <th style="font-size: 14px;" >{{purchaseOffer.getOperatorPrice() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              <tr>
+                <th class="text-left bg-white" style="font-size: 9px;">XO Commission:</th>
+                <th class="bg-white" style="font-size: 9px;">{{purchaseOffer.getCommission() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              <tr>
+                <th class="text-left bg-white" style="font-size: 9px;">Flight Charge:</th>
+                <th class="bg-white" style="font-size: 9px;">{{purchaseOffer.getFlightPrice() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row m-t-20">
+      <div class="col-sm-12">
+        <h6 class="text-left bold"
+            *ngIf="!isMain">Invoice To</h6>
+        <h4 class="text-center bold"
+            *ngIf="isMain">Invoice To
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table dataTable no-footer no-margin">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-left">{{dba === dbaEnums.JS ? 'JetSmarter Inc.' : 'XO Global LLC' }}</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

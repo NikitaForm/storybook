@@ -5,12 +5,12 @@ export { ValidationTooltipDirective } from './directives';
 // export { EnumKeyValuePipe, KeyValuePair } from './pipes/enum-key-value.pipe';
 // export { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
-// export {
-//   BaseHttp,
-//   ErrorWebServiceLoggerBridge,
-//   GlobalErrorHandler,
-//   ILogger
-// } from './services';
+export {
+  BaseHttp,
+  ErrorWebServiceLoggerBridge,
+  GlobalErrorHandler,
+  ILogger
+} from './services';
 
 export {
   NotificationPosition,

@@ -1,0 +1,103 @@
+$tile-width: 400px;
+$tile-height: 285px;
+
+.tile-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 400px);
+  // grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 20px;
+
+
+  .tile {
+    width: $tile-width;
+    height: $tile-height;
+    margin: 0 auto;
+
+    @media (max-width: $tile-width) {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tile-container {
+    grid-template-columns: repeat(auto-fill, 100%);
+    .tile {
+      width: 100%;
+      height: 300px;
+    }
+  }
+}
+
+.card {
+  border-radius: 5px;
+  font-size: 12px;
+  // height: calc(100% - 20px);
+  height: 100%;
+  margin-bottom: 0px;
+
+  .card-body {
+    padding: 15px 15px 0 15px;
+    .height-100 {
+      height: 100%;
+    }
+  }
+  .title {
+    h5 {
+      font-size: 16px;
+      margin-bottom: 10px;
+
+      span {
+        background: #80808038;
+        padding: 3px 10px 3px 7px;
+        font-size: 12px;
+        border-radius: 21px;
+        margin: 0 0 0 6px;
+      }
+    }
+  }
+
+  .top-full-width {
+    margin: -15px -15px 0;
+  }
+
+  .title-icon {
+    line-height: 25px;
+    margin-left: 5px;
+  }
+
+  .show-route {
+    position: absolute;
+    bottom: 0;
+    right: -1px;
+    left: -1px;
+    padding: 10px 0;
+    background: #e8e8e8;
+    a {
+      font-size: 10px;
+      color: #37373f;
+      font-weight: bold;
+      i {
+        margin: 0 0 0 8px
+      }
+    }
+  }
+  .btn {
+    min-width: 90px;
+    width: auto !important;
+  }
+
+  .price-value {
+    height: 24px;
+  }
+}
+
+.offer-list-wrapper {
+  @media (max-width: 768px) {
+    margin-top: 130px;
+  }
+}
+.tiny-text {
+  font-size: 10px !important;
+}

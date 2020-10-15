@@ -12,6 +12,7 @@ import {
 
 import * as fromCore from '../core/reducers';
 import * as fromPublishFlights from '../app/application/reducers';
+import * as fromFulfillFlights from '../app/fulfill/application/reducers';
 
 import { EnvironmentEnum } from '../environments/environment.interface';
 
@@ -45,11 +46,13 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
 export interface State {
   core: fromCore.State;
   publish: fromPublishFlights.State;
+  fulfill: fromFulfillFlights.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   core: fromCore.reducer,
-  publish: fromPublishFlights.reducer
+  publish: fromPublishFlights.reducer,
+  fulfill: fromFulfillFlights.reducer
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);

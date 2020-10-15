@@ -1,0 +1,107 @@
+<div class="offer-list-wrapper">
+  <div class="tile-container">
+    <div class="tile"
+         *ngFor="let offer of operatorPurchaseOffers">
+      <div class="card">
+        <div class="card-body">
+          <div class="row height-100">
+            <div class="p-b-20 col-left height-100 border-right">
+              <div class="title">
+                <h5 class="m-t-0 p-t-0 bold">{{offer.getLegs()[0].route.originAirport.code}} - {{offer.getLegs()[0].route.destinationAirport.code}} <span class="inline-block"
+                        *ngIf="(offer.getLegs().length - 2) > 0">+{{(offer.getLegs().length - 2)}}</span></h5>
+              </div>
+              <ng-container *ngFor="let leg of offer.getLegs() | slice:0:2; let i=index">
+                <div class="row m-t-10">
+                  <div class="col col-6 bold text-uppercase p-r-0">Leg #{{i + 1}}:</div>
+                  <div class="col col-6 p-l-0">{{leg.route.originAirport.code}} - {{leg.route.destinationAirport.code}}</div>
+                </div>
+                <div class="row">
+                  <div class="col col-6 bold text-uppercase p-r-0">Date:</div>
+                  <div class="col col-6 p-l-0 p-r-5">{{leg.departureDate | date : 'EEE, MMM. dd, yy' }}</div>
+                </div>
+                <div class="row">
+                  <div class="col col-6 bold text-uppercase p-r-0">Time:</div>
+                  <div class="col col-6 p-l-0">{{leg.departureDate | date : 'shortTime' }}</div>
+                </div>
+                <div class="row">
+                  <div class="col col-6 bold text-uppercase p-r-0">Min Pax:</div>
+                  <div class="col col-6 p-l-0">{{leg.getPax()}}</div>
+                </div>
+              </ng-container>
+
+              <div class="row m-t-10">
+                <div class="col col-6 bold text-uppercase p-r-0">Category:</div>
+                <div class="col col-6 p-l-0">{{offer.getAircraftCategory().getName()}}</div>
+              </div>
+
+              <div class="row">
+                <div class="col col-6 bold text-uppercase p-r-0">Created:</div>
+                <div class="col col-6 p-l-0">{{offer.getCreatedDate() | date : 'shortDate'}}</div>
+              </div>
+              <div class="row">
+                <div class="col col-6 bold text-uppercase p-r-0">Status:</div>
+                <div class="col col-6 p-l-0">{{offer.getStatus().getName()}}</div>
+              </div>
+              <div class="row" *ngIf="offer.getAcceptedDate() as acceptedDate">
+                <div class="col col-6 bold text-uppercase p-r-0">Accepted (UTC):</div>
+                <div class="col col-6 p-l-0">{{acceptedDate | date : 'M/d/yy, h:mm a'}}</div>
+              </div>
+              <div class="row" *ngIf="offer.getAcceptedByUser() as acceptedByUser">
+                <div class="col col-6 bold text-uppercase p-r-0">Accepted By:</div>
+                <div class="col col-6 p-l-0">{{acceptedByUser.toString()}}</div>
+              </div>
+
+            </div>
+            <div class="p-b-15 col-right text-center text-danger position-relative">
+              <div *ngIf="offer.getStatus().getName() === 'Active'"  class="bg-brand top-full-width">
+                <h5 class="m-t-0 p-t-0 bold text-white tiny-text clearfix">
+                  <!--<i class="fas fa-power-off pull-left title-icon"></i>-->
+                  <svg class="pull-left title-icon"
+                       xmlns="http://www.w3.org/2000/svg"
+                       width="15"
+                       height="16.42"
+                       viewBox="0 0 15 16.42">
+                    <path d="M12.94,3.92l-.07-.07.78-.77.39.39L14.49,3l-1-1L13,2.45l.56.55-.14.14L13.25,3l-.72.63-.07-.06A7.71,7.71,0,0,0,8.15,1.67H8.06V0H6.92V1.66H6.83A7.37,7.37,0,0,0,0,9,7.5,7.5,0,0,0,15,9,7.34,7.34,0,0,0,12.94,3.92ZM7.49,15.56A6.52,6.52,0,1,1,14.11,9,6.52,6.52,0,0,1,7.49,15.56ZM8.5,9a.87.87,0,0,0-.25-.47.62.62,0,0,1-.19-.34V3.36H6.92V8.23a.63.63,0,0,1-.19.34.57.57,0,0,0,0,.94.63.63,0,0,1,.19.34v1.27H8.07V9.85a.62.62,0,0,1,.19-.34A.87.87,0,0,0,8.5,9Z"
+                          transform="translate(-0.04 -0.04)"
+                          fill="#fff"></path>
+                  </svg>
+                  <ng-template #multiple>Multiple people are viewing this offer</ng-template>
+                  <ng-container *ngIf="!(offer.openOffer && offer.offerSubmitted); else rank">
+                    <span *ngIf="offer.getOfferCount() > 2; else multiple">{{(offer.getOfferCount() - 1) || '0'}} other(s) are viewing this offer</span>
+                  </ng-container>
+                  <ng-template #rank><span>Your offer has the highest rank</span></ng-template>
+                  <expire-countdown [expirationDate]="offer.expirationDate"></expire-countdown>
+                </h5>
+              </div>
+              <div class="m-t-40">
+                <h6 class="m-t-0 p-t-0 bold price-value">{{ (offer.getOperatorPrice() || offer.offerBid) | currency:'USD' : 'symbol-narrow' : '.2-2' }}</h6>
+              </div>
+              <div class="m-t-20" *ngIf="offer.getStatus().getName() === 'Active'">
+                <div class="m-t-10" *ngIf="!offer.openOffer">
+                  <button class="btn btn-default-restyled btn-dark"
+                          (click)="onAcceptClick(offer)">Accept</button>
+                </div>
+                <div class="m-t-10" *ngIf="offer.openOffer">
+                  <button class="btn btn-default-restyled btn-dark"
+                          (click)="onAcceptClick(offer)">{{offer.offerSubmitted ? 'Edit Offer' : 'Make Offer'}}</button>
+                </div>
+                <div class="m-t-10">
+                  <button class="btn btn-default-restyled"
+                          (click)="onDeclineClick(offer)">Decline</button>
+                </div>
+              </div>
+              <div class="show-route"
+                   *ngIf="(offer.getLegs().length - 2) > 0">
+                <a href="javascript:void(0)"
+                   class="text-uppercase"
+                   (click)="onExpandRoutesClick(offer)">
+                  More Routes<i class="fas fa-chevron-double-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
