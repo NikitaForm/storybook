@@ -76,6 +76,10 @@ export class AcceptOfferFormComponent extends sharedComponents.ValidatableFormCo
 
       const offerBid = Number(data.offerBid.toString().replace(/[^0-9.]/g, ''));
       if (_.isEqual(this.offerBid, offerBid) === false) {
+      this.purchaseOffer.setOfferPrice(offerBid)
+          .setCommission(offerBid * 0.15)
+          .seOperatorPrice(offerBid * 0.85)
+          .setFlightPrice(offerBid);
         this.offerBidChange.emit(offerBid);
       }
     });

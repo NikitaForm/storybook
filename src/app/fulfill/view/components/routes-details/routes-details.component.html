@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-    <ng-container *ngIf="!purchaseOffer.openOffer">
+    <ng-container *ngIf="purchaseOffer.getOperatorPrice() || purchaseOffer.offerBid">
       <div class="row m-t-20">
         <div class="col-sm-12">
           <h6 class="text-left bold"
@@ -171,7 +171,8 @@
           </div>
         </div>
       </div>
-
+    </ng-container>
+    <ng-container *ngIf="!purchaseOffer.openOffer">
       <div class="row m-t-20">
         <div class="col-sm-12">
           <h6 class="text-left bold"

@@ -78,7 +78,7 @@
                 </h5>
               </div>
               <div class="m-t-40">
-                <h6 class="m-t-0 p-t-0 bold price-value">{{ (offer.getOperatorPrice() || offer.offerBid) | currency:'USD' : 'symbol-narrow' : '.2-2' }}</h6>
+                <h6 class="m-t-0 p-t-0 bold price-value">{{ (offer.offerBid || offer.getOperatorPrice() ) | currency:'USD' : 'symbol-narrow' : '.2-2' }}</h6>
               </div>
               <div class="m-t-20" *ngIf="offer.getStatus().getName() === 'Active' || offer.getStatus().getName() === 'Submitted'">
                 <div class="m-t-10" *ngIf="!offer.openOffer">
