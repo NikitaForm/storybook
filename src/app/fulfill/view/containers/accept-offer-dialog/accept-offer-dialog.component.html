@@ -55,7 +55,7 @@
         <button class="btn btn-default-restyled btn-dark "
                 (click)="onCancelClick()">Cancel</button>
         <button class="btn btn-default-restyled m-l-10"
-                (click)="onSubmitClick()">Accept</button>
+                (click)="onSubmitClick()">{{(purchaseOffer$ | async).openOffer ? 'Submit' : 'Accept'}}</button>
       </div>
     </div>
   </div>

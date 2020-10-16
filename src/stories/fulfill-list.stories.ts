@@ -26,12 +26,14 @@ import {
 } from '../app/fulfill/view/components';
 import { CoreModule } from '../core/core.module';
 import { DialogModule } from '@progress/kendo-angular-dialog';
-import { ConfirmationDialogComponent } from '../app/confirmation-dialog/confirmation-dialog.component';
-import { PdfComponent } from '../core/components';
+// import { ConfirmationDialogComponent } from '../app/confirmation-dialog/confirmation-dialog.component';
+// import { PdfComponent } from '../core/components';
 import * as moduleServices from '../app/fulfill/services';
 import * as pdfServiceContracts from '../app/fulfill/domain/service-contracts/pdf';
 import * as sharedTypes from '../shared/types';
 import * as aircraftContract from '../app/fulfill/domain/service-contracts/aircraft';
+import { PagesModule } from '../assets/pages/components/pages.module';
+import { MessageModule } from '../assets/pages/components/message/message.module';
 
 export default {
   title: 'Fulfill flights tiles',
@@ -45,16 +47,18 @@ export default {
         OfferListLookupFormComponent,
         AcceptOfferDialogComponent,
         AcceptOfferFormComponent,
-        PdfComponent,
+        // PdfComponent,
         RoutesDetailsComponent,
         OrderStatusPipe,
         ContractTypePipe,
-        MinutesToTimePipe, ConfirmationDialogComponent],
+        MinutesToTimePipe
+        // ConfirmationDialogComponent
+      ],
       imports: [CommonModule, GridModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,
         DropDownsModule, TextMaskModule, StoreModule.forRoot(reducers, {metaReducers}),
-        SharedModule, pgTabsModule, DialogModule],
+        SharedModule, pgTabsModule, DialogModule, PagesModule, CoreModule, MessageModule],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/iframe.html'},
         DatePipe,

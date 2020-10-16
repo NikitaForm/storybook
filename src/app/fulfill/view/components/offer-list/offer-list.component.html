@@ -42,6 +42,10 @@
                 <div class="col col-6 bold text-uppercase p-r-0">Status:</div>
                 <div class="col col-6 p-l-0">{{offer.getStatus().getName()}}</div>
               </div>
+              <div class="row">
+                <div class="col col-6 bold text-uppercase p-r-0">Type:</div>
+                <div class="col col-6 p-l-0">{{offer.openOffer ? 'NGA' : 'GA'}}</div>
+              </div>
               <div class="row" *ngIf="offer.getAcceptedDate() as acceptedDate">
                 <div class="col col-6 bold text-uppercase p-r-0">Accepted (UTC):</div>
                 <div class="col col-6 p-l-0">{{acceptedDate | date : 'M/d/yy, h:mm a'}}</div>
@@ -53,7 +57,7 @@
 
             </div>
             <div class="p-b-15 col-right text-center text-danger position-relative">
-              <div *ngIf="offer.getStatus().getName() === 'Active'"  class="bg-brand top-full-width">
+              <div *ngIf="offer.getStatus().getName() === 'Active' || offer.getStatus().getName() === 'Submitted'"  class="bg-brand top-full-width">
                 <h5 class="m-t-0 p-t-0 bold text-white tiny-text clearfix">
                   <!--<i class="fas fa-power-off pull-left title-icon"></i>-->
                   <svg class="pull-left title-icon"
@@ -76,7 +80,7 @@
               <div class="m-t-40">
                 <h6 class="m-t-0 p-t-0 bold price-value">{{ (offer.getOperatorPrice() || offer.offerBid) | currency:'USD' : 'symbol-narrow' : '.2-2' }}</h6>
               </div>
-              <div class="m-t-20" *ngIf="offer.getStatus().getName() === 'Active'">
+              <div class="m-t-20" *ngIf="offer.getStatus().getName() === 'Active' || offer.getStatus().getName() === 'Submitted'">
                 <div class="m-t-10" *ngIf="!offer.openOffer">
                   <button class="btn btn-default-restyled btn-dark"
                           (click)="onAcceptClick(offer)">Accept</button>

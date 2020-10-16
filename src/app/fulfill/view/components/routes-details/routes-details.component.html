@@ -171,29 +171,31 @@
           </div>
         </div>
       </div>
-    </ng-container>
 
-    <div class="row m-t-20">
-      <div class="col-sm-12">
-        <h6 class="text-left bold"
-            *ngIf="!isMain">Invoice To</h6>
-        <h4 class="text-center bold"
-            *ngIf="isMain">Invoice To
-        </h4>
+      <div class="row m-t-20">
+        <div class="col-sm-12">
+          <h6 class="text-left bold"
+              *ngIf="!isMain">Invoice To</h6>
+          <h4 class="text-center bold"
+              *ngIf="isMain">Invoice To
+          </h4>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="table-responsive">
-          <table class="table dataTable no-footer no-margin">
-            <thead class="thead-light">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table class="table dataTable no-footer no-margin">
+              <thead class="thead-light">
               <tr>
                 <th class="text-left">{{dba === dbaEnums.JS ? 'JetSmarter Inc.' : 'XO Global LLC' }}</th>
               </tr>
-            </thead>
-          </table>
+              </thead>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+
   </div>
 </div>

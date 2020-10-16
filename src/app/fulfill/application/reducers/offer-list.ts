@@ -165,6 +165,10 @@ export function reducer(state = initialState, action: actions.Actions): State {
       selectedOffer.offerBid = action.payload.offerBid;
       selectedOffer.offerSubmitted = true;
       selectedOffer.aircraft = action.payload.aircraft;
+      const status = new models.Status()
+        .setId(5)
+        .setName('Submitted');
+      selectedOffer.setStatus(status);
       const updatedItems = clonedItems.map(item => {
         if (item.operatorPurchaseOfferId === selectedOffer.operatorPurchaseOfferId) {
           return selectedOffer;
@@ -184,6 +188,10 @@ export function reducer(state = initialState, action: actions.Actions): State {
       selectedOffer.offerBid = null;
       selectedOffer.offerSubmitted = false;
       selectedOffer.aircraft = null;
+      const status = new models.Status()
+        .setId(1)
+        .setName('Active');
+      selectedOffer.setStatus(status);
       const updatedItems = clonedItems.map(item => {
         if (item.operatorPurchaseOfferId === selectedOffer.operatorPurchaseOfferId) {
           return selectedOffer;

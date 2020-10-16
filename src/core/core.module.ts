@@ -50,7 +50,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
-    EffectsModule.forRoot([moduleEffects.UserEffects])
+    // EffectsModule.forRoot([moduleEffects.UserEffects])
   ],
   providers: [
     moduleGuards.UserAgreementGuard,

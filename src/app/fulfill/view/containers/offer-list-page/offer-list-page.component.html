@@ -63,7 +63,7 @@
     </div>
   </div>
   <kendo-dialog *ngIf="declineOfferDialogVisible">
-    <confirmation-dialog text="Are you sure you want to decline Purchase Offer?"
+    <confirmation-dialog [text]="confirmationDialogText"
                          [confirmText]="'Yes'"
                          [cancelText]="'No'"
                          (confirm)="confirmDeclineOffer()"

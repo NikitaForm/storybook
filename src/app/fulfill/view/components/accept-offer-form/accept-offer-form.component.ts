@@ -4,10 +4,10 @@ import * as sharedComponents from '../../../../../shared/components';
 import * as sharedModels from '../../../../../shared/models';
 import * as coreModels from '../../../../../core/models';
 import * as models from '../../../domain/models';
-import * as viewModels from '../../view-models';
 import { Subscription } from 'rxjs';
 
 import * as _ from 'lodash';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 @Component({
   selector: 'operator-accept-offer-form',
@@ -31,6 +31,7 @@ export class AcceptOfferFormComponent extends sharedComponents.ValidatableFormCo
 
   aircraftListFilter: string = null;
   aircraftListFiltered: Array<models.Aircraft>;
+  numberMask: any;
 
   private formValueChangesSubscription: Subscription;
   public defaultItem: { modelName: string, aircraftId: number } = { modelName: 'Select aircraft', aircraftId: null };
@@ -45,6 +46,12 @@ export class AcceptOfferFormComponent extends sharedComponents.ValidatableFormCo
         required: 'Offer Price is required'
       }
     };
+
+    this.numberMask = createNumberMask({
+      allowDecimal: true,
+      prefix: '$',
+      suffix: ''
+    });
   }
 
   ngOnDestroy(): void {
@@ -67,8 +74,9 @@ export class AcceptOfferFormComponent extends sharedComponents.ValidatableFormCo
         this.aircraftChange.emit(ra !== undefined ? ra : null);
       }
 
-      if (_.isEqual(this.offerBid, data.offerBid) === false) {
-        this.offerBidChange.emit(data.offerBid);
+      const offerBid = Number(data.offerBid.toString().replace(/[^0-9.]/g, ''));
+      if (_.isEqual(this.offerBid, offerBid) === false) {
+        this.offerBidChange.emit(offerBid);
       }
     });
   }

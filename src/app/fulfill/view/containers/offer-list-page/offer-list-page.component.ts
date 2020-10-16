@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import * as actions from '../../../application/actions/offer-list';
 import * as offerActions from '../../../application/actions/offer';
 import * as aircraftActions from '../../../application/actions/aircraft';
@@ -12,8 +12,12 @@ import { filter, first } from 'rxjs/operators';
 import { PageChangedEvent } from '../../../../../shared/components';
 import * as _ from 'lodash';
 import { State } from '../../../application/reducers/offer-list';
+import * as sharedTypes from '../../../../../shared/types';
 // import { ActivatedRoute, Router } from '@angular/router';
 // import { Location } from '@angular/common';
+
+const declineCommonOfferText = 'Are you sure you want to decline Purchase Offer?';
+const declineOpenOfferText = 'Are you sure you want to Decline Making an Offer?';
 
 @Component({
   selector: 'operator-offer-list-page',
@@ -34,9 +38,11 @@ export class OfferListPageComponent implements OnDestroy {
   selectedOffer: models.OperatorPurchaseOffer = null;
   private readonly loadDebounced: LoadDelegate;
   acceptOfferDialogVisible$: Observable<boolean>;
+  confirmationDialogText: string;
 
   constructor(
     private store$: Store<any>,
+    @Inject(sharedTypes.NOTIFICATION_SERVICE_TOKEN) private notificationService: sharedTypes.INotificationService,
     // private router: Router,
     // private route: ActivatedRoute,
     // private location: Location
@@ -104,6 +110,7 @@ export class OfferListPageComponent implements OnDestroy {
 
   onDeclineHandler(purchaseOffer: models.OperatorPurchaseOffer): void {
     this.store$.dispatch(new actions.SetSelectedPurchaseOfferAction(purchaseOffer));
+    this.confirmationDialogText = purchaseOffer.openOffer ? declineOpenOfferText : declineCommonOfferText;
     this.declineOfferDialogOpen();
   }
 
