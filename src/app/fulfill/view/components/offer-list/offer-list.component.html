@@ -73,7 +73,7 @@
                   <ng-container *ngIf="!(offer.openOffer && offer.offerSubmitted); else rank">
                     <span *ngIf="offer.getOfferCount() > 2; else multiple">{{(offer.getOfferCount() - 1) || '0'}} other(s) are viewing this offer</span>
                   </ng-container>
-                  <ng-template #rank><span>Your offer has the highest rank</span></ng-template>
+                  <ng-template #rank><span>Your offer is in TOP 3</span></ng-template>
                   <expire-countdown [expirationDate]="offer.expirationDate"></expire-countdown>
                 </h5>
               </div>

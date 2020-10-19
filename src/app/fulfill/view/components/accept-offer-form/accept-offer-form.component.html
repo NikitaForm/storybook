@@ -25,7 +25,7 @@
         </div>
         <div class="row text-center" *ngIf="this.purchaseOffer.openOffer">
           <div class="col col-sm-8 m-auto">
-            <div class="form-group form-group-default required p-b-15">
+            <div class="form-group form-group-default required p-b-15 m-b-0">
               <label class="label-ellipsis"><span>Offer Price</span>
                 <button type="button"
                         class="info-btn"
@@ -44,9 +44,15 @@
             </div>
 
           </div>
-        </div><div class="row text-center">
+        </div>
+        <div class="row">
+          <p class="col-8 m-auto m-b-10">
+            Suggested price more probably is around $20,000
+          </p>
+        </div>
+        <div class="row text-center">
           <div class="col col-sm-8 m-auto">
-            <div class="form-group form-group-default form-group-default-kendo input-group required m-b-5">
+            <div class="form-group form-group-default form-group-default-kendo input-group required m-b-0">
               <label>Aircraft
                 <button type="button"
                         class="info-btn"
@@ -83,7 +89,7 @@
           </div>
         </div>
         <div class="row">
-          <p class="col-8 m-auto">
+          <p class="col-8 m-auto m-b-10">
             Matching Aircraft with Insurance valid on {{ getLatestDepartureD(legs) | date : 'shortDate' }}
           </p>
         </div>
