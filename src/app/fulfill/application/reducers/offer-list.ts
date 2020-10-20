@@ -49,7 +49,7 @@ const rawOffers = [{
   '_id': 'c19a0090-f501-4762-997e-2873bf2511e1',
   'createdUser': {'firstName': 'Dan', 'lastName': 'Repik', 'upn': 'drepik@jetsmarter.com'},
   'serviceClassId': 1,
-  'expirationDate': '2020-10-16T13:56:00',
+  'expirationDate': new Date(Date.now() + 6 * 60 * 60 * 1000),
   'status': {'name': 'Active', 'value': 1}
 }, {
   'dba': 'JS',
@@ -167,7 +167,7 @@ export function reducer(state = initialState, action: actions.Actions): State {
       selectedOffer.aircraft = action.payload.aircraft;
       const status = new models.Status()
         .setId(5)
-        .setName('Submitted');
+        .setName('Offer Submitted');
       selectedOffer.setStatus(status);
       selectedOffer.setOfferPrice(selectedOffer.offerBid)
         .setCommission(selectedOffer.offerBid * 0.15)

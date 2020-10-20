@@ -1,0 +1,32 @@
+<div class="slide-dialog-body-scrollable wrapper" *ngIf="purchaseOffer.getOperatorPrice()">
+  <div class="container-fluid p-0">
+      <div class="row m-t-20">
+        <div class="col-sm-12">
+          <h6 class="text-left bold">Price Breakdown</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table class="table dataTable no-footer no-margin">
+              <thead class="thead-light">
+              <tr>
+                <th class="text-left" style="font-size: 14px;" >Operator Share:</th>
+                <th style="font-size: 14px;" >{{purchaseOffer.getOperatorPrice() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              <tr>
+                <th class="text-left bg-white" style="font-size: 9px;">XO Commission:</th>
+                <th class="bg-white" style="font-size: 9px;">{{purchaseOffer.getCommission() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              <tr>
+                <th class="text-left bg-white" style="font-size: 9px;">Flight Charge:</th>
+                <th class="bg-white" style="font-size: 9px;">{{purchaseOffer.getFlightPrice() | currency:'USD':'symbol-narrow':'1.2-2'}}</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

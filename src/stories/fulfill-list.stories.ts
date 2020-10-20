@@ -34,6 +34,7 @@ import * as sharedTypes from '../shared/types';
 import * as aircraftContract from '../app/fulfill/domain/service-contracts/aircraft';
 import { PagesModule } from '../assets/pages/components/pages.module';
 import { MessageModule } from '../assets/pages/components/message/message.module';
+import { PriceBreakdownComponent } from '../app/fulfill/view/components/price-breakdown/price-breakdown.component';
 
 export default {
   title: 'Fulfill flights tiles',
@@ -51,7 +52,8 @@ export default {
         RoutesDetailsComponent,
         OrderStatusPipe,
         ContractTypePipe,
-        MinutesToTimePipe
+        MinutesToTimePipe,
+        PriceBreakdownComponent
         // ConfirmationDialogComponent
       ],
       imports: [CommonModule, GridModule, LayoutModule,

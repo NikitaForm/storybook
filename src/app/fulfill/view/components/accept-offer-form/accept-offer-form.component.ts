@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 
 import * as _ from 'lodash';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'operator-accept-offer-form',
@@ -67,14 +68,21 @@ export class AcceptOfferFormComponent extends sharedComponents.ValidatableFormCo
       operatorCharterAgreement: new FormControl(this.purchaseOffer.offerSubmitted, Validators.requiredTrue)
     });
 
-    this.formValueChangesSubscription = this.form.valueChanges.subscribe(data => {
+    this.formValueChangesSubscription = this.form.valueChanges
+      .pipe(
+        debounceTime(300)
+      )
+      .subscribe(data => {
       const aircraftId = _.get(this.selectedAircraft, 'aircraftId', null);
       if (_.isEqual(aircraftId, data.aircraftId) === false) {
         const ra = this.aircraftList.find(a => a.aircraftId === data.aircraftId);
         this.aircraftChange.emit(ra !== undefined ? ra : null);
       }
 
-      const offerBid = Number(data.offerBid.toString().replace(/[^0-9.]/g, ''));
+      let offerBid = null;
+      if (data.offerBid) {
+        offerBid = Number(data.offerBid.toString().replace(/[^0-9.]/g, ''));
+      }
       if (_.isEqual(this.offerBid, offerBid) === false) {
       this.purchaseOffer.setOfferPrice(offerBid)
           .setCommission(offerBid * 0.15)

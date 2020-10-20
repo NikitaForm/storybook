@@ -20,35 +20,8 @@
       <div class="col col-sm-12">
         <div class="row">
           <h3 class="col-12 text-center m-b-40">
-            <span class="bold">Review Purchase Offer</span>
+            <span class="bold">{{purchaseOffer.openOffer ? '' : 'Review '}}Purchase Offer</span>
           </h3>
-        </div>
-        <div class="row text-center" *ngIf="this.purchaseOffer.openOffer">
-          <div class="col col-sm-8 m-auto">
-            <div class="form-group form-group-default required p-b-15 m-b-0">
-              <label class="label-ellipsis"><span>Offer Price</span>
-                <button type="button"
-                        class="info-btn"
-                        [tooltip]="'Offer Price'"
-                        container="body">
-                  <i class="fal fa-info-circle"></i>
-                </button>
-              </label>
-              <input class="form-control"
-                     formControlName="offerBid"
-                     placeholder="Enter price"
-                     id="offerBid"
-                     [textMask]="{mask: numberMask}"
-                     [validationTooltip]="form.get('offerBid')"
-                     [validationMessages]="validationMessages['offerBid']">
-            </div>
-
-          </div>
-        </div>
-        <div class="row">
-          <p class="col-8 m-auto m-b-10">
-            Suggested price more probably is around $20,000
-          </p>
         </div>
         <div class="row text-center">
           <div class="col col-sm-8 m-auto">
@@ -93,6 +66,39 @@
             Matching Aircraft with Insurance valid on {{ getLatestDepartureD(legs) | date : 'shortDate' }}
           </p>
         </div>
+        <ng-container *ngIf="purchaseOffer.openOffer">
+          <div class="row text-center">
+            <div class="col col-sm-8 m-auto">
+              <div class="form-group form-group-default required p-b-15 m-b-0">
+                <label class="label-ellipsis"><span>Offer Price</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="'Offer Price'"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="offerBid"
+                       placeholder="Enter price"
+                       id="offerBid"
+                       [textMask]="{mask: numberMask}"
+                       [validationTooltip]="form.get('offerBid')"
+                       [validationMessages]="validationMessages['offerBid']">
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <p class="col-8 m-auto m-b-10">
+              Estimated min price is around $20,000
+            </p>
+            <div class="col-8 m-auto m-b-10 p-0">
+              <price-breakdown [purchaseOffer]="purchaseOffer"></price-breakdown>
+            </div>
+          </div>
+        </ng-container>
+
         <div class="row">
           <div class="col-8 m-auto">
             <div class="m-t-10 checkbox-group padding-20"
