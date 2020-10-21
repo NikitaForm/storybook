@@ -1,0 +1,109 @@
+<!--<div class="container-fixed-header">-->
+<!--  <operator-offer-list-lookup-form [criteria]="lookupCriteria"-->
+<!--                                   (filterChanged)="onLookupCriteriaChanged($event)">-->
+<!--  </operator-offer-list-lookup-form>-->
+
+<!--</div>-->
+
+<div class="m-t-50 m-t-xs-0">
+  <div class="row">
+    <div class="col col-sm-12">
+      <div class="dataTables_wrapper vertical-align-parent"
+           *ngIf="(operatorPurchaseOffers$ | async) as operatorPurchaseOffers"
+           style="min-height:500px; position:relative;">
+        <div class="row"
+             *ngIf="(operatorPurchaseOffers.length > 0)">
+          <div class="col col-sm-12">
+            <operator-offer-list-2 [operatorPurchaseOffers]="operatorPurchaseOffers"
+                                 (accept)="onAcceptHandler($event)"
+                                 (decline)="onDeclineHandler($event)"
+                                 (expandRoute)="onExpandRoute($event)"></operator-offer-list-2>
+          </div>
+        </div>
+        <div class="row"
+             *ngIf="(operatorPurchaseOffers.length > 0)">
+          <div class="col col-sm-12">
+            <div class="row">
+              <div class="col-sm-6 col-6">
+                <div class="pull-left">
+                  <pagination class="dataTables_paginate paging_simple_numbers"
+                              [itemsPerPage]="itemsPerPage$ | async"
+                              [maxSize]="7"
+                              [ngModel]="currentPage$ | async"
+                              (pageChanged)="pageChanged($event)"
+                              [totalItems]="itemsTotalCount$ | async">
+                  </pagination>
+                </div>
+              </div>
+              <div class="col-sm-6 col-6">
+                <div class="dataTables_info pull-right">
+                  <page-summary [currentPage]="currentPage$ | async"
+                                [itemsPerPage]="itemsPerPage$ | async"
+                                [totalItems]="itemsTotalCount$ | async">
+                  </page-summary>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="row vertical-align-child"
+             *ngIf="(operatorPurchaseOffers.length === 0) && (loading$ | async) === false">
+          <div class="col col-sm-12 text-center">
+            <h5>No offers so far.</h5>
+          </div>
+        </div>
+        <spinner [xo]="true"
+                 class="row spinner-overlay"
+                 *ngIf="loading$ | async">
+        </spinner>
+      </div>
+    </div>
+  </div>
+  <kendo-dialog *ngIf="declineOfferDialogVisible">
+    <confirmation-dialog [text]="confirmationDialogText"
+                         [confirmText]="'Yes'"
+                         [cancelText]="'No'"
+                         (confirm)="confirmDeclineOffer()"
+                         (close)="onDeclineOfferDialogClose()">
+    </confirmation-dialog>
+  </kendo-dialog>
+
+  <sidepanel class="sidepanel"
+             [toggle]="acceptOfferDialogVisible$ | async"
+             (toggleChange)="onToggleChange($event)"
+             style="z-index: 1001">
+    <div *ngIf="acceptOfferDialogVisible$ | async">
+      <operator-accept-offer-dialog-2 (close)="onAcceptOfferDialogClose()"
+                                    (submit)="confirmAcceptOffer($event)"
+                                    (submitOffer)="confirmSubmitOffer($event)">
+      </operator-accept-offer-dialog-2>
+    </div>
+  </sidepanel>
+
+  <sidepanel class="sidepanel"
+             [toggle]="routesDetailsDialogVisible"
+             (toggleChange)="onRouteDialogClose()"
+             style="z-index: 1001">
+    <div class="slide-dialog-container"
+         *ngIf="selectedOffer !== null">
+      <div class="slide-dialog-header-fixed padding-20">
+        <div class="clearfix">
+          <a class="close-icon-light overlay-close text-black pull-right"
+             href="javascript:void(0)"
+             style="font-size: 35px;"
+             (click)="onRouteDialogClose()">
+            <i class="fal fa-times"></i>
+          </a>
+        </div>
+      </div>
+<!--      <operator-routes-details [legs]="selectedOffer.getLegs()"-->
+<!--                               [serviceClass]="selectedOffer.getServiceClass()"-->
+<!--                               [category]="selectedOffer.getAircraftCategory()"-->
+<!--                               [orgLegalName]="orgLegalName$ | async"></operator-routes-details>-->
+    </div>
+  </sidepanel>
+
+</div>

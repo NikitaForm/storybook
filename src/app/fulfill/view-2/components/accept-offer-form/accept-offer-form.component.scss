@@ -1,0 +1,58 @@
+.checkbox-group {
+  padding: 10px;
+  &.invalid-group {
+    background: #e0191929;
+  }
+}
+
+.form-group .label-ellipsis {
+  white-space: nowrap;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-self: center;
+  }
+}
+
+.form-group {
+  .k-dropdown-wrap {
+    border: none !important;
+    box-shadow: none !important;
+    .k-input {
+      height: 25px !important;
+      span.greyer {
+        color: #ced4da !important;
+      }
+    }
+  }
+}
+
+.info-btn {
+  // position: absolute;
+  // top: 8px;
+  // right: 18px;
+  margin-right: 4px;
+  background: transparent;
+  border: 0;
+}
+
+.tooltip-arrow.arrow::before {
+  border-top-color: rgba(0, 0, 0, 0.07);
+}
+
+.tooltip-inner {
+  background-color: #f6f6f8 !important;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  color: black;
+  padding: 15px;
+}
+.tooltip.show {
+  opacity: 1 !important;
+}
+
+.m-b-10 {
+  margin-bottom: 10px !important;
+}

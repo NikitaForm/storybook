@@ -42,6 +42,12 @@ const rawOffers = [{
     'pax': 3,
     'departureDate': '2020-10-23T14:56:00',
     'departureTimeTbd': false
+  }, {
+    'route': {'originAirport': {'code': 'KTEB'}, 'destinationAirport': {'code': 'KDAL'}},
+    'departureDateUtc': '2020-10-23T18:56:00',
+    'pax': 3,
+    'departureDate': '2020-10-23T14:56:00',
+    'departureTimeTbd': false
   }],
   'operatorPurchaseOfferId': 'c19a0090-f501-4762-997e-2873bf2511e1',
   'expirationDateUTC': '2020-10-16T13:56:00',

@@ -1,0 +1,15 @@
+.sorting-radio-group {
+  input[type="radio"] {
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+  }
+
+  .btn-radio {
+    border-radius: 30px;
+  }
+
+  input[type="radio"]:checked + label {
+    background: #eeeff3;
+  }
+}

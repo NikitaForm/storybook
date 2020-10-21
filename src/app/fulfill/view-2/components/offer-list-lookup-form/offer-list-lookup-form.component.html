@@ -1,0 +1,22 @@
+<form autocomplete="false"
+      [formGroup]="form"
+      novalidate>
+
+  <ul class="list-inline text-center">
+    <li class="p-l-5"
+         *ngFor="let status of statusList; let i = index">
+      <div class="form-group">
+        <div class="sorting-radio-group">
+          <input type="radio"
+                 [value]="status.value"
+                 formControlName="status"
+                 id="status-{{i}}">
+          <label for="status-{{i}}"
+                 class="overflow-ellipsis btn btn-default btn-radio">
+            {{status.name}}</label>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</form>

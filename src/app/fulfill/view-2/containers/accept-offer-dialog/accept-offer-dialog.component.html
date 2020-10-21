@@ -1,0 +1,62 @@
+<div class="slide-dialog-container">
+  <div class="slide-dialog-header-fixed padding-20">
+    <div class="clearfix">
+      <a class="close-icon-light overlay-close text-black pull-right"
+         href="javascript:void(0)"
+         style="font-size: 35px;"
+         (click)="onCancelClick()">
+        <!--<i class="fal fa-times"></i>-->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="30"
+             height="30"
+             viewBox="0 0 30 30">
+          <path d="M28.79,0,14.74,13.92,1.21.52,0,1.72l13.53,13.4L.24,28.28l1.22,1.2L14.74,16.32,28.55,30l1.21-1.2L15.95,15.12,30,1.2Z"
+                fill="#393b41" /></svg>
+      </a>
+      <div class="pull-left">
+        <button *ngIf="mode !== modeEnum.form"
+                class="btn btn-default-restyled"
+                (click)="setMode(0)">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-dialog-body-scrollable">
+    <div class="container-fluid m-t-15 p-r-15 p-l-15">
+      <div class="row">
+        <div class="col col-sm-12"
+             *ngIf="mode === modeEnum.form">
+          <operator-accept-offer-form-2 [selectedAircraft]="(purchaseOffer$ | async).aircraft"
+                                      [offerBid]="(purchaseOffer$ | async).offerBid"
+                                      [purchaseOffer]="purchaseOffer$ | async"
+                                      [legs]="legs$ | async"
+                                      [dba]="dba$ | async"
+                                      [category]="category$ | async"
+                                      [orgLegalName]="orgLegalName$ | async"
+                                      [serviceClass]="serviceClass$ | async"
+                                      [aircraftList]="aircraftList$ | async"
+                                      (aircraftChange)="onAircraftChange($event)"
+                                      (offerBidChange)="onOfferBidChange($event)"
+                                      (changeMode)="setMode($event)">
+          </operator-accept-offer-form-2>
+        </div>
+        <div class="col col-sm-12"
+             *ngIf="mode === modeEnum.termsAndConditions || mode === modeEnum.safetyRequirements">
+          <op-pdf [src]="blob"></op-pdf>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-dialog-footer-fixed m-t-25">
+    <div class="row"
+         *ngIf="mode === modeEnum.form">
+      <div class="col col-sm-12 text-center padding-40">
+        <button class="btn btn-default-restyled btn-dark "
+                (click)="onCancelClick()">Cancel</button>
+        <button class="btn btn-default-restyled m-l-10"
+                (click)="onSubmitClick()">{{(purchaseOffer$ | async).openOffer ? 'Submit' : 'Accept'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
