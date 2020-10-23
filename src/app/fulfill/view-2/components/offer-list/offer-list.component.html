@@ -114,10 +114,10 @@
             </div>
           </div>
 <!--          <div class="row">-->
-            <div *ngIf="offer.getStatus().getName() === 'Active' || offer.getStatus().getName() === 'Offer Submitted'"  class="bg-brand row bottom-full-width">
-              <h5 class="m-t-0 p-t-0 bold text-white tiny-text clearfix">
+            <div *ngIf="offer.getStatus().getName() === 'Active' || offer.getStatus().getName() === 'Offer Submitted'"  class="bg-brand bottom-full-width">
+              <div class="col-sm-12 bold text-white tiny-text text-center">
                 <!--<i class="fas fa-power-off pull-left title-icon"></i>-->
-                <svg class="pull-left title-icon"
+                <svg class="title-icon"
                      xmlns="http://www.w3.org/2000/svg"
                      width="15"
                      height="16.42"
@@ -128,8 +128,8 @@
                 </svg>
                 <ng-template #multiple>Multiple people are viewing this offer</ng-template>
                 <span *ngIf="offer.getOfferCount() > 2; else multiple">{{(offer.getOfferCount() - 1) || '0'}} other(s) are viewing this offer</span>
-                <expire-countdown-2 [expirationDate]="offer.expirationDate"></expire-countdown-2>
-              </h5>
+              </div>
+              <div class="col-sm-12 text-center"><expire-countdown-2 [expirationDate]="offer.expirationDate"></expire-countdown-2></div>
             </div>
 <!--          </div>-->
         </div>
