@@ -1,0 +1,100 @@
+@media(max-width: 992px) {
+  .b-r {
+    border: 0px !important;
+  }
+}
+
+@media(min-width: 991px) {
+
+  .p-b-15 {
+    padding-bottom: 0px !important;
+  }
+
+  .right-column {
+    &.p-t-15 {
+      padding-top: 0px !important;
+    }
+
+    &.b-t {
+      border: 0px !important;
+    }
+
+    .card-title {
+      margin-left: 30px;
+    }
+
+    .data-label-default {
+      margin-left: 105px;
+      margin-right: 0;
+    }
+  }
+}
+
+h5 {
+  padding-top: 4px;
+  font-size: 13px;
+}
+
+.data-label-default {
+  /*margin: 0 45px;*/
+  margin-left: 75px;
+  margin-right: 20px;
+}
+
+.info-container {
+  background: #f6f6f8;
+  margin: 40px -40px 0 -40px;
+  /*padding: 20px;*/
+  padding: 10px 50px;
+
+  h5 {
+    /*font-size: 16px;*/
+    /*margin: 0 30px;*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    i {
+      font-size: 30px;
+      color: #BE3A43;
+    }
+
+    span {
+      margin-left: 30px;
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+}
+
+
+.col-heading span {
+  margin-left: 70px;
+  font-size: 16px;
+}
+
+.fleet-info {
+  margin-top: 10px;
+  margin-left: 75px;
+}
+
+
+/* for mobile & tablets */
+@media(max-width:1049px) {
+
+  .page-container-wrapper .page-container .page-content-wrapper .content {
+    padding-top: 130px !important;
+  }
+
+}
+
+/* for mobile only */
+@media only screen and (max-width: 768px) {
+
+  .data-label-default,
+  .data-label-default.right-column,
+  .card-title {
+    margin-left: 0px;
+  }
+
+}
