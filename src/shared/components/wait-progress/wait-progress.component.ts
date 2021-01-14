@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { interval } from 'rxjs/observable/interval';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'wait-progress',
@@ -15,8 +15,8 @@ export class WaitProgressComponent implements OnInit {
   private PROGRESS_INTERVAL = 750;
 
   ngOnInit(): void {
-    this.progress$ = interval(this.PROGRESS_INTERVAL)
-      .map(x => {
+    this.progress$ = interval(this.PROGRESS_INTERVAL).pipe(
+      map(x => {
         switch (x % 4) {
           case 0:
             return '';
@@ -29,6 +29,7 @@ export class WaitProgressComponent implements OnInit {
           default:
             return '';
         }
-      });
+      })
+    );
   }
 }
