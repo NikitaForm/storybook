@@ -9,7 +9,7 @@ import { DatePickerModule, DateTimePickerModule, TimePickerModule } from '@progr
 import { ScrollViewModule } from '@progress/kendo-angular-scrollview';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FileUploadInterceptor } from '../app/file-upload.interceptor';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -36,6 +36,10 @@ import { PagesModule } from '../assets/pages/components/pages.module';
 import { linkTo } from '@storybook/addon-links';
 import { MainScreenProfileComponent } from '../app/profile-stories/main-screen-profile/main-screen-profile.component';
 import { ProfileViewComponent } from '../app/profile-stories/profile/profile-view.component';
+import { ProfilePageComponent } from '../app/profile-stories/profile-page/profile-page.component';
+import { PdfRestService } from '../app/services/pdf/pdf.service';
+import { DocumentDialogComponent } from '../app/profile-stories/document-dialog/document-dialog.component';
+import { PdfComponent } from '../app/profile-stories/pdf/pdf.component';
 
 export default {
   title: 'Introducing Profile Page',
@@ -44,13 +48,15 @@ export default {
     moduleMetadata({
       declarations: [OrderFormComponent, AircraftListComponent, MainScreenComponent, AircraftFormComponent, ImageUploadComponent,
         AircraftFormV2Component, EnumToArrayPipe, PriceTypePipe, ConfirmationDialogComponent, OrderFormComponentDT,
-        MainLandingScreenComponent, LandingComponent, MainScreenProfileComponent, ProfileViewComponent],
+        MainLandingScreenComponent, LandingComponent, MainScreenProfileComponent, ProfileViewComponent, ProfilePageComponent,
+      DocumentDialogComponent, PdfComponent],
       imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,
         TextMaskModule, SharedModule, TimePickerModule, DialogModule, DateTimePickerModule, PagesModule,
         DropDownsModule, BsDropdownModule.forRoot()],
       providers: [
+        HttpClient,
         {provide: APP_BASE_HREF, useValue: '/iframe.html'},
         {
           provide: HTTP_INTERCEPTORS,
@@ -69,6 +75,7 @@ export default {
           provide: marketplaceServiceContracts.SERVICE_TOKEN,
           useClass: moduleServices.MarketplaceMockService
         },
+        PdfRestService,
         DatePipe]
     }),
   ],

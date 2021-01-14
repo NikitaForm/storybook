@@ -24,7 +24,7 @@
     }
 
     .data-label-default {
-      margin-left: 65px;
+      margin-left: 105px;
       margin-right: 0;
     }
   }
@@ -37,16 +37,16 @@ h5 {
 
 .data-label-default {
   /*margin: 0 45px;*/
-  margin-left: 30px;
+  margin-left: 75px;
   margin-right: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .info-container {
   background: #f6f6f8;
   margin: 40px -40px 0 -40px;
   /*padding: 20px;*/
-  padding: 10px 65px;
+  padding: 10px 50px;
 
   h5 {
     /*font-size: 16px;*/
@@ -69,18 +69,14 @@ h5 {
 }
 
 
-.col-heading {
-  margin-left: 30px;
-  border-bottom: 1px solid #edeef2;;
-  span {
-    margin-left: 0;
-    font-size: 16px;
-  }
+.col-heading span {
+  margin-left: 70px;
+  font-size: 16px;
 }
 
 .fleet-info {
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 75px;
 }
 
 
@@ -116,23 +112,5 @@ h5 {
   white-space: nowrap;
   font-weight: 400;
   display: inline-block;
-}
-
-.document-link {
-  background: #edeef2;
-  color: black;
-  text-align: center;
-  margin: 0 5px 5px 0;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  padding: 4px 10px 4px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  font-weight: 400;
-  display: inline-block;
-  cursor: pointer;
-  &:hover {
-    background: #afb0b4;
-  }
 }
 

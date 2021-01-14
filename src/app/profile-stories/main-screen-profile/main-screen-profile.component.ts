@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MainScreenProfileComponent implements OnInit {
 
   constructor() { }
+  today = new Date();
 
   ngOnInit() {
   }

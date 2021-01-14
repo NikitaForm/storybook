@@ -1,0 +1,10 @@
+<profile-view (showDocument)="onShowDocument($event)"></profile-view>
+<sidepanel class="sidepanel"
+           [toggle]="documentDialogVisible"
+           (toggleChange)="closeDocumentDialog()"
+           style="z-index: 1001">
+  <document-dialog *ngIf="documentDialogVisible"
+                   [document]="document"
+                            (close)="closeDocumentDialog()">
+  </document-dialog>
+</sidepanel>

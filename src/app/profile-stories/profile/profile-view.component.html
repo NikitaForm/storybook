@@ -3,11 +3,11 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-12 col-lg-6 p-b-15 border-right no-border-mobile b-grey">
-        <div class="card-title m-b-20">
+        <div class="card-title m-b-10">
           <div class="row">
             <div class="col-sm-12">
               <div class="col-heading">
-                <span>Contacts</span>
+                <span>General</span>
               </div>
             </div>
           </div>
@@ -29,58 +29,12 @@
               <p class="no-margin">{{operator.legalName}}</p>
             </div>
           </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Address</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin">{{operator.addressLine1}}, {{operator.addressLine2}}, {{operator.addressLine3}}</p>
-            </div>
-          </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">City, State</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin">
-                {{operator.city}}, {{operator.stateProvince}}
-              </p>
-            </div>
-          </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Postal Code</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin">
-                {{operator.postalCode}}
-              </p>
-            </div>
-          </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Phone</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin">{{operator.phoneNumber1}}, {{operator.phoneNumber2}}</p>
-            </div>
-          </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Website</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin"><a [href]="operator.websiteUrl">{{operator.websiteUrl}}</a></p>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="col-md-12 col-lg-6 p-t-15 b-t b-dashed b-grey right-column">
-        <div class="card-title m-b-20 p-l-5">
+        <div class="card-title m-b-10">
           <div class="row">
             <div class="col-sm-12">
               <div class="col-heading">
-                <span>Email Settings</span>
+                <span>Contacts</span>
               </div>
             </div>
           </div>
@@ -88,34 +42,265 @@
         <div class="text-large data-label-default">
           <div class="row m-b-10">
             <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Charters Email</h5>
+              <h5 class="font-montserrat all-caps small no-margin bold">First Name</h5>
             </div>
             <div class="col-6">
-              <p class="no-margin">{{operator.chartersEmail }}</p>
-            </div>
-          </div>
-          <div class="row m-b-10">
-            <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Empty Legs Email</h5>
-            </div>
-            <div class="col-6">
-              <p class="no-margin">{{operator.emptyLegsEmaii }}</p>
+              <p class="no-margin">{{operator.firstName}}</p>
             </div>
           </div>
           <div class="row m-b-10">
             <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Fulfill Email</h5>
+              <h5 class="font-montserrat all-caps small no-margin bold">Last Name</h5>
             </div>
             <div class="col-6">
-              <p class="no-margin">{{operator.fulfillEmail }}</p>
+              <p class="no-margin">
+                {{operator.lastName}}
+              </p>
             </div>
           </div>
           <div class="row m-b-10">
             <div class="col-6">
-              <h5 class="font-montserrat all-caps small no-margin bold">Shattles Email</h5>
+              <h5 class="font-montserrat all-caps small no-margin bold">Title</h5>
             </div>
             <div class="col-6">
-              <p class="no-margin">{{operator.shuttlesEmail }}</p>
+              <p class="no-margin">
+                {{operator.title}}
+              </p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">Phone Number</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.phoneNumber1}}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">Email Address</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">
+                {{operator.email}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title m-b-10">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-heading">
+                <span>Operator Service Areas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-large data-label-default">
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">(4) LIGHT JET</h5>
+            </div>
+            <div class="col-6">
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[0].regionIds">{{region}}</span>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">(5) MID SIZE JET</h5>
+            </div>
+            <div class="col-6">
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[1].regionIds">{{region}}</span>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">(6) SUPER MID SIZE JET</h5>
+            </div>
+            <div class="col-6">
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[2].regionIds">{{region}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-6 p-t-15 b-t b-dashed b-grey right-column">
+<!--        <div class="card-title m-b-20 p-l-5">-->
+<!--          <div class="row">-->
+<!--            <div class="col-sm-12">-->
+<!--              <div class="col-heading">-->
+<!--                <span>Email Settings</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="text-large data-label-default">-->
+<!--          <div class="row m-b-10">-->
+<!--            <div class="col-6">-->
+<!--              <h5 class="font-montserrat all-caps small no-margin bold">Charters Email</h5>-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--              <p class="no-margin">{{operator.chartersEmail }}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row m-b-10">-->
+<!--            <div class="col-6">-->
+<!--              <h5 class="font-montserrat all-caps small no-margin bold">Empty Legs Email</h5>-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--              <p class="no-margin">{{operator.emptyLegsEmaii }}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row m-b-10">-->
+<!--            <div class="col-6">-->
+<!--              <h5 class="font-montserrat all-caps small no-margin bold">Fulfill Email</h5>-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--              <p class="no-margin">{{operator.fulfillEmail }}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="row m-b-10">-->
+<!--            <div class="col-6">-->
+<!--              <h5 class="font-montserrat all-caps small no-margin bold">Shattles Email</h5>-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--              <p class="no-margin">{{operator.shuttlesEmail }}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="card-title m-b-10 p-l-5">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-heading">
+                <span>Safety</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-large data-label-default">
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">ARGUS RATING</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.argusRating?.name }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">WYVERN RATING</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.wyvernRating?.name }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">IS BAO RATING</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.isBaoRating?.name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title m-b-10 p-l-5">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-heading">
+                <span>Part 380 Prospectus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-large data-label-default">
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">APPROVED</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.prospectus?.approved ? 'YES' : 'NO' }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">PROSPECTUS NUMBER</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.prospectus?.prospectusNumber }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">AOC NUMBER</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.prospectus?.aocNumber }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">APPROVAL DATE</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.prospectus?.approvalDate | date }}</p>
+            </div>
+          </div>
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">EXPIRATION DATE</h5>
+            </div>
+            <div class="col-6">
+              <p class="no-margin">{{operator.prospectus?.expirationDate | date }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title m-b-10 p-l-5">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-heading">
+                <span>Operator Documents</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-large data-label-default">
+          <div class="row m-b-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">Certificates of Insurance</h5>
+            </div>
+<!--          </div>-->
+
+<!--          <div class="row m-b-10 m-l-10" >-->
+            <div class="col-6">
+              <span class="document-link" (click)="selectDocument(document)" *ngFor="let document of operator.operatorDocuments.ci">{{document.fileName }}</span>
+            </div>
+          </div>
+
+          <div class="row m-b-10 m-t-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">Operating Certificates</h5>
+            </div>
+<!--          </div>-->
+
+<!--          <div class="row m-b-10 m-l-10" >-->
+            <div class="col-6">
+              <span class="document-link" (click)="selectDocument(document)" *ngFor="let document of operator.operatorDocuments.oc">{{document.fileName }}</span>
+            </div>
+          </div>
+
+          <div class="row m-b-10 m-t-10">
+            <div class="col-6">
+              <h5 class="font-montserrat all-caps small no-margin bold">Operations Spec D085</h5>
+            </div>
+<!--          </div>-->
+
+<!--          <div class="row m-b-10 m-l-10" >-->
+            <div class="col-6">
+              <span class="document-link" (click)="selectDocument(document)" *ngFor="let document of operator.operatorDocuments.d085">{{document.fileName }}</span>
             </div>
           </div>
         </div>
