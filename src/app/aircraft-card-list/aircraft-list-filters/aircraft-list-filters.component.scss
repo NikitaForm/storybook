@@ -1,0 +1,43 @@
+.filters-wrapper{
+    padding: 20px;
+}
+
+.filter-wrapper{
+    padding: 10px 0px;
+}
+
+.k-widget.form-control {
+  border: 1px solid;
+}
+
+@media (max-width: 768px) {
+  .padding-mobile {
+    padding: 0 15px;
+
+    .filter-wrapper{
+      padding: 10px;
+    }
+  }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  form .row [class*="col-md-"]:not(:first-child), form .row [class*="col-md-"]:not(:last-child) {
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+}
+
+.sorting-radio-group {
+  input[type="radio"] {
+    position: absolute;
+    clip: rect(0,0,0,0);
+    pointer-events: none;
+  }
+
+  .btn-radio {
+    border-radius: 30px;
+  }
+
+  input[type="radio"]:checked + label {
+    background: #eeeff3;
+  }
+}

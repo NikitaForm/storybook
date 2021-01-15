@@ -103,7 +103,8 @@
               <h5 class="font-montserrat all-caps small no-margin bold">(4) LIGHT JET</h5>
             </div>
             <div class="col-6">
-              <span class="region-area" *ngFor="let region of operator?.serviceAreas[0].regionIds">{{region}}</span>
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[0].regionIds"
+                    [tooltip]="region.description">{{region.acronym}}</span>
             </div>
           </div>
           <div class="row m-b-10">
@@ -111,7 +112,8 @@
               <h5 class="font-montserrat all-caps small no-margin bold">(5) MID SIZE JET</h5>
             </div>
             <div class="col-6">
-              <span class="region-area" *ngFor="let region of operator?.serviceAreas[1].regionIds">{{region}}</span>
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[1].regionIds"
+                    [tooltip]="region.description">{{region.acronym}}</span>
             </div>
           </div>
           <div class="row m-b-10">
@@ -119,7 +121,8 @@
               <h5 class="font-montserrat all-caps small no-margin bold">(6) SUPER MID SIZE JET</h5>
             </div>
             <div class="col-6">
-              <span class="region-area" *ngFor="let region of operator?.serviceAreas[2].regionIds">{{region}}</span>
+              <span class="region-area" *ngFor="let region of operator?.serviceAreas[2].regionIds"
+                    [tooltip]="region.description">{{region.acronym}}</span>
             </div>
           </div>
         </div>

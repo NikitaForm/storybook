@@ -1,0 +1,66 @@
+<form [formGroup]="form"
+      novalidate
+      autocomplete="off" class="padding-mobile">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-6 filter-wrapper">
+      <div class="datepicker-wrapper">
+
+        <kendo-datepicker class="form-control"
+                          #datepicker
+                          [min]="startDate"
+                          [max]="endDate"
+                          [readOnlyInput]="true"
+                          placeholder="Year Of Manufacturing"
+                          formControlName="departureDateControl">
+        </kendo-datepicker>
+        <!-- <datetime #datepicker
+                class="datetime-parent datepicker-filter"
+                [datepicker]="datePickerOptions"
+                formControlName="departureDateControl"
+                [timepicker]="false">
+      </datetime> -->
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-6 filter-wrapper">
+      <kendo-autocomplete class="form-control"
+                          [data]="intIdAutoCompleteOptions"
+                          formControlName="intIdControl"
+                          [filterable]="true"
+                          (filterChange)="loadAutocompleteOptions($event, 'extId')"
+                          [placeholder]="'Category'">
+      </kendo-autocomplete>
+    </div>
+    <div class="col-lg-3 col-md-3 col-6 filter-wrapper">
+      <kendo-autocomplete class="form-control"
+                          [data]="tailNumberAutoCompleteOptions"
+                          formControlName="tailNumberControl"
+                          [filterable]="true"
+                          (filterChange)="loadAutocompleteOptions($event, 'tailNumber')"
+                          [placeholder]="'Tail Number'">
+      </kendo-autocomplete>
+    </div>
+    <div class="col-lg-3 col-md-3 col-6 filter-wrapper">
+      <button class="btn btn-default-restyled btn-cons pull-left"
+              type="button"
+              (click)="clear()">
+        <span>Clear</span>
+      </button>
+    </div>
+  </div>
+<!--  <ul class="list-inline text-center">-->
+<!--    <li class="p-l-5"-->
+<!--        *ngFor="let mode of sortingModeValues; let i=index">-->
+<!--      <div class="form-group">-->
+<!--        <div class="sorting-radio-group">-->
+<!--          <input type="radio"-->
+<!--                 [value]="mode"-->
+<!--                 formControlName="sortingModeControl"-->
+<!--                 id="mode-{{i}}">-->
+<!--          <label for="mode-{{i}}"-->
+<!--                 class="overflow-ellipsis btn btn-default btn-radio">-->
+<!--            {{mode}}</label>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </li>-->
+<!--  </ul>-->
+</form>

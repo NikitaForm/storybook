@@ -1,0 +1,48 @@
+<div class="container-fixed-header">
+  <aircraft-list-filters>
+  </aircraft-list-filters>
+</div>
+
+
+
+<div class="m-t-40 bookings-wrapper">
+  <!-- <h4>My Flights</h4> -->
+  <div class="row">
+    <div class="col col-sm-12"
+         [ngSwitch]="true">
+      <div class="dataTables_wrapper"
+           *ngSwitchCase="true">
+        <aircraft-list-card>
+        </aircraft-list-card>
+        <div class="row">
+          <pagination class="dataTables_paginate paging_simple_numbers"
+                      [itemsPerPage]="itemsPerPage$"
+                      [maxSize]="7"
+                      [ngModel]="currentPage$"
+                      (pageChanged)="pageChanged($event)"
+                      [totalItems]="itemsTotalCount$">
+          </pagination>
+
+          <div class="dataTables_info">
+            <page-summary [currentPage]="currentPage$"
+                          [itemsPerPage]="itemsPerPage$"
+                          [totalItems]="itemsTotalCount$">
+            </page-summary>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchDefault>
+        <h5>No flights match your search</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<sidepanel class="sidepanel"-->
+<!--           [toggle]="flightDetailsDialogVisible$ | async"-->
+<!--           (toggleChange)="onCloseFlightDetailsDialog()"-->
+<!--           style="z-index: 1001">-->
+<!--  <flight-details-dialog-v2 *ngIf="flightDetailsDialogVisible$ | async"-->
+<!--                         (close)="onCloseFlightDetailsDialog()">-->
+<!--  </flight-details-dialog-v2>-->
+<!--</sidepanel>-->

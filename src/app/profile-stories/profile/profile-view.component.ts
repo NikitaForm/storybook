@@ -15,6 +15,27 @@ export class ProfileViewComponent {
   @Output() showDocument = new EventEmitter();
 
   constructor() {
+    const areas = [{'id': 1, 'name': 'Pacific Southwest', 'acronym': 'PSW', 'description': 'Pacific Southwest (AZ, CA, NV)'}, {
+      'id': 2,
+      'name': 'Pacific Northwest',
+      'acronym': 'PNW',
+      'description': 'Pacific Northwest (ID, OR, WA)'
+    }, {'id': 3, 'name': 'Mountain', 'acronym': 'MTN', 'description': 'Mountain (CO, MT, NE, NM, SD, UT, WY)'}, {
+      'id': 4,
+      'name': 'North Central',
+      'acronym': 'NCEN',
+      'description': 'North Central (IA, IL, IN, KS, KY, MI, MN, MO, ND, OH, SD, WI)'
+    }, {'id': 5, 'name': 'South Central', 'acronym': 'SCEN', 'description': 'South Central (AR, LA, OK, TX)'}, {
+      'id': 6,
+      'name': 'Northeast',
+      'acronym': 'NE',
+      'description': 'Northeast (CT, MA, MD, ME, NH, NJ, NY, PA, RI, VA, VT, WV)'
+    }, {'id': 7, 'name': 'Southeast', 'acronym': 'SE', 'description': 'Southeast (AL, FL, GA, MS, NC, SC, TN)'}, {
+      'id': 8,
+      'name': 'Caribbean',
+      'acronym': 'CARI',
+      'description': 'Caribbean (Turks & Caicos & Caribbean except Bermuda, Cuba, Mexico)'
+    }, {'id': 9, 'name': 'Other', 'acronym': 'OTH', 'description': 'Other (AK, HI, LATAM, Cuba, Bermuda, Mexico, non-near Canada)'}];
     this.operator = {
       'name': 'XOJET',
       'legalName': 'XOJet, Inc',
@@ -66,12 +87,48 @@ export class ProfileViewComponent {
         'expirationDate': new Date('2022-12-19')
       },
       'serviceAreas': [
-        {'aircraftCategoryId': 4, 'regionIds': ['PSW', 'PNW', 'MTN', 'NCEN', 'SCEN', 'NE']},
+        {
+          'aircraftCategoryId': 4,
+          'regionIds': [{'acronym': 'PSW', 'description': 'Pacific Southwest (AZ, CA, NV)'}, {
+            acronym: 'PNW',
+            'description': 'Pacific Northwest (ID, OR, WA)'
+          }, {'acronym': 'MTN', 'description': 'Mountain (CO, MT, NE, NM, SD, UT, WY)'}, {
+            acronym: 'NCEN',
+            'description': 'North Central (IA, IL, IN, KS, KY, MI, MN, MO, ND, OH, SD, WI)'
+          }, {'acronym': 'SCEN', 'description': 'South Central (AR, LA, OK, TX)'}, {
+            acronym: 'NE',
+            'description': 'Northeast (CT, MA, MD, ME, NH, NJ, NY, PA, RI, VA, VT, WV)'
+          }]
+        },
         {
           'aircraftCategoryId': 5,
-          'regionIds': ['NCEN', 'SE', 'OTH']
+          'regionIds': [{
+            acronym: 'NCEN',
+            'description': 'North Central (IA, IL, IN, KS, KY, MI, MN, MO, ND, OH, SD, WI)'
+          }, {'acronym': 'SE', 'description': 'Southeast (AL, FL, GA, MS, NC, SC, TN)'}, {
+            'acronym': 'OTH',
+            'description': 'Other (AK, HI, LATAM, Cuba, Bermuda, Mexico, non-near Canada)'
+          }]
         },
-        {'aircraftCategoryId': 6, 'regionIds': ['PSW', 'PNW', 'MTN', 'NCEN', 'SCEN', 'NE', 'SE', 'CARI', 'OTH']}],
+        {
+          'aircraftCategoryId': 6,
+          'regionIds': [{'acronym': 'PSW', 'description': 'Pacific Southwest (AZ, CA, NV)'}, {
+            acronym: 'PNW',
+            'description': 'Pacific Northwest (ID, OR, WA)'
+          }, {'acronym': 'MTN', 'description': 'Mountain (CO, MT, NE, NM, SD, UT, WY)'}, {
+            acronym: 'NCEN',
+            'description': 'North Central (IA, IL, IN, KS, KY, MI, MN, MO, ND, OH, SD, WI)'
+          }, {'acronym': 'SCEN', 'description': 'South Central (AR, LA, OK, TX)'}, {
+            acronym: 'NE',
+            'description': 'Northeast (CT, MA, MD, ME, NH, NJ, NY, PA, RI, VA, VT, WV)'
+          }, {'acronym': 'SE', 'description': 'Southeast (AL, FL, GA, MS, NC, SC, TN)'}, {
+            'acronym': 'CARI',
+            'description': 'Caribbean (Turks & Caicos & Caribbean except Bermuda, Cuba, Mexico)'
+          }, {
+            'acronym': 'OTH',
+            'description': 'Other (AK, HI, LATAM, Cuba, Bermuda, Mexico, non-near Canada)'
+          }]
+        }],
       'operatorDocuments': {
         ci: [
           {

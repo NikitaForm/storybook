@@ -17,9 +17,16 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FileUploadInterceptor } from '../app/file-upload.interceptor';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { ImageUploadComponent } from '../app/image-upload/image-upload.component';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { AutoCompleteModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AircraftFormV2Component } from '../app/aircraft-form-v2/aircraft-form-v2.component';
+import { MainScreenFleetComponent } from '../app/aircraft-card-list/main-screen-fleet/main-screen-fleet.component';
+import { AircraftListCardComponent } from '../app/aircraft-card-list/aircraft-list/aircraft-list.component';
+import { AircraftListCardPageComponent } from '../app/aircraft-card-list/aircraft-list-page/aircraft-list-page.component';
+import { pgTabsModule } from '../assets/pages/components/tabs/tabs.module';
+import { PagesModule } from '../assets/pages/components/pages.module';
+import { SharedModule } from '../shared/shared.module';
+import { AircraftListFiltersComponent } from '../app/aircraft-card-list/aircraft-list-filters/aircraft-list-filters.component';
 
 export default {
   title: 'Aircraft-list',
@@ -27,11 +34,11 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [AircraftListComponent, MainScreenComponent, AircraftFormComponent, ImageUploadComponent,
-        AircraftFormV2Component],
+        AircraftFormV2Component, MainScreenFleetComponent, AircraftListCardComponent, AircraftListCardPageComponent, AircraftListFiltersComponent],
       imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,
-        DropDownsModule, TextMaskModule],
+        DropDownsModule, TextMaskModule, pgTabsModule, PagesModule, SharedModule, AutoCompleteModule],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/iframe.html'},
         {
@@ -177,5 +184,18 @@ export const AircraftFormV2 = () => ({
 
 AircraftFormV2.story = {
   name: 'aircraft form with checkboxes'
+};
+
+export const AircraftListAsCards = () => ({
+  component: MainScreenFleetComponent,
+  props: {
+    onEdit: (a) => {
+      linkTo('Aircraft-list');
+    }
+  },
+});
+
+AircraftListAsCards.story = {
+  name: 'Aircraft list as cards'
 };
 

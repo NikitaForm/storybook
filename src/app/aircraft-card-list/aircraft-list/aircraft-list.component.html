@@ -1,0 +1,62 @@
+<div class="order-list-wrapper">
+  <div class="tile-container">
+    <div class="tile"
+         *ngFor="let aircraft of aircrafts">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <span class="status text-uppercase bold"
+                  [ngClass]="{'bg-brand text-white': getStatus(aircraft) === 'Active'}">
+              {{ getStatus(aircraft) }}
+            </span>
+          </div>
+          <div class="bold contract-type text-uppercase">
+            <span class="text-right"> {{getInsuranceStatus(aircraft)}}</span>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="title">
+                <h5 *ngIf="aircraft?.tailNumber" class="m-t-0 p-t-0 bold">{{aircraft.tailNumber}}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase">Model:</div>
+            <div class="col-7">{{aircraft.modelName}}</div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase">Category:</div>
+            <div class="col-7">{{ aircraft.categoryName}}</div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase">MaxPax:</div>
+            <div class="col-7">{{aircraft.maxPax}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col-5 bold text-uppercase">YOM:</div>
+            <div class="col-7">{{aircraft.yom}}</div>
+          </div>
+          <div class="row">
+            <div class="col-5 bold text-uppercase">Home Base:</div>
+            <div class="col-7">{{aircraft.homeBase}}</div>
+          </div>
+
+        </div>
+        <div class="footer-icon">
+          <a href="javascript:void(0)"
+             (click)="onSelect.emit(aircraft)">
+            <!-- <i class="fas fa-expand-arrows-alt"></i> -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="25"
+                 height="25"
+                 viewBox="0 0 25 25">
+              <path d="M24.22,0h-7a.78.78,0,1,0-.06,1.56h5.2l-6.8,6.8a.78.78,0,0,0,1,1.17l.07-.07,6.81-6.8V7.81a.78.78,0,1,0,1.56,0v-7A.78.78,0,0,0,24.22,0ZM.78,8.59a.78.78,0,0,0,.78-.78V2.67l6.8,6.8a.78.78,0,0,0,1.1-1.11l-6.8-6.8H7.81A.78.78,0,0,0,7.81,0h-7A.78.78,0,0,0,0,.78H0v7a.78.78,0,0,0,.78.78h0Zm7.59,6.94-6.81,6.8V17.18a.78.78,0,0,0-1.56,0v7A.78.78,0,0,0,.78,25h7a.78.78,0,1,0,0-1.56H2.67l6.8-6.8a.78.78,0,0,0-1-1.2l-.09.09Zm15.85.88a.78.78,0,0,0-.78.78h0v5.14l-6.8-6.8a.78.78,0,1,0-1.17,1l.07.07,6.8,6.81H17.19a.78.78,0,0,0,0,1.56h7a.78.78,0,0,0,.78-.78h0v-7a.78.78,0,0,0-.78-.78Z"
+                    transform="translate(0 0)"
+                    fill="#d7d8de" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
