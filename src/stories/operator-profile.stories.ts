@@ -40,6 +40,7 @@ import { ProfilePageComponent } from '../app/profile-stories/profile-page/profil
 import { PdfRestService } from '../app/services/pdf/pdf.service';
 import { DocumentDialogComponent } from '../app/profile-stories/document-dialog/document-dialog.component';
 import { PdfComponent } from '../app/profile-stories/pdf/pdf.component';
+import { UsersDialogComponent } from '../app/profile-stories/users-dialog/users-dialog.component';
 
 export default {
   title: 'Introducing Profile Page',
@@ -49,7 +50,7 @@ export default {
       declarations: [OrderFormComponent, AircraftListComponent, MainScreenComponent, AircraftFormComponent, ImageUploadComponent,
         AircraftFormV2Component, EnumToArrayPipe, PriceTypePipe, ConfirmationDialogComponent, OrderFormComponentDT,
         MainLandingScreenComponent, LandingComponent, MainScreenProfileComponent, ProfileViewComponent, ProfilePageComponent,
-      DocumentDialogComponent, PdfComponent],
+      DocumentDialogComponent, PdfComponent, UsersDialogComponent],
       imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,

@@ -1,0 +1,85 @@
+<div class="slide-dialog-container">
+  <div class="slide-dialog-header-fixed padding-20">
+    <div class="clearfix">
+      <a class="close-icon-light overlay-close text-black pull-right"
+         href="javascript:void(0)"
+         style="font-size: 35px;"
+         (click)="closeDialog()">
+        <!--<i class="fal fa-times"></i>-->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="30"
+             height="30"
+             viewBox="0 0 30 30">
+          <path d="M28.79,0,14.74,13.92,1.21.52,0,1.72l13.53,13.4L.24,28.28l1.22,1.2L14.74,16.32,28.55,30l1.21-1.2L15.95,15.12,30,1.2Z"
+                fill="#393b41" /></svg>
+      </a>
+      <h4 class="pull-left m-l-15">Users</h4>
+
+    </div>
+
+  </div>
+
+  <div class="slide-dialog-body-scrollable">
+    <div class="container-fluid m-t-15">
+      <div class="row p-t-10">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table *ngIf="users.length > 0"
+                   class="table table-hover">
+              <thead>
+              <tr>
+                <th>
+                  First Name
+                </th>
+                <th>
+                  Last Name
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Phone Number
+                </th>
+                <th>
+                  Super User
+                </th>
+                <th>
+                  Active
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  {{user.firstName }}
+                </td>
+                <td>
+                  {{user.lastName}}
+                </td>
+                <td>
+                  {{user.email}}
+                </td>
+                <td>
+                  {{user.phoneNumber}}
+                </td>
+                <td>
+                  {{user.admin ? 'Yes' : 'No'}}
+                </td>
+                <td>
+                  {{user.active ? 'Yes' : 'No'}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="text-center"
+                 *ngIf="users.length == 0">
+              <h2>
+                No Users so far
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

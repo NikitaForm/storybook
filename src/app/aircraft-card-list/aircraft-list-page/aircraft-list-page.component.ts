@@ -33,7 +33,8 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
   filterOptions$: models.FilterOptions;
   datePickerOptions: any;
   filterValues$: models.FilterOptions;
-  flightDetailsDialogVisible$: boolean;
+  aircraftDetailsDialogVisible: boolean;
+  selectedAircraft;
 
   // Autocomplete data:
   intIdsData$: Array<string>;
@@ -56,7 +57,7 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
     // this.itemsPerPage$ = this.store.pipe(select(reducers.getOrderCollectionItemsPerPage));
     // this.filterOptions$ = this.store.pipe(select(reducers.getFilterOptions));
     // this.itemsTotalCount$ = this.store.pipe(select(reducers.getOrderCollectionItemsTotalCount));
-    // this.flightDetailsDialogVisible$ = this.store.pipe(select(reducers.getOrderCollectionFlightDetailsSidepanelVisible));
+    this.aircraftDetailsDialogVisible = false;
     //
     // this.tailNumbersData$ = this.store.pipe(select(reducers.getTailNumberAutocompleteOptions));
     // this.intIdsData$ = this.store.pipe(select(reducers.getIntIdAutocompleteOptions));
@@ -69,7 +70,7 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
     this.itemsPerPage$ = 25;
     this.filterOptions$ = {} as any;
     this.itemsTotalCount$ = 300;
-    this.flightDetailsDialogVisible$ = false;
+    this.aircraftDetailsDialogVisible = false;
 
     this.tailNumbersData$ = {} as any;
     this.intIdsData$ = {} as any;
@@ -113,9 +114,10 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
     // this.store.dispatch(new actions.LoadAutocompleteOptionsAction(loadPayload));
   }
 
-  select(o: models.Order): void {
+  onSelectAircraft(aircraft): void {
     // this.store.dispatch(new flightActions.LoadFlightDetailsAction(o.legacyLegId));
-    this.openFlightDetailsDialog();
+    this.openAircraftDetailsDialog();
+    this.selectedAircraft = aircraft;
 
     // const url = this
     //   .router
@@ -133,16 +135,19 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
     // this.store.dispatch(new actions.ChangePageAction(event.page));
   }
 
-  onCloseFlightDetailsDialog(): void {
-    this.closeFlightDetailsDialog();
+  onCloseAircraftDetailsDialog(): void {
+    this.closeAircraftDetailsDialog();
+    this.selectedAircraft = null;
   }
 
-  private openFlightDetailsDialog(): void {
+  private openAircraftDetailsDialog(): void {
     // this.store.dispatch(new actions.SetFlightDetailsSidepanelStatusAction(true));
+    this.aircraftDetailsDialogVisible = true;
   }
 
-  private closeFlightDetailsDialog(): void {
+  private closeAircraftDetailsDialog(): void {
     // this.store.dispatch(new actions.SetFlightDetailsSidepanelStatusAction(false));
+    this.aircraftDetailsDialogVisible = false;
 
     // const url = this
     //   .router

@@ -13,6 +13,7 @@ export class ProfileViewComponent {
 
   @Input() operator;
   @Output() showDocument = new EventEmitter();
+  @Output() onShowUsers = new EventEmitter();
 
   constructor() {
     const areas = [{'id': 1, 'name': 'Pacific Southwest', 'acronym': 'PSW', 'description': 'Pacific Southwest (AZ, CA, NV)'}, {
@@ -193,7 +194,21 @@ export class ProfileViewComponent {
           'user': {'id': 1919, 'firstName': 'Jack', 'lastName': 'Suh'},
           'activities': [{'status': 'ACTIVE', 'timestamp': 1595443926764, 'user': {'id': 1919, 'firstName': 'Jack', 'lastName': 'Suh'}}]
         }]
-      }
+      },
+      users: [
+        {firstName: 'test',
+        lastName: 'test',
+        email: 'test@test.com',
+        phoneNumber: '+1-000-111-11-11',
+        admin: false,
+        active: true},
+        {firstName: 'test2',
+          lastName: 'test2',
+          email: 'test2@test.com',
+          phoneNumber: '+1-000-222-22-22',
+          admin: false,
+          active: true}
+        ]
     };
 
     const vendor = {
@@ -325,6 +340,10 @@ export class ProfileViewComponent {
 
   selectDocument(doc) {
     this.showDocument.emit(doc);
+  }
+
+  showUsers() {
+    this.onShowUsers.emit(this.operator.users);
   }
 
 }

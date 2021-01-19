@@ -1,0 +1,407 @@
+<div class="slide-dialog-container">
+  <div class="slide-dialog-header-fixed padding-20 border-bottom">
+    <div class="clearfix">
+      <a class="close-icon-light overlay-close text-black pull-right"
+         href="javascript:void(0)"
+         style="font-size: 35px;"
+         (click)="closeDialog()">
+        <!-- <i class="fal fa-times"></i> -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="30"
+             height="30"
+             viewBox="0 0 30 30">
+          <path d="M28.79,0,14.74,13.92,1.21.52,0,1.72l13.53,13.4L.24,28.28l1.22,1.2L14.74,16.32,28.55,30l1.21-1.2L15.95,15.12,30,1.2Z"
+                fill="#393b41" /></svg>
+      </a>
+    </div>
+  </div>
+<!--  <div class="m-t-100 m-b-100"-->
+<!--       *ngIf="(orderIsLoading$ | async)">-->
+<!--    <spinner [xo]="true"-->
+<!--             class="full-height">-->
+<!--    </spinner>-->
+<!--  </div>-->
+  <div class="slide-dialog-body-scrollable">
+
+
+    <form [formGroup]="form"
+          novalidate
+          autocomplete="off">
+      <kendo-card [width]="'auto'">
+        <kendo-card-header class="k-vbox">
+          <div>
+            <h1 kendoCardTitle>Main Info</h1>
+          </div>
+        </kendo-card-header>
+        <kendo-card-body>
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group form-group-default required">
+                <label class="label-ellipsis"><span>Tail Number</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="tailNumberDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="tailNumber"
+                       placeholder="Tail Number">
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group form-group-default form-group-default-select required">
+                <label>Model
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="modelDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <select class="form-control"
+                        (change)="onModelChanged($event.target.value)"
+                        formControlName="modelId">
+                  <option value="{{model.id}}"
+                          *ngFor="let model of modelList">{{model.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!--        <div class="col-sm-6 col-md-6">-->
+            <!--          <div class="form-group form-group-default form-group-default-select required">-->
+            <!--            <label>Category-->
+            <!--              <button type="button"-->
+            <!--                      class="info-btn"-->
+            <!--                      [tooltip]="categoryDescription"-->
+            <!--                      container="body">-->
+            <!--                <i class="fal fa-info-circle"></i>-->
+            <!--              </button>-->
+            <!--            </label>-->
+            <!--            <select class="form-control"-->
+            <!--                    (change)="onCategoryChanged($event.target.value)"-->
+            <!--                    formControlName="categoryId">-->
+            <!--              <option value="{{category.id}}"-->
+            <!--                      *ngFor="let category of categoryList">{{category.name}}</option>-->
+            <!--            </select>-->
+            <!--          </div>-->
+            <!--        </div>-->
+
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group form-group-default form-group-default-kendo input-group required">
+                <label>Year of Manufacture
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="yomDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <kendo-datepicker class="form-control"
+                                  #yomPicker
+                                  [topView]="'decade'"
+                                  [bottomView]="'decade'"
+                                  [format]="'yyyy'"
+                                  formControlName="yom"
+                                  placeholder="Year of Manufacture"
+                                  [readOnlyInput]="true"
+                                  (click)="onClick(yomPicker)"></kendo-datepicker>
+
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default form-group-default-kendo input-group">
+                <label>Year of Refurbishment
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="yorDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <kendo-datepicker class="form-control"
+                                  #yorPicker
+                                  [topView]="'decade'"
+                                  [bottomView]="'decade'"
+                                  [format]="'yyyy'"
+                                  formControlName="yor"
+                                  placeholder="Year of Refurbishment"
+                                  [readOnlyInput]="true"
+                                  (click)="onClick(yorPicker)"></kendo-datepicker>
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </kendo-card-body>
+      </kendo-card>
+
+      <kendo-card [width]="'auto'">
+        <kendo-card-header class="k-hbox">
+          <div>
+            <h1 kendoCardTitle>Other</h1>
+          </div>
+        </kendo-card-header>
+        <kendo-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group form-group-default">
+                <label class="label-ellipsis"><span>Max Pax</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="maxPaxDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="maxPax"
+                       placeholder="Max Pax">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default">
+                <label class="label-ellipsis"><span>Home Base</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="homeBaseDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="homeBase"
+                       placeholder="Home Base">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default input-group">
+                <label class="label-ellipsis"><span>Cost per Hour</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="costPerHourDescription"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="costPerHour"
+                       placeholder="Cost per Hour"
+                       [textMask]="{mask: numberMask}">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group form-group-default">
+                <label><span>Wyvern Safety Rated</span>
+                  <button type="button"
+                          class="info-btn"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input type="checkbox" class="checkbox-control"
+                       kendoCheckBox formControlName="wyvernRated"/>
+                <!--            <label class="label-ellipsis"><span>Cost per Hour</span>-->
+                <!--              <button type="button"-->
+                <!--                      class="info-btn"-->
+                <!--                      [tooltip]="costPerHourDescription"-->
+                <!--                      container="body">-->
+                <!--                <i class="fal fa-info-circle"></i>-->
+                <!--              </button>-->
+                <!--            </label>-->
+                <!--            <input class="form-control"-->
+                <!--                   formControlName="costPerHour"-->
+                <!--                   placeholder="Cost per Hour"-->
+                <!--                   [textMask]="{mask: numberMask}">-->
+                <!--            <div class="input-group-append">-->
+                <!--              <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>-->
+                <!--            </div>-->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default">
+                <label class="label-ellipsis"><span>ARG/US Safety Rating</span>
+                  <button type="button"
+                          class="info-btn"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="argSafetyRating"
+                       placeholder="Safety Rating">
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default input-group">
+                <label class="label-ellipsis"><span>Liability Insurance</span>
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]=""
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input class="form-control"
+                       formControlName="liabilityInsurance"
+                       placeholder="Liability Insurance"
+                       [textMask]="{mask: numberMask}">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </kendo-card-body>
+      </kendo-card>
+
+      <kendo-card [width]="'auto'">
+        <kendo-card-header class="k-hbox">
+          <div>
+            <h1 kendoCardTitle>Amenities</h1>
+          </div>
+        </kendo-card-header>
+        <kendo-card-body>
+          <div class="row">
+            <div class="col-sm-6 col-md-4" *ngFor="let amenity of amenityList">
+
+              <label class="checkbox-label"><span>{{amenity.name}}</span>
+                <input type="checkbox" disabled kendoCheckBox [(ngModel)]="amenity.checked" [ngModelOptions]="{standalone: true}"/>
+              </label>
+
+            </div>
+          </div>
+        </kendo-card-body>
+      </kendo-card>
+
+      <kendo-card [width]="'auto'">
+        <kendo-card-header class="k-hbox">
+          <div>
+            <h1 kendoCardTitle>Images</h1>
+          </div>
+        </kendo-card-header>
+        <kendo-card-body>
+          <kendo-scrollview
+            [data]="aircraft.images"
+            width="100%"
+            height="400px"
+            [animate]="true"
+            [arrows]="true"
+            [pageable]="true">
+            <ng-template let-item="item">
+              <h2 class="demo-title">{{item.type}}</h2>
+              <img src='{{item.url}}' alt='{{item.type}}' [ngStyle]="{minWidth: '100%'}" draggable="false" />
+            </ng-template>
+          </kendo-scrollview>
+        </kendo-card-body>
+      </kendo-card>
+
+<!--      <kendo-card [width]="'auto'">-->
+<!--        <kendo-card-header class="k-hbox">-->
+<!--          <div>-->
+<!--            <h1 kendoCardTitle>Image Management</h1>-->
+<!--          </div>-->
+<!--        </kendo-card-header>-->
+<!--        <kendo-card-body>-->
+
+<!--          <app-image-upload-->
+<!--            [imageList]="exteriorImages"-->
+<!--            [zoneId]="'exterior'"-->
+<!--            (removeImage)="onRemoveImage($event)"-->
+<!--            [title]="'Exterior'"-->
+<!--          ></app-image-upload>-->
+
+<!--          <app-image-upload-->
+<!--            [imageList]="interiorImages"-->
+<!--            [zoneId]="'interior'"-->
+<!--            (removeImage)="onRemoveImage($event)"-->
+<!--            [title]="'Interior'"-->
+<!--          ></app-image-upload>-->
+
+<!--          <app-image-upload-->
+<!--            [imageList]="floorPlanImages"-->
+<!--            [zoneId]="'floor_plan'"-->
+<!--            (removeImage)="onRemoveImage($event)"-->
+<!--            [title]="'Floor Plan'"-->
+<!--          ></app-image-upload>-->
+
+<!--        </kendo-card-body>-->
+<!--      </kendo-card>-->
+    </form>
+
+  </div>
+
+</div>
+
+
+<!--<kendo-dialog *ngIf="showDeactivateConfirmation">-->
+<!--  <confirmation-dialog text="Are you sure you want to Deactivate this flight?"-->
+<!--                              [confirmText]="'Yes'"-->
+<!--                              [cancelText]="'No'"-->
+<!--                              (confirm)="onDeactivateConfirmed()"-->
+<!--                              (close)="onDeactivateDismissed()">-->
+<!--  </confirmation-dialog>-->
+<!--</kendo-dialog>-->
+
+<!--<kendo-dialog *ngIf="showReactivateConfirmation">-->
+<!--  <confirmation-dialog text="Are you sure you want to Reactivate this flight?"-->
+<!--                              [confirmText]="'Yes'"-->
+<!--                              [cancelText]="'No'"-->
+<!--                              (confirm)="onReactivateConfirmed()"-->
+<!--                              (close)="onReactivateDismissed()">-->
+<!--  </confirmation-dialog>-->
+<!--</kendo-dialog>-->
+
+<!-- <kendo-dialog *ngIf="showProposedPriceDetailConfirmation">
+  <div class="modal-header clearfix text-left">
+    <h5 class="modal-title">Confirm</h5>
+    <button type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+            (click)="proposedPriceDetailConfirmationDismiss()"><i class="fal fa-times fs-14"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row m-t-20">
+      <div class="col-12 col-sm-12">
+        <div class="form-horizontal form-horizontal-condensed">
+          <price-details [fullWidth]="true"
+                         [priceDetails]="proposedPriceDetail"
+                         [price]="(newOrder$ | async)?.operatorPrice?.basePrice"></price-details>
+        </div>
+      </div>
+    </div>
+    <div class="row m-t-20">
+      <div class="col-12 col-sm-12">
+        <button class="btn btn-primary btn-cons pull-right m-r-0"
+                (click)="proposedPriceDetailConfirmationConfirm()">Confirm</button>
+        <button class="btn btn-default btn-cons pull-right"
+                (click)="proposedPriceDetailConfirmationDismiss()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</kendo-dialog> -->
+<!--</div>-->

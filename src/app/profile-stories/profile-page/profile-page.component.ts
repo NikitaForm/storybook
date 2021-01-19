@@ -13,6 +13,8 @@ export class ProfilePageComponent {
 
   documentDialogVisible = false;
   document;
+  usersDialogVisible = false;
+  users: any;
 
   constructor() {
   }
@@ -25,6 +27,15 @@ export class ProfilePageComponent {
   closeDocumentDialog() {
     this.documentDialogVisible = false;
     this.document = null;
+  }
+
+  onShowUsers(users) {
+    this.usersDialogVisible = true;
+    this.users = users;
+  }
+
+  closeUsersDialog() {
+    this.usersDialogVisible = false;
   }
 
 }

@@ -12,7 +12,7 @@
          [ngSwitch]="true">
       <div class="dataTables_wrapper"
            *ngSwitchCase="true">
-        <aircraft-list-card>
+        <aircraft-list-card (onSelect)="onSelectAircraft($event)">
         </aircraft-list-card>
         <div class="row">
           <pagination class="dataTables_paginate paging_simple_numbers"
@@ -38,11 +38,12 @@
   </div>
 </div>
 
-<!--<sidepanel class="sidepanel"-->
-<!--           [toggle]="flightDetailsDialogVisible$ | async"-->
-<!--           (toggleChange)="onCloseFlightDetailsDialog()"-->
-<!--           style="z-index: 1001">-->
-<!--  <flight-details-dialog-v2 *ngIf="flightDetailsDialogVisible$ | async"-->
-<!--                         (close)="onCloseFlightDetailsDialog()">-->
-<!--  </flight-details-dialog-v2>-->
-<!--</sidepanel>-->
+<sidepanel class="sidepanel"
+           [toggle]="aircraftDetailsDialogVisible"
+           (toggleChange)="onCloseAircraftDetailsDialog()"
+           style="z-index: 1001">
+  <aircraft-details-dialog *ngIf="aircraftDetailsDialogVisible"
+                           [aircraft]="selectedAircraft"
+                         (close)="onCloseAircraftDetailsDialog()">
+  </aircraft-details-dialog>
+</sidepanel>

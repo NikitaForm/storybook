@@ -27,6 +27,7 @@ import { pgTabsModule } from '../assets/pages/components/tabs/tabs.module';
 import { PagesModule } from '../assets/pages/components/pages.module';
 import { SharedModule } from '../shared/shared.module';
 import { AircraftListFiltersComponent } from '../app/aircraft-card-list/aircraft-list-filters/aircraft-list-filters.component';
+import { AircraftDetailsDialogComponent } from '../app/aircraft-card-list/aircraft-details-dialog/aircraft-details-dialog.component';
 
 export default {
   title: 'Aircraft-list',
@@ -34,7 +35,8 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [AircraftListComponent, MainScreenComponent, AircraftFormComponent, ImageUploadComponent,
-        AircraftFormV2Component, MainScreenFleetComponent, AircraftListCardComponent, AircraftListCardPageComponent, AircraftListFiltersComponent],
+        AircraftFormV2Component, MainScreenFleetComponent, AircraftListCardComponent, AircraftListCardPageComponent,
+        AircraftListFiltersComponent, AircraftDetailsDialogComponent],
       imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,

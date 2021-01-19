@@ -1,4 +1,4 @@
-<profile-view (showDocument)="onShowDocument($event)"></profile-view>
+<profile-view (showDocument)="onShowDocument($event)" (onShowUsers)="onShowUsers($event)"></profile-view>
 <sidepanel class="sidepanel"
            [toggle]="documentDialogVisible"
            (toggleChange)="closeDocumentDialog()"
@@ -7,4 +7,14 @@
                    [document]="document"
                             (close)="closeDocumentDialog()">
   </document-dialog>
+</sidepanel>
+
+<sidepanel class="sidepanel"
+           [toggle]="usersDialogVisible"
+           (toggleChange)="closeUsersDialog()"
+           style="z-index: 1001">
+  <users-dialog *ngIf="usersDialogVisible"
+                [users]="users"
+                   (close)="closeUsersDialog()">
+  </users-dialog>
 </sidepanel>
