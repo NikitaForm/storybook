@@ -134,7 +134,8 @@ export class AircraftDetailsDialogComponent implements OnInit {
   yorDescription = 'Year of Renovation';
   yomDescription = 'Year of Manufacture';
   amenitiesDescription = 'Amenities';
-  costPerHourDescription = 'Cost Per Hour';
+  costPerHourDescription = 'Approved By';
+  expiration = 'Insurance Expiration';
   form: FormGroup;
 
   exteriorImages: any[];
@@ -154,7 +155,7 @@ export class AircraftDetailsDialogComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       tailNumber: new FormControl({value: null, disabled: this.disabled}, Validators.required),
-      // categoryId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
+      categoryId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
       modelId: new FormControl({value: null, disabled: this.disabled}, Validators.required),
       maxPax: new FormControl(null),
       homeBase: new FormControl(null),
@@ -163,15 +164,16 @@ export class AircraftDetailsDialogComponent implements OnInit {
       amenities: new FormControl(null),
       wyvernRated: new FormControl(false),
       argSafetyRating: new FormControl(null),
-      costPerHour: new FormControl(null),
-      liabilityInsurance: new FormControl(null)
+      liabilityInsurance: new FormControl(null),
+      approvedBy: new FormControl(null),
+      insuranceExpirationDate: new FormControl(null)
     });
     if (this.aircraft) {
       const aircraftPatched = Object.assign({}, this.aircraft);
       aircraftPatched.yor = this.aircraft.yor ? new Date(this.aircraft.yor.toString()) : null;
       aircraftPatched.yom = this.aircraft.yom ? new Date(this.aircraft.yom.toString()) : null;
+      aircraftPatched.insuranceExpirationDate = new Date(this.aircraft.insuranceExpirationDate);
       this.form.patchValue(aircraftPatched);
-      //asdfasdf
       this.updateAmenities();
       this.sortImagesByType();
       this.form.disable();

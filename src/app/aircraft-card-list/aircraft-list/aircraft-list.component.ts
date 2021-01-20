@@ -60,7 +60,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 4000,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 60,
@@ -114,7 +115,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 3500,
       'notes': 'Need revised certificate holder on renewal, schedule of aircraft, breach of warranty',
-      'capacity': 6
+      'capacity': 6,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -176,7 +178,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 64,
@@ -234,7 +237,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -296,7 +300,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -358,7 +363,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -420,7 +426,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -482,7 +489,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -544,7 +552,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -606,7 +615,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -668,7 +678,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -730,7 +741,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -792,7 +804,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -854,7 +867,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -916,7 +930,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -978,7 +993,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -1040,7 +1056,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -1102,7 +1119,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -1164,7 +1182,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     },
     {
       'modelId': 34,
@@ -1226,7 +1245,8 @@ export class AircraftListCardComponent {
       ],
       'costPerHour': 5500,
       'notes': 'Test Bulk Edit again on May 18, 20 at 10:23 AM.',
-      'capacity': 8
+      'capacity': 8,
+      'approvedBy': 'VistaJet Ltd'
     }
   ];
 

@@ -10,7 +10,7 @@
               {{ getStatus(aircraft) }}
             </span>
           </div>
-          <div class="bold contract-type text-uppercase">
+          <div class="bold contract-type text-uppercase" *ngIf="getInsuranceStatus(aircraft) === 'Insurance Expired'">
             <span class="text-right"> {{getInsuranceStatus(aircraft)}}</span>
           </div>
           <div class="row">

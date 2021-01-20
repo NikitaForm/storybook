@@ -36,7 +36,7 @@
         <kendo-card-body>
           <div class="row">
             <div class="col-sm-6 col-md-6">
-              <div class="form-group form-group-default required">
+              <div class="form-group form-group-default">
                 <label class="label-ellipsis"><span>Tail Number</span>
                   <button type="button"
                           class="info-btn"
@@ -52,7 +52,7 @@
             </div>
 
             <div class="col-sm-6 col-md-6">
-              <div class="form-group form-group-default form-group-default-select required">
+              <div class="form-group form-group-default form-group-default-select">
                 <label>Model
                   <button type="button"
                           class="info-btn"
@@ -71,27 +71,27 @@
             </div>
           </div>
           <div class="row">
-            <!--        <div class="col-sm-6 col-md-6">-->
-            <!--          <div class="form-group form-group-default form-group-default-select required">-->
-            <!--            <label>Category-->
-            <!--              <button type="button"-->
-            <!--                      class="info-btn"-->
-            <!--                      [tooltip]="categoryDescription"-->
-            <!--                      container="body">-->
-            <!--                <i class="fal fa-info-circle"></i>-->
-            <!--              </button>-->
-            <!--            </label>-->
-            <!--            <select class="form-control"-->
-            <!--                    (change)="onCategoryChanged($event.target.value)"-->
-            <!--                    formControlName="categoryId">-->
-            <!--              <option value="{{category.id}}"-->
-            <!--                      *ngFor="let category of categoryList">{{category.name}}</option>-->
-            <!--            </select>-->
-            <!--          </div>-->
-            <!--        </div>-->
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form-group form-group-default form-group-default-select">
+                        <label>Category
+                          <button type="button"
+                                  class="info-btn"
+                                  [tooltip]="categoryDescription"
+                                  container="body">
+                            <i class="fal fa-info-circle"></i>
+                          </button>
+                        </label>
+                        <select class="form-control"
+                                (change)="onCategoryChanged($event.target.value)"
+                                formControlName="categoryId">
+                          <option value="{{category.id}}"
+                                  *ngFor="let category of categoryList">{{category.name}}</option>
+                        </select>
+                      </div>
+                    </div>
 
             <div class="col-sm-6 col-md-6">
-              <div class="form-group form-group-default form-group-default-kendo input-group required">
+              <div class="form-group form-group-default form-group-default-kendo input-group">
                 <label>Year of Manufacture
                   <button type="button"
                           class="info-btn"
@@ -188,22 +188,17 @@
           <div class="row">
 
             <div class="col-sm-6">
-              <div class="form-group form-group-default input-group">
-                <label class="label-ellipsis"><span>Cost per Hour</span>
+              <div class="form-group form-group-default">
+                <label class="label-ellipsis"><span>ARG/US Safety Rating</span>
                   <button type="button"
                           class="info-btn"
-                          [tooltip]="costPerHourDescription"
                           container="body">
                     <i class="fal fa-info-circle"></i>
                   </button>
                 </label>
                 <input class="form-control"
-                       formControlName="costPerHour"
-                       placeholder="Cost per Hour"
-                       [textMask]="{mask: numberMask}">
-                <div class="input-group-append">
-                  <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
-                </div>
+                       formControlName="argSafetyRating"
+                       placeholder="Safety Rating">
               </div>
             </div>
             <div class="col-sm-6">
@@ -239,23 +234,27 @@
           <div class="row">
 
             <div class="col-sm-6">
-              <div class="form-group form-group-default">
-                <label class="label-ellipsis"><span>ARG/US Safety Rating</span>
+              <div class="form-group form-group-default input-group">
+                <label class="label-ellipsis"><span>Approved By</span>
                   <button type="button"
                           class="info-btn"
+                          [tooltip]="costPerHourDescription"
                           container="body">
                     <i class="fal fa-info-circle"></i>
                   </button>
                 </label>
                 <input class="form-control"
-                       formControlName="argSafetyRating"
-                       placeholder="Safety Rating">
+                       formControlName="approvedBy"
+                       placeholder="Approved By">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+                </div>
               </div>
             </div>
 
             <div class="col-sm-6">
               <div class="form-group form-group-default input-group">
-                <label class="label-ellipsis"><span>Liability Insurance</span>
+                <label class="label-ellipsis"><span>Insurance Amount</span>
                   <button type="button"
                           class="info-btn"
                           [tooltip]=""
@@ -265,10 +264,35 @@
                 </label>
                 <input class="form-control"
                        formControlName="liabilityInsurance"
-                       placeholder="Liability Insurance"
+                       placeholder="Insurance Amount"
                        [textMask]="{mask: numberMask}">
                 <div class="input-group-append">
                   <span class="input-group-text"><i class="fa fa-dollar-sign"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group form-group-default form-group-default-kendo input-group">
+                <label>Insurance Expiration
+                  <button type="button"
+                          class="info-btn"
+                          [tooltip]="expiration"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <kendo-datepicker class="form-control"
+                                  #expirationPicker
+                                  [topView]="'decade'"
+                                  [bottomView]="'decade'"
+                                  [format]="'MM/dd/yyyy'"
+                                  formControlName="insuranceExpirationDate"
+                                  placeholder="Insurance Expiration"
+                                  [readOnlyInput]="true"
+                                  (click)="onClick(expirationPicker)"></kendo-datepicker>
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
               </div>
             </div>
