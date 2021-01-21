@@ -79,7 +79,9 @@ $tile-width: 330px;
   }
 }
 
-
+.k-grid-header .k-header {
+  font-weight: bold;
+}
 
 .tile-container .status {margin: 0 0 15px 0;font-size: 11px;letter-spacing: 0.5px;background: #edeef2;}
 .tile-container .status.bg-brand {background: #c6262c;}

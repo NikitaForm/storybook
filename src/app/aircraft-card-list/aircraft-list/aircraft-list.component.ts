@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import * as models from '../../domain/models';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { aircrafts } from '../aircrafts-data';
 
 @Component({
   selector: `aircraft-list-card`,
   templateUrl: `./aircraft-list.component.html`,
-  styleUrls: ['./aircraft-list.component.scss']
+  styleUrls: ['./aircraft-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AircraftListCardComponent {
 
