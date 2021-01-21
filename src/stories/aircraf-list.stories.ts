@@ -28,6 +28,8 @@ import { PagesModule } from '../assets/pages/components/pages.module';
 import { SharedModule } from '../shared/shared.module';
 import { AircraftListFiltersComponent } from '../app/aircraft-card-list/aircraft-list-filters/aircraft-list-filters.component';
 import { AircraftDetailsDialogComponent } from '../app/aircraft-card-list/aircraft-details-dialog/aircraft-details-dialog.component';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 export default {
   title: 'Aircraft-list',
@@ -40,7 +42,8 @@ export default {
       imports: [CommonModule, GridModule, AppRoutingModule, LayoutModule,
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,
-        DropDownsModule, TextMaskModule, pgTabsModule, PagesModule, SharedModule, AutoCompleteModule],
+        DropDownsModule, TextMaskModule, pgTabsModule, PagesModule, SharedModule, AutoCompleteModule, InputsModule, ButtonsModule
+      ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/iframe.html'},
         {

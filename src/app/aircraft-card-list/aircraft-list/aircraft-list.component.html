@@ -1,5 +1,5 @@
 <div class="order-list-wrapper">
-  <div class="tile-container">
+  <div class="tile-container" *ngIf="viewMode === 'cardView'">
     <div class="tile"
          *ngFor="let aircraft of aircrafts">
       <div class="card">
@@ -59,4 +59,44 @@
       </div>
     </div>
   </div>
+
+  <kendo-grid
+    *ngIf="viewMode === 'tableView'"
+    [kendoGridBinding]="aircrafts"
+    [selectable]="true"
+    (selectionChange)="onSelect.emit($event.selectedRows[0].dataItem)"
+    kendoGridSelectBy="tailNumber"
+    [height]="510"
+    [rowClass]="rowCallback">
+    <kendo-grid-column
+      field="tailNumber"
+      title="Tail" [width]="100"></kendo-grid-column>
+    <kendo-grid-column
+      field="modelName"
+      title="Aircraft" [width]="140"></kendo-grid-column>
+    <kendo-grid-column
+      field="categoryName"
+      title="Category" [width]="140"></kendo-grid-column>
+    <kendo-grid-column
+      field="yom"
+      title="YOM" [width]="100"></kendo-grid-column>
+    <kendo-grid-column
+      field="homeBase"
+      title="Home Base" [width]="100"></kendo-grid-column>
+    <kendo-grid-column
+      title="Insurance Status" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+      <span [ngClass]="getInsuranceStatus(dataItem) === 'Expired' ? 'expired' : 'approved'">
+        {{getInsuranceStatus(dataItem)}}
+      </span>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column
+      title="Status" [width]="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        {{getStatus(dataItem)}}
+      </ng-template>
+    </kendo-grid-column>
+
+  </kendo-grid>
 </div>

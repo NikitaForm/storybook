@@ -373,5 +373,19 @@ aircraft-details-dialog {
     font-size: 16px;
   }
 
+  .amenity-chip {
+    background: #edeef2;
+    color: black;
+    text-align: center;
+    margin: 0 5px 5px 0;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 400;
+    display: inline-block;
+  }
+
 
 }

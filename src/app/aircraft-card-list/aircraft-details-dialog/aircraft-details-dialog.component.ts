@@ -166,7 +166,8 @@ export class AircraftDetailsDialogComponent implements OnInit {
       argSafetyRating: new FormControl(null),
       liabilityInsurance: new FormControl(null),
       approvedBy: new FormControl(null),
-      insuranceExpirationDate: new FormControl(null)
+      insuranceExpirationDate: new FormControl(null),
+      requiresOwnerApproval: new FormControl(null)
     });
     if (this.aircraft) {
       const aircraftPatched = Object.assign({}, this.aircraft);
@@ -208,8 +209,10 @@ export class AircraftDetailsDialogComponent implements OnInit {
   }
 
   updateAmenities() {
-    this.amenityList.forEach(
-      a => a.checked = !!(this.aircraft.amenities.filter(a1 => a1.id === a.id)).length);
+    // this.amenityList.forEach(
+    //   a => a.checked = !!(this.aircraft.amenities.filter(a1 => a1.id === a.id)).length);
+
+    this.amenityList = this.aircraft.amenities;
   }
 
   closeDialog() {

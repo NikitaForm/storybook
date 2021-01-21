@@ -1,26 +1,17 @@
-
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { DatePipe } from '@angular/common';
-// import { FormControl } from '@angular/forms';
-// import { Store, select } from '@ngrx/store';
-
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import * as actions from '../../application/actions/order-collection';
-// import * as flightActions from '../../application/actions/flight-details';
-// import * as reducers from '../../application/reducers';
 import * as sharedTypes from '../../../shared/types';
 import * as models from '../../domain/models';
-// import * as layoutActions from '../../../shared/actions/layout';
-
-import { combineLatest, Observable, Subscription } from 'rxjs';
-// import { take, skip, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { aircrafts } from '../aircrafts-data';
 declare var moment: any;
 
 @Component({
   selector: `aircraft-list-card-page`,
   templateUrl: `./aircraft-list-page.component.html`,
   styleUrls: ['./aircraft-list-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class AircraftListCardPageComponent implements OnInit, OnDestroy {
 
@@ -42,6 +33,11 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
 
   private filterChangeSubscription$: Subscription;
   private loadingSubscription$: Subscription;
+
+  aircrafts = aircrafts;
+  viewMode = 'cardView';
+
+  checked;
 
   constructor(
     // private route: ActivatedRoute,
@@ -154,5 +150,9 @@ export class AircraftListCardPageComponent implements OnInit, OnDestroy {
     //   .createUrlTree([`../bookings`], { relativeTo: this.route })
     //   .toString();
     // this.location.replaceState(url);
+  }
+
+  setViewMode(viewMode) {
+    this.viewMode = viewMode;
   }
 }

@@ -3,16 +3,32 @@
   </aircraft-list-filters>
 </div>
 
-
-
-<div class="m-t-40 bookings-wrapper">
+<div class="bookings-wrapper">
   <!-- <h4>My Flights</h4> -->
+  <div class="row justify-content-end m-b-10">
+    <button type="button"
+            class="view-btn"
+            [tooltip]="'Card View'"
+            container="body"
+            [ngClass]="{active: viewMode === 'cardView'}"
+            (click)="setViewMode('cardView')">
+      <i class="fal fa-list-alt"></i></button>
+
+      <button type="button"
+              class="view-btn"
+              [tooltip]="'Table View'"
+              container="body"
+              [ngClass]="{active: viewMode === 'tableView'}"
+              (click)="setViewMode('tableView')">
+        <i class="fal fa-columns"></i></button>
+
+  </div>
   <div class="row">
     <div class="col col-sm-12"
          [ngSwitch]="true">
       <div class="dataTables_wrapper"
            *ngSwitchCase="true">
-        <aircraft-list-card (onSelect)="onSelectAircraft($event)">
+        <aircraft-list-card (onSelect)="onSelectAircraft($event)" [viewMode]="viewMode">
         </aircraft-list-card>
         <div class="row">
           <pagination class="dataTables_paginate paging_simple_numbers"

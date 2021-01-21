@@ -37,7 +37,7 @@
           <div class="row">
             <div class="col-sm-6 col-md-6">
               <div class="form-group form-group-default">
-                <label class="label-ellipsis"><span>Tail Number</span>
+                <label class="label-ellipsis"><span>Tail</span>
                   <button type="button"
                           class="info-btn"
                           [tooltip]="tailNumberDescription"
@@ -92,7 +92,7 @@
 
             <div class="col-sm-6 col-md-6">
               <div class="form-group form-group-default form-group-default-kendo input-group">
-                <label>Year of Manufacture
+                <label>YOM
                   <button type="button"
                           class="info-btn"
                           [tooltip]="yomDescription"
@@ -118,7 +118,7 @@
 
             <div class="col-sm-6">
               <div class="form-group form-group-default form-group-default-kendo input-group">
-                <label>Year of Refurbishment
+                <label>YOR
                   <button type="button"
                           class="info-btn"
                           [tooltip]="yorDescription"
@@ -189,7 +189,7 @@
 
             <div class="col-sm-6">
               <div class="form-group form-group-default">
-                <label class="label-ellipsis"><span>ARG/US Safety Rating</span>
+                <label class="label-ellipsis"><span>ARGUS Rating</span>
                   <button type="button"
                           class="info-btn"
                           container="body">
@@ -203,7 +203,7 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group form-group-default">
-                <label><span>Wyvern Safety Rated</span>
+                <label><span>Wyvern Rating</span>
                   <button type="button"
                           class="info-btn"
                           container="body">
@@ -297,6 +297,20 @@
               </div>
             </div>
 
+            <div class="col-sm-6">
+              <div class="form-group form-group-default">
+                <label><span>Requires Owner Approval</span>
+                  <button type="button"
+                          class="info-btn"
+                          container="body">
+                    <i class="fal fa-info-circle"></i>
+                  </button>
+                </label>
+                <input type="checkbox" class="checkbox-control"
+                       kendoCheckBox formControlName="requiresOwnerApproval"/>
+              </div>
+            </div>
+
           </div>
         </kendo-card-body>
       </kendo-card>
@@ -309,13 +323,14 @@
         </kendo-card-header>
         <kendo-card-body>
           <div class="row">
-            <div class="col-sm-6 col-md-4" *ngFor="let amenity of amenityList">
+<!--            <div class="col-sm-6 col-md-4" *ngFor="let amenity of amenityList">-->
+              <span class="amenity-chip" *ngFor="let amenity of amenityList">{{amenity.name}}</span>
 
-              <label class="checkbox-label"><span>{{amenity.name}}</span>
-                <input type="checkbox" disabled kendoCheckBox [(ngModel)]="amenity.checked" [ngModelOptions]="{standalone: true}"/>
-              </label>
+<!--              <label class="checkbox-label"><span>{{amenity.name}}</span>-->
+<!--                <input type="checkbox" disabled kendoCheckBox checked/>-->
+<!--              </label>-->
 
-            </div>
+<!--            </div>-->
           </div>
         </kendo-card-body>
       </kendo-card>
