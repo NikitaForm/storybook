@@ -38,11 +38,14 @@
     "@progress/kendo-angular-layout": "5.0.1",
     "@progress/kendo-angular-notification": "1.0.0",
     "@progress/kendo-angular-progressbar": "0.2.3",
+    "@progress/kendo-angular-gauges": "4.0.0",
     "@progress/kendo-data-query": "1.5.0",
     "@progress/kendo-drawing": "1.5.7",
     "@progress/kendo-theme-default": "4.19.0",
     "@progress/kendo-angular-scrollview": "2.2.2",
     "@progress/kendo-angular-upload": "6.0.0",
+    "@progress/kendo-licensing": "1.1.3",
+    "@progress/kendo-angular-charts": "4.2.1",
     "@fortawesome/angular-fontawesome": "0.2.1",
     "@fortawesome/fontawesome-free": "5.4.0",
     "@fortawesome/fontawesome-pro": "5.9.0",
@@ -56,7 +59,8 @@
     "rxjs-compat": "6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26",
-    "moment": "2.22.2"
+    "moment": "2.22.2",
+    "hammerjs": "2.0.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.0",

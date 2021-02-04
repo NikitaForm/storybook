@@ -139,6 +139,149 @@
         </div>
       </div>
     </div>
+
+    <kendo-chart [title]="{ text: 'Vertical Bids Info' }" (render)="onRender($event)" style="height: 350px;" class="m-t-20">
+      <kendo-chart-series>
+        <kendo-chart-series-item type="rangeColumn"
+                                 [data]="bidsInfo" fromField="min" toField="max" categoryField="category" field="models" summaryField="models" color="lightgray"
+        [border]="{width: 10, color: 'lightgray'}" width="20">
+<!--          <kendo-chart-series-item-labels-from [content]="labelContentFrom">-->
+<!--          </kendo-chart-series-item-labels-from>-->
+<!--          <kendo-chart-series-item-labels-to [content]="labelContentTo">-->
+<!--          </kendo-chart-series-item-labels-to>-->
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+<!--      <kendo-chart-category-axis>-->
+<!--        <kendo-chart-category-axis-item [labels]="{ rotation: 'auto' }">-->
+<!--        </kendo-chart-category-axis-item>-->
+<!--      </kendo-chart-category-axis>-->
+
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item name="categoryAxis" [labels]="{ rotation: 'auto' }"
+        [background]="">
+          <kendo-chart-category-axis-item-labels [visual]="labelVisual">
+          </kendo-chart-category-axis-item-labels>
+        </kendo-chart-category-axis-item>
+
+      </kendo-chart-category-axis>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item name="valueAxis" [min]="5000">
+        </kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+
+      <kendo-chart-tooltip color="black" font="12px black" background="#edeef2">
+        <ng-template kendoChartSeriesTooltipTemplate let-value="value" let-category="category">
+          <div> {{category}} bids range {{getModelsByCategory(category).min}} - {{getModelsByCategory(category).max}}</div>
+                    <div *ngFor="let point of getModelsByCategory(category)?.models">
+                      {{ point.model }} : {{ point.price }}
+                    </div>
+        </ng-template>
+      </kendo-chart-tooltip>
+
+<!--      <kendo-chart-tooltip [shared]="true">-->
+<!--        <ng-template kendoChartSharedTooltipTemplate let-category="category" let-points="points">-->
+<!--          <div> {{category}} bids range {{getModelsByCategory(category).min}} - {{getModelsByCategory(category).max}}</div>-->
+<!--          <div *ngFor="let point of getModelsByCategory(category)?.models">-->
+<!--            {{ point.model }} : {{ point.price }}-->
+<!--          </div>-->
+<!--        </ng-template>-->
+<!--      </kendo-chart-tooltip>-->
+    </kendo-chart>
+
+    <kendo-chart [title]="{ text: 'Horizontal Bids Info' }" (render)="onRenderHorizontal($event)" style="height: 350px;" class="m-t-20">
+      <kendo-chart-series>
+        <kendo-chart-series-item type="rangeBar"
+                                 [data]="bidsInfo" fromField="min" toField="max" categoryField="category" field="models" summaryField="models" color="lightgray"
+                                 [border]="{width: 10, color: 'lightgray'}" width="20">
+          <!--          <kendo-chart-series-item-labels-from [content]="labelContentFrom">-->
+          <!--          </kendo-chart-series-item-labels-from>-->
+          <!--          <kendo-chart-series-item-labels-to [content]="labelContentTo">-->
+          <!--          </kendo-chart-series-item-labels-to>-->
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+      <!--      <kendo-chart-category-axis>-->
+      <!--        <kendo-chart-category-axis-item [labels]="{ rotation: 'auto' }">-->
+      <!--        </kendo-chart-category-axis-item>-->
+      <!--      </kendo-chart-category-axis>-->
+
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item name="categoryAxis" [labels]="{ rotation: 'auto' }"
+                                        [background]="">
+          <kendo-chart-category-axis-item-labels [visual]="labelVisualHorizontal">
+          </kendo-chart-category-axis-item-labels>
+        </kendo-chart-category-axis-item>
+
+      </kendo-chart-category-axis>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item name="valueAxis" [min]="5000">
+        </kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+
+      <kendo-chart-tooltip color="black" font="12px black" background="#edeef2">
+        <ng-template kendoChartSeriesTooltipTemplate let-value="value" let-category="category">
+          <div> {{category}} bids range {{getModelsByCategory(category).min}} - {{getModelsByCategory(category).max}}</div>
+          <div *ngFor="let point of getModelsByCategory(category)?.models">
+            {{ point.model }} : {{ point.price }}
+          </div>
+        </ng-template>
+      </kendo-chart-tooltip>
+
+      <!--      <kendo-chart-tooltip [shared]="true">-->
+      <!--        <ng-template kendoChartSharedTooltipTemplate let-category="category" let-points="points">-->
+      <!--          <div> {{category}} bids range {{getModelsByCategory(category).min}} - {{getModelsByCategory(category).max}}</div>-->
+      <!--          <div *ngFor="let point of getModelsByCategory(category)?.models">-->
+      <!--            {{ point.model }} : {{ point.price }}-->
+      <!--          </div>-->
+      <!--        </ng-template>-->
+      <!--      </kendo-chart-tooltip>-->
+    </kendo-chart>
+
+    <div class="row m-t-20">
+      <div class="col-12">
+        <div class="text-center m-t-10 m-b-10">Bids Info (Grid View)</div>
+      </div>
+
+    <kendo-grid
+      [data]="bidsInfo"
+      [selectable]="true"
+      [rowClass]="rowCallback"
+    >
+      <kendo-grid-column field="category" title="Category">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem.category}} <strong *ngIf="dataItem.yourOffer">"Your Offer Here"</strong>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="bidsRange" title="Bids Range">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>
+            {{dataItem.min}} - {{dataItem.max}}
+          </span>
+        </ng-template>
+      </kendo-grid-column>
+      <ng-template kendoGridDetailTemplate let-dataItem>
+        <section *ngIf="dataItem.models">
+          <kendo-grid
+            [data]="dataItem.models"
+            [selectable]="false"
+            [rowClass]="nestedRowCallback"
+          >
+            <kendo-grid-column field="model" title="Model">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                {{dataItem.model}} <strong *ngIf="dataItem.yourOffer">"Your Offer"</strong>
+              </ng-template>
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="price" title="Bids Range">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+              </ng-template>
+            </kendo-grid-column>
+          </kendo-grid>
+        </section>
+      </ng-template>
+    </kendo-grid>
+    </div>
+
     <ng-container *ngIf="!purchaseOffer.openOffer">
       <div class="row m-t-20">
         <div class="col-sm-12">

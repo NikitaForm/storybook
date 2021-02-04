@@ -34,6 +34,9 @@ import { AcceptOfferDialog2Component } from '../app/fulfill/view-2/containers/ac
 import { AcceptOfferForm2Component } from '../app/fulfill/view-2/components/accept-offer-form/accept-offer-form.component';
 import { RoutesDetails2Component } from '../app/fulfill/view-2/components/routes-details/routes-details.component';
 import { PriceBreakdown2Component } from '../app/fulfill/view-2/components/price-breakdown/price-breakdown.component';
+import { GaugesModule } from '@progress/kendo-angular-gauges';
+import { ChartsModule } from '@progress/kendo-angular-charts';
+import 'hammerjs';
 
 export default {
   title: 'Fulfill flights tiles v2',
@@ -59,7 +62,7 @@ export default {
         FormsModule, ReactiveFormsModule, TooltipModule.forRoot(), DatePickerModule,
         ScrollViewModule, BrowserModule, BrowserAnimationsModule, UploadModule, HttpClientModule,
         DropDownsModule, TextMaskModule, StoreModule.forRoot(reducers, {metaReducers}),
-        SharedModule, pgTabsModule, DialogModule, PagesModule, CoreModule, MessageModule],
+        SharedModule, pgTabsModule, DialogModule, PagesModule, CoreModule, MessageModule, GaugesModule, ChartsModule],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/iframe.html'},
         DatePipe,
