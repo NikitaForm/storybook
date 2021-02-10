@@ -317,9 +317,9 @@
       </kendo-chart-y-axis>
       <kendo-chart-tooltip color="black" font="12px black" background="#edeef2">
         <ng-template kendoChartSeriesTooltipTemplate let-value="value">
-          <div *ngIf="getModelsById(value)?.yourOffer">Your Bid</div>
+          <div *ngIf="getModelsById(value)?.yourOffer">Your Offer</div>
           <div>Model: {{getModelsById(value)?.model}}</div>
-          <div>Bid: {{getModelsById(value)?.price | currency}}</div>
+          <div>Offer: {{getModelsById(value)?.price | currency}}</div>
         </ng-template>
       </kendo-chart-tooltip>
       <kendo-chart-legend position="bottom" orientation="horizontal"
