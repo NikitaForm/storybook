@@ -75,7 +75,7 @@ export class RoutesDetails2Component {
   ];
 
   public myOffer: any = [
-    { category: 'Light Jet', id: 4, price: 6300, model: 'Learjet 45' }
+    { category: 'Light Jet', id: 4, price: 6300, model: 'Learjet 45', yourOffer: true }
   ];
 
   constructor(
