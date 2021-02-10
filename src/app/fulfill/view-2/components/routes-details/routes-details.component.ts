@@ -1,10 +1,10 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Group, Image, Path, Text } from '@progress/kendo-drawing';
+import { Group, Image, Layout, Path, Text } from '@progress/kendo-drawing';
 
 import * as models from '../../../domain/models';
 import * as sharedModels from '../../../../../shared/models';
 import * as coreModels from '../../../../../core/models';
-import { AxisLabelVisualArgs } from '@progress/kendo-angular-charts';
+import { AxisLabelVisualArgs, LegendItemVisualArgs, SeriesLabelsVisualArgs } from '@progress/kendo-angular-charts';
 import { Point, Rect, Size, transform } from '@progress/kendo-drawing/geometry';
 import * as _ from 'lodash';
 
@@ -25,6 +25,12 @@ export class RoutesDetails2Component {
 
   dbaEnums = coreModels.DBA;
   serviceClassEnum = sharedModels.ServiceClassEnum;
+  expandedRes = [];
+
+  minorGridLines = {
+    step: 2,
+    skip: 1
+  };
 
 
   categories = [{
@@ -48,11 +54,28 @@ export class RoutesDetails2Component {
   },
   ];
 
-  public bidsInfo = [
-    { category: 'Light Jet', min: 7000, max: 7500, models: [{model: 'Model 1', price: '$7,000'}, {model: 'Model 2', price: '$7,000 - $7,500'}] },
-    { category: 'Mid Size Jet', min: 8000, max: 11000, yourOffer: true, models: [{model: 'Model 3', price: '$8,000', yourOffer: true}, {model: 'Model 4', price: '$8,000 - $11,000'}] },
-    { category: 'Super Mid Size Jet', min: 10000, max: 12000, models: [{model: 'Model 5', price: '$10,000'}, {model: 'Model 6', price: '$10,000 - $12,000'}] },
-    { category: 'Heavy Jet', min: 10000, max: 14000, models: [{model: 'Model 7', price: '$10,000'}, {model: 'Model 8', price: '$10,000 - $14,000'}] },
+  public bidsInfo: any = [
+    { category: 'Light Jet', min: 7000, max: 7500, models: [{model: 'Model 1', category: 'Light Jet', price: '$7,000', min: 7000, max: 7500}, {model: 'Model 2', category: 'Light Jet', price: '$7,000 - $7,500', min: 7000, max: 8500}, {model: 'Model 2', category: 'Light Jet', price: '$7,000 - $7,500', min: 7000, max: 8500}, {model: 'Model 2', category: 'Light Jet', price: '$7,000 - $7,500', min: 7000, max: 8500}] },
+    { category: 'Mid Size Jet', min: 8000, max: 11000, yourOffer: true, models: [{model: 'Model 3', price: '$8,000', yourOffer: true, min: 7000, max: 7500}, {model: 'Model 4', price: '$8,000 - $11,000', min: 7000, max: 7500}] },
+    { category: 'Super Mid Size Jet', min: 10000, max: 12000, models: [{model: 'Model 5', price: '$10,000', min: 7000, max: 7500}, {model: 'Model 6', price: '$10,000 - $12,000', min: 7000, max: 7500}] },
+    { category: 'Heavy Jet', min: 10000, max: 14000, models: [{model: 'Model 7', price: '$10,000', min: 7000, max: 7500}, {model: 'Model 8', price: '$10,000 - $14,000', min: 7000, max: 7500}] },
+  ];
+
+  public bidsInfo2: any = [
+    { category: 'Light Jet', id: 4, price: 7000, model: 'Learjet 45' },
+    { category: 'Light Jet', id: 4, price: 7800, model: 'Learjet 45' },
+    { category: 'Light Jet', id: 4, price: 7950, model: 'Learjet 45' },
+    { category: 'Light Jet', id: 4, price: 8200, model: 'Learjet 45' },
+    { category: 'Mid Size Jet', id: 2, price: 8000, model: 'Citation Latitude' },
+    { category: 'Mid Size Jet', id: 2, price: 7900, model: 'Citation Latitude' },
+    { category: 'Mid Size Jet', id: 2, price: 8300, model: 'Citation Latitude' },
+    { category: 'Super Mid Size Jet', id: 3, price: 9100, model: 'Citation X'},
+    { category: 'Super Mid Size Jet', id: 3, price: 9500, model: 'Citation X'},
+    { category: 'Heavy Jet', id: 1, price: 11000, model: 'Challenger 850'}
+  ];
+
+  public myOffer: any = [
+    { category: 'Light Jet', id: 4, price: 6300, model: 'Learjet 45' }
   ];
 
   constructor(
@@ -305,13 +328,27 @@ export class RoutesDetails2Component {
 
     // Place all the shapes in a group
     const group = new Group();
-    group.append(image);
+
+    const label = new Text('Model', [0, 0], {
+      fill: {
+        color: '#341b1b'
+      },
+      font: '14px sans'
+    });
+
+    label.position([ 90, 0 ]);
+
+    if (imageUrl === '../../../../assets/ulr.png') {
+      group.append(image, label);
+    } else {
+      group.append(image);
+    }
 
      const bbox = defaultLabel.bbox();
      // path.moveTo(bbox.bottomLeft()).lineTo(bbox.bottomRight());
     // // Translate the group
     group.transform(
-      transform().translate(bbox.topRight().x - 90, bbox.topLeft().y)
+      transform().translate(bbox.topRight().x - (imageUrl === '../../../../assets/ulr.png' ? 150 : 90), bbox.topLeft().y)
     );
 
     // Render the group on the surface
@@ -320,6 +357,75 @@ export class RoutesDetails2Component {
 
     return group;
   }
+
+  public labelVisualHorizontalScatter = (e: AxisLabelVisualArgs) => {
+    const defaultLabel = e.createVisual();
+    const imageRect = new Rect(
+      new Point(5, 5),
+      new Size(90, 70)
+    );
+
+    // Create the image
+    let imageUrl = `../../../../assets/props_pic.png`;
+    if (e.value === 4) {
+      imageUrl = '../../../../assets/light.png';
+    } else if (e.value === 3) {
+      imageUrl = '../../../../assets/super_mid_size.png';
+    } else if (e.value === 5) {
+      imageUrl = '../../../../assets/turboprop.png';
+    } else if (e.value === 2) {
+      imageUrl = '../../../../assets/mid_size.png';
+    } else if (e.value === 1) {
+      imageUrl = '../../../../assets/heavy.png';
+    } else {
+      imageUrl = '../../../../assets/ulr.png';
+    }
+    // @ts-ignore
+    const image = new Image(imageUrl, imageRect);
+    const group = new Group();
+      group.append(image);
+
+     const bbox = defaultLabel.bbox();
+    group.transform(
+      transform().translate(bbox.topRight().x - 90, bbox.topLeft().y - 10)
+    );
+
+    return group;
+  }
+
+  // public legendVisual = (e: LegendItemVisualArgs) => {
+  //
+  //   const color = e.options.markers.background;
+  //   const labelColor = e.options.labels.color;
+  //   const rect = new Rect([0, 0], [140, 50]);
+  //   const layout = new Layout(rect, {
+  //     spacing: 5,
+  //     alignItems: 'center'
+  //   });
+  //
+  //   const marker = new Path({
+  //     fill: {
+  //       color: color
+  //     },
+  //     stroke: {
+  //       color: color
+  //     }
+  //   }).moveTo(10, 10).arc(0, 0, 5, 0, true).close(); // Outer circle
+  //
+  //     // .moveTo(10, 0).lineTo(15, 10).lineTo(5, 10).close();
+  //
+  //   const label = new Text(e.series.name, [15, 0], {
+  //     fill: {
+  //       color: labelColor
+  //     },
+  //     font: '14px'
+  //   });
+  //
+  //
+  //   const group = new Group();
+  //   group.append(marker, label);
+  //   return group;
+  // }
 
   getValue(value) {
     return JSON.stringify(value);
@@ -339,5 +445,40 @@ export class RoutesDetails2Component {
     if (context.dataItem.yourOffer) {
       return 'your-offer';
     }
+  }
+
+  onClick(e) {
+    console.log(e);
+    const res = [];
+    this.bidsInfo.map(item => {
+      if (item.category === e.category) {
+        this.expandedRes = item.models.map(model => [model]) ;
+        res.push({category: item.category});
+      } else {
+        res.push(item);
+      }
+    });
+    this.bidsInfo = res;
+    console.log(this.bidsInfo, 'bidsInfo');
+    console.log(this.expandedRes, 'expand');
+  }
+
+  content() {
+    return 'adfads';
+  }
+
+  public inPlaceLabels = (e: SeriesLabelsVisualArgs) => {
+    e.text = 'adsfas';
+    const defaultLabel = e.createVisual();
+    const group = new Group();
+    group.append(defaultLabel);
+
+
+    return group;
+  }
+
+  getModelsById(value) {
+    return _.find(this.bidsInfo2, item => item.id === value.y && item.price === value.x) ||
+      _.find(this.myOffer, item => item.id === value.y && item.price === value.x);
   }
 }
