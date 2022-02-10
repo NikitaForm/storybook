@@ -52,7 +52,7 @@
     "angular2-text-mask": "9.0.0",
     "text-mask-addons": "3.8.0",
     "core-js": "^2.5.4",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.3.3",
     "reselect": "4.0.0",
     "ngx-cookie": "4.0.2",
